@@ -15,10 +15,10 @@ public class MemberEntity { //table 역할
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-    private String id;
+    private Long id;
 
     @Column(unique = true)
-    private String memberEmail;
+    private String memberId;
 
     @Column
     private String memberPassword;
@@ -26,14 +26,26 @@ public class MemberEntity { //table 역할
     @Column
     private String memberName;
 
+    @Column
+    private String memberAccount;
+
+    @Column
+    private String memberGender;
+
+    @Column
+    private Integer memberAge;
+
+
     public static MemberEntity toMemberEntity(MemberDTO memberDTO){
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setId(memberDTO.getId());
-        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberId(memberDTO.getMemberId());
         memberEntity.setMemberName(memberDTO.getMemberName());
         memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberAccount(memberDTO.getMemberAccount());
+        memberEntity.setMemberGender(memberDTO.getMemberGender());
+        memberEntity.setMemberAge(memberDTO.getMemberAge());
         return memberEntity;
     }
-
 }
 //MemberEntity.class

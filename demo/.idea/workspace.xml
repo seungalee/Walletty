@@ -70,13 +70,15 @@
     "DefaultHtmlFileTemplate": "HTML File",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelOrder2": "2",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
+    "RequestMappingsPanelWidth2": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/ykcho/Desktop/capstone1/demo/build.gradle",
+    "last_opened_file_path": "C:/Users/alsru/OneDrive/바탕 화면/Capstone1_class7_team4/demo/build.gradle",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,6 +88,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "spring.configuration.checksum": "9de0862494cc3aa211be7c76dc6b547b",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -135,6 +138,7 @@
       <workItem from="1695784215142" duration="1376000" />
       <workItem from="1695785616449" duration="277000" />
       <workItem from="1695800964513" duration="5844000" />
+      <workItem from="1695816658858" duration="1534000" />
     </task>
     <servers />
   </component>
@@ -146,21 +150,5 @@
       <path value="$PROJECT_DIR$/.." />
       <path value="$PROJECT_DIR$/src/main/frontend" />
     </ignored-roots>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/demo/controller/MemberController.java</url>
-          <line>9</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/demo/entity/MemberEntity.java</url>
-          <line>2</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

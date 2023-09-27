@@ -45,7 +45,7 @@ public class MemberController {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
             // login 성공
-            session.setAttribute("loginEmail", loginResult.getMemberEmail());
+            session.setAttribute("loginId", loginResult.getMemberId());
             return "main";
         } else {
             // login 실패
