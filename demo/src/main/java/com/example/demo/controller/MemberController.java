@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MemberDTO;
+import com.example.demo.dto.SurveyDTO;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +51,22 @@ public class MemberController {
             // login 실패
             return "login";
         }
+    }
+
+    private final SurveyService surveyService;
+
+    @GetMapping("/member/survey")
+    public String surveyForm() {
+        return "survey";
+    }
+
+    @PostMapping("/member/survey")
+    public String survey(@ModelAttribute SurveyDTO surveyDTO) {
+        System.out.println("MemberController.survey");
+        System.out.println("SurveyDTO = " + surveyDTO);
+        surveyService.save(surveyDTO);
+
+        return "login";
     }
 }
 //MemberController.class

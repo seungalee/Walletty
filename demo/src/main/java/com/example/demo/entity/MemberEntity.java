@@ -15,7 +15,7 @@ public class MemberEntity { //table 역할
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
-    private Long id;
+    private String id;
 
     @Column(unique = true)
     private String memberEmail;

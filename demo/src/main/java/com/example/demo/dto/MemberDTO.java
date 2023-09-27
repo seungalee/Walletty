@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MemberDTO { //회원 정보를 필드로 정의
-    private Long id;
+    private String id;
     private String memberEmail;
     private String memberPassword;
     private String memberName;
