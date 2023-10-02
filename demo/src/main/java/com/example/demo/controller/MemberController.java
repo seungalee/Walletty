@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.SurveyDTO;
@@ -50,6 +50,16 @@ public class MemberController {
             // login 실패
             return "login";
         }
+    }
+
+    @RequestMapping("/api/v1/member")
+    @ResponseBody
+    public MemberDTO postMember() {
+        MemberDTO loginResult = memberService.postMember();
+
+        // login 성공
+        return loginResult;
+
     }
 
     private final SurveyService surveyService;
