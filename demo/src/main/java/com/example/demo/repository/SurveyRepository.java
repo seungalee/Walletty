@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface SurveyRepository extends JpaRepository<SurveyEntity, String>
 {
     Optional<SurveyEntity> findBySurveyId(String surveyId);
+    SurveyEntity findTopBy();
 }
