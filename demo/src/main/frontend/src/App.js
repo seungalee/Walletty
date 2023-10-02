@@ -1,28 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { createContext, React } from "react";
+
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Join from "./pages/Join";
+import Survey from "./pages/Survey";
+import { UserProvider } from "./context/UserContext";
+import Survey_goalmoney from "./pages/Survey_goalmoney";
 
 function App() {
-    const [surveydto, setSurveydto] = useState('')
-
-    useEffect(() => {
-        axios.get('/api/v1/surveydto')
-            .then(response => setSurveydto(response.data))
-            .catch(error => console.log(error))
-    }, []);
-
-    return (
-        <div>
-            surveyId: {surveydto.surveyId} <br />
-            fixed_entry: {surveydto.fixed_entry} <br />
-            goal_entry_1: {surveydto.goal_entry_1} <br />
-            goal_money_1: {surveydto.goal_money_1} <br />
-            goal_entry_2: {surveydto.goal_entry_2} <br />
-            goal_money_1: {surveydto.goal_money_2} <br />
-            goal_entry_3: {surveydto.goal_entry_3} <br />
-            goal_money_1: {surveydto.goal_money_3} <br />
-
+  return (
+    <UserProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/join" element={<Join />} />
+            <Route path="/survey" element={<Survey />} />
+            <Route path="/survey-goalmoney" element={<Survey_goalmoney />} />
+          </Routes>
         </div>
-    );
+      </BrowserRouter>
+    </UserProvider>
+  );
 }
 
 export default App;
