@@ -6,11 +6,13 @@ import com.example.demo.entity.SurveyEntity;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor //MemberService에 대한 멤버를 사용 가능
 public class MemberController {
@@ -33,6 +35,13 @@ public class MemberController {
         return "login";
     }
 
+    @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
+    public String join(@RequestBody MemberDTO memberDTO){
+        memberService.save(memberDTO);
+        //log.debug("joinInfo = {}", memberDTO.toString());
+        return "SUCCESS";
+    }
+
     @GetMapping("/member/login")
     public String loginForm() {
         return "login";
@@ -52,14 +61,26 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/member/login")  // /login에서 받은 로그인 정보를 /member/login에서 받아오기
+    public String loginn(@RequestBody MemberDTO memberDTO){
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null) {
+            // login 성공
+            return "SUCCESS";
+        //} else if () {  // 회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때
+
+        } else {
+            // login 실패
+            return "FAIL";
+        }
+    }
+
+
     @RequestMapping("/api/v1/member")
     @ResponseBody
-    public MemberDTO postMember() {
+    public MemberDTO postMember() { //member정보 보내기
         MemberDTO loginResult = memberService.postMember();
-
-        // login 성공
         return loginResult;
-
     }
 
     private final SurveyService surveyService;
