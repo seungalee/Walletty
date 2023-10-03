@@ -7,6 +7,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -114,6 +115,12 @@ public class MemberController {
         return surveydto;
     }
 
+
+    @GetMapping("/model")
+    public ResponseEntity<String> modelTest(@RequestBody SurveyDTO surveyDTO){
+        log.debug("surveyDTO = {}", surveyDTO.toString());
+        return ResponseEntity.ok(surveyDTO.toString());
+    }
 
 }
 //MemberController.class
