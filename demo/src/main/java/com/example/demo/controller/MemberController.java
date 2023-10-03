@@ -87,6 +87,7 @@ public class MemberController {
 
     private final SurveyService surveyService;
 
+    /*
     @GetMapping("/member/survey")
     public String surveyForm() {
         return "survey";
@@ -98,28 +99,40 @@ public class MemberController {
         System.out.println("SurveyDTO = " + surveyDTO);
         surveyService.save(surveyDTO);
 
-        return "login";
+        return "index";
     }
+    */
 
-    //백이랑 프론트랑 연동한다는 건 결국 설문조사 기능에서
-    //1.프론트에서 받아온 정보를 백에 저장하는 기능과(이건 프론트에서 우선 정보를 보내줘야 함)
-    //2.백의 정보를 프론트로 띄우는 건데(이건 db의 정보를 프론트로 전달)
-    //지금은 1을 못하니까 1-2 연속은 안 되고 일단 db의 정보를 프론트로 보내는 것만 하자.
-    //프론트로 id를 입력받아서 백으로 보내는 거는 못하니까 일단 가장 최신 정보를 db로 보내자.
 
+    // 설문조사 보여주기(로그인했을 때 id 가져와서)
     @RequestMapping("/api/v1/surveydto")
     @ResponseBody
-    public SurveyDTO getSurveydto(){
-        System.out.println("react connect");
-        SurveyDTO surveydto = surveyService.getLatestSurveyDTO();
+    public SurveyDTO getSurveyDTO(HttpSession session){
+        System.out.println("getSurveyDTO");
+
+        String loginId = session.getAttribute("loginId").toString();
+        System.out.println("login id = " + loginId);
+
+        SurveyDTO surveydto = surveyService.findBySurveyId(loginId);
         System.out.println(surveydto);
+
+        System.out.println("react connect");
         return surveydto;
     }
 
 
-    @GetMapping("/model")
-    public ResponseEntity<String> modelTest(@RequestBody SurveyDTO surveyDTO){
-        log.debug("surveyDTO = {}", surveyDTO.toString());
+    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
+    @RequestMapping("/member/surveyDTO")
+    public ResponseEntity<String> setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
+
+        System.out.println(surveyDTO);
+
+        //String loginId = surveyService.getLoginId(session);
+        String loginId = surveyDTO.getSurveyId();
+        System.out.println("login id = " + loginId);
+
+        surveyService.save(loginId, surveyDTO);
+        log.debug("surveyDTOInfo = {}", surveyDTO.toString());
         return ResponseEntity.ok(surveyDTO.toString());
     }
 
