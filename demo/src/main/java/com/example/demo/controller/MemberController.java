@@ -7,6 +7,7 @@ import com.example.demo.service.MemberService;
 import com.example.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,10 @@ public class MemberController {
     }
 
     @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
-    public String join(@RequestBody MemberDTO memberDTO){
+    public ResponseEntity join(@RequestBody MemberDTO memberDTO){
         memberService.save(memberDTO);
         //log.debug("joinInfo = {}", memberDTO.toString());
-        return "SUCCESS";
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @GetMapping("/member/login")
@@ -62,17 +63,17 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/member/login")  // /login에서 받은 로그인 정보를 /member/login에서 받아오기
-    public String loginn(@RequestBody MemberDTO memberDTO){
+    @GetMapping("/member/loginn")  // /login에서 받은 로그인 정보를 /member/login에서 받아오기
+    public ResponseEntity loginn(@RequestBody MemberDTO memberDTO){
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
             // login 성공
-            return "SUCCESS";
-        //} else if () {  // 회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때
+            return new ResponseEntity<>("success", HttpStatus.OK);
+            //} else if () {  // 회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때
 
         } else {
             // login 실패
-            return "FAIL";
+            return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
         }
     }
 
