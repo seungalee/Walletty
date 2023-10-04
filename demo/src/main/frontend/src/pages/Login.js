@@ -22,11 +22,11 @@ const Login = () => {
 
   const onLoginHandler = (e) => {
     e.preventDefault();
-    fetch(`${URL}/user/login`, {
+    fetch("/member/login", {
       method: "POST",
       body: JSON.stringify({
-        id: state.id,
-        pw: state.password,
+        memberId: state.id,
+        memberPassword: state.password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -34,22 +34,20 @@ const Login = () => {
     })
       .then((result) => result.json())
       .then((result) => {
-        if (result.MESSAGE === "SUCCESS") {
+        if (result.message === "success") {
           console.log("로그인에 성공하였습니다.");
-          localStorage.setItem("id", state.id);
+          localStorage.setItem("memberId", state.id);
           //localstorage.setItem("token", result.token)
           // local 말고 db에도 데이터 surveyDone 필요
           // 로그인 시 db에서 goal, fixed, 미션 등 가져오기
-          if (!localStorage.getItem("surveyDone")) {
-            navigate("/survey");
-          } else {
-            navigate("/");
-          }
+          navigate("/");
           dispatch({
             type: "LOGIN",
             userId: state.id,
           });
-        } else {
+        } else if (result.message === "successFirst") {
+          navigate("/survey");
+        } else if (result.message === "fail") {
           alert("아이디나 비밀번호를 확인해 주세요.");
         }
       })

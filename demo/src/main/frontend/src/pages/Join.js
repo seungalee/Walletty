@@ -40,15 +40,15 @@ const Join = () => {
         type: "LOGIN",
         userId: state.id,
       });
-      fetch("http://localhost:8080/member/join", {
+      fetch("/member/join", {
         method: "POST",
         body: JSON.stringify({
-          id: state.id,
-          pw: state.password,
-          name: state.name,
-          account: state.account,
-          gender: state.gender,
-          age: state.age,
+          memberId: state.id,
+          memberPassword: state.password,
+          memberName: state.name,
+          memberAccount: state.account,
+          memberGender: state.gender,
+          memberAge: state.age,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -56,10 +56,7 @@ const Join = () => {
       })
         .then((response) => response.json())
         .then((result) => {
-          if (result.MESSAGE === "SUCCESS") {
-            console.log("회원가입 성공");
-            navigate("/survey");
-          }
+          console.log(result);
         });
     }
   };
