@@ -18,24 +18,26 @@ public class SurveyEntity {
     @Column
     private String fixedEntry;
 
-    @Column(nullable = false)
+    @Column
     private String goalEntry1;
-    @Column(nullable = false)
+    @Column
     private String goalEntry2;
-    @Column(nullable = false)
+    @Column
     private String goalEntry3;
 
-    @Column(nullable = false)
+    @Column
     private int goalMoney1;
-    @Column(nullable = false)
+    @Column
     private int goalMoney2;
-    @Column(nullable = false)
+    @Column
     private int goalMoney3;
 
 
-    public static SurveyEntity toSurveyEntity(String surveyId, SurveyDTO surveyDTO){
+    public static SurveyEntity toSurveyEntity(SurveyDTO surveyDTO){
         SurveyEntity surveyEntity = new SurveyEntity();
-        surveyEntity.setSurveyId(surveyId);
+        surveyEntity.setSurveyId(surveyDTO.getSurveyId());
+        //if(surveyDTO.getFixedEntry())
+            //int idx = mail.indexOf("@");
         surveyEntity.setFixedEntry(surveyDTO.getFixedEntry());
 
         surveyEntity.setGoalEntry1(surveyDTO.getGoalEntry1());

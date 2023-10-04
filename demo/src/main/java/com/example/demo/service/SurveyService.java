@@ -18,14 +18,14 @@ public class SurveyService {
 
     private final SurveyRepository surveyRepository;
 
-    public void save(String surveyId, SurveyDTO surveyDTO) {
-        SurveyEntity surveyEntity = SurveyEntity.toSurveyEntity(surveyId, surveyDTO);
+    public void save(SurveyDTO surveyDTO) {
+        SurveyEntity surveyEntity = SurveyEntity.toSurveyEntity(surveyDTO);
         surveyRepository.save(surveyEntity);
     }
 
     public SurveyDTO findBySurveyId(String surveyId) {
         Optional<SurveyEntity> bySurveyId = surveyRepository.findBySurveyId(surveyId);
-        if(bySurveyId.isPresent()) { //로그인이 되어있음
+        if(bySurveyId.isPresent()) {
             SurveyEntity surveyEntity = bySurveyId.get();
             SurveyDTO dto = SurveyDTO.toSurveyDTO(surveyEntity);
             return dto;

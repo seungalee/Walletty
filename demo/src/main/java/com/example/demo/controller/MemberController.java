@@ -37,12 +37,11 @@ public class MemberController {
         return "login";
     }
 
-    @PostMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
-    public MemberDTO join(@RequestBody MemberDTO memberDTO){
-        System.out.println(memberDTO);
+    @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
+    public ResponseEntity join(@RequestBody MemberDTO memberDTO){
         memberService.save(memberDTO);
         //log.debug("joinInfo = {}", memberDTO.toString());
-        return memberDTO;
+        return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
     @GetMapping("/member/login")
@@ -126,19 +125,29 @@ public class MemberController {
 
 
     // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
+    @PostMapping(value="/member/survey")
+    public SurveyDTO setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
+
+        System.out.println(surveyDTO);
+        surveyService.save(surveyDTO);
+        return surveyDTO;
+    }
+    /*
+    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
     @RequestMapping("/member/surveyDTO")
     public ResponseEntity<String> setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
 
         System.out.println(surveyDTO);
 
         //String loginId = surveyService.getLoginId(session);
-        String loginId = surveyDTO.getSurveyId();
-        System.out.println("login id = " + loginId);
+        //String loginId = surveyDTO.getSurveyId();
+        //System.out.println("login id = " + loginId);
 
-        surveyService.save(loginId, surveyDTO);
-        log.debug("surveyDTOInfo = {}", surveyDTO.toString());
+        surveyService.save(surveyDTO);
+        //log.debug("surveyDTOInfo = {}", surveyDTO.toString());
         return ResponseEntity.ok(surveyDTO.toString());
     }
+    */
 
 }
 //MemberController.class
