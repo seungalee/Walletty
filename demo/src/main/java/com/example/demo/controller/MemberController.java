@@ -19,74 +19,87 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor //MemberService에 대한 멤버를 사용 가능
 public class MemberController {
 
+
+    // ************* join / login **************
+
     // 생성자 주입
     private final MemberService memberService;
 
     // 회원가입 페이지 출력 요청
-    @GetMapping("/member/save")
-    public String saveForm() {
-        return "save";
+//    @GetMapping("/member/save")
+//    public String saveForm() {
+//        return "save";
+//    }
+
+//    @PostMapping("/member/save")    // name값을 requestparam에 담아온다
+//    public String save(@ModelAttribute MemberDTO memberDTO) {
+//        System.out.println("MemberController.save");
+//        System.out.println("memberDTO = " + memberDTO);
+//        memberService.save(memberDTO);
+//
+//        return "login";
+//    }
+
+//    @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
+//    public ResponseEntity join(@RequestBody MemberDTO memberDTO){
+//        memberService.save(memberDTO);
+//        //log.debug("joinInfo = {}", memberDTO.toString());
+//        return new ResponseEntity<>("success", HttpStatus.OK);
+//    }
+
+    // 회원가입 로직
+    @PostMapping("/member/join")   // 나중에 RequestMapping으로 수정
+    public MemberDTO join(@RequestBody MemberDTO memberDTO){ // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
+        memberService.save(memberDTO);  // 받아온 값으로 회원가입하기, 이미 있는 회원 고려 안 함 >> 우리가 값 넣을 때 없는 값으로만 넣기.
+        return memberDTO;
     }
 
-    @PostMapping("/member/save")    // name값을 requestparam에 담아온다
-    public String save(@ModelAttribute MemberDTO memberDTO) {
-        System.out.println("MemberController.save");
-        System.out.println("memberDTO = " + memberDTO);
-        memberService.save(memberDTO);
-
-        return "login";
-    }
-
-    @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
-    public ResponseEntity join(@RequestBody MemberDTO memberDTO){
-        memberService.save(memberDTO);
-        //log.debug("joinInfo = {}", memberDTO.toString());
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
-
-    @GetMapping("/member/login")
-    public String loginForm() {
-        return "login";
-    }
+//    @GetMapping("/member/login")
+//    public String loginForm() {
+//        return "login";
+//    }
 
 
-    @PostMapping("/member/login") // session : 로그인 유지
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
-        MemberDTO loginResult = memberService.login(memberDTO);
-        if (loginResult != null) {
-            // login 성공
-            session.setAttribute("loginId", loginResult.getMemberId());
-            return "main";
-        } else {
-            // login 실패
-            return "login";
+//    @PostMapping("/member/login") // session : 로그인 유지
+//    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+//        MemberDTO loginResult = memberService.login(memberDTO);
+//        if (loginResult != null) {
+//            // login 성공
+//            session.setAttribute("loginId", loginResult.getMemberId());
+//            return "main";
+//        } else {
+//            // login 실패
+//            return "login";
+//        }
+//    }
+
+    // 로그인 로직
+    @PostMapping("/member/login")
+    public String login(@RequestBody MemberDTO memberDTO){ // /login에서 받은 로그인 정보를 /member/login에서 받아오기
+        MemberDTO loginResult = memberService.login(memberDTO); // 해당 회원이 member_table에 있는지 확인
+        if (loginResult != null) { // login 성공
+            SurveyDTO surveyDTO = surveyService.findBySurveyId(memberDTO.getMemberId()); //survey_table에 해당 회원의 정보가 있는지 확인
+            if (surveyDTO != null){ // 이미 설문조사를 한 회원
+                return "{\"message\" : \"success\"}";
+            }
+            else { // 아직 설문조사를 하지 않은 회원 (회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때)
+                return "{\"message\" : \"successFirst\"}";
+            }
+        } else {  // login 실패
+            return "{\"message\" : \"fail\"}";
         }
     }
 
-    @PostMapping(value="/member/loginn")  // /login에서 받은 로그인 정보를 /member/login에서 받아오기
-    public MemberDTO loginn(@RequestBody MemberDTO memberDTO){
-        System.out.println(memberDTO);
-
-        MemberDTO loginResult = memberService.login(memberDTO);
-        if (loginResult != null) {
-            // login 성공
-            return memberDTO;
-            //} else if () {  // 회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때
-
-        } else {
-            return memberDTO;
-            // login 실패
-            //return new ResponseEntity<>("fail", HttpStatus.NOT_FOUND);
-        }
-    }
-
-
+    // 회원 정보 보여주기
     @RequestMapping("/api/v1/member")
     @ResponseBody
     public MemberDTO postMember() { //member정보 보내기
         MemberDTO loginResult = memberService.postMember();
         return loginResult;
     }
+
+    // ************* survey **************
+
 
     private final SurveyService surveyService;
 
@@ -106,6 +119,14 @@ public class MemberController {
     }
     */
 
+    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
+    @PostMapping(value="/member/survey")
+    public SurveyDTO setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
+
+        System.out.println(surveyDTO);
+        surveyService.save(surveyDTO);
+        return surveyDTO;
+    }
 
     // 설문조사 보여주기(로그인했을 때 id 가져와서)
     @RequestMapping("/api/v1/surveydto")
@@ -123,15 +144,6 @@ public class MemberController {
         return surveydto;
     }
 
-
-    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
-    @PostMapping(value="/member/survey")
-    public SurveyDTO setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
-
-        System.out.println(surveyDTO);
-        surveyService.save(surveyDTO);
-        return surveyDTO;
-    }
     /*
     // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
     @RequestMapping("/member/surveyDTO")
