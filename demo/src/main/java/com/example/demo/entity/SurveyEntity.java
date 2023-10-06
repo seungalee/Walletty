@@ -15,36 +15,38 @@ public class SurveyEntity {
     @Id
     private String surveyId;
 
-    @Column(unique = true)
-    private String fixed_entry;
+    @Column
+    private String fixedEntry;
 
-    @Column(nullable = false)
-    private String goal_entry_1;
-    @Column(nullable = false)
-    private String goal_entry_2;
-    @Column(nullable = false)
-    private String goal_entry_3;
+    @Column
+    private String goalEntry1;
+    @Column
+    private String goalEntry2;
+    @Column
+    private String goalEntry3;
 
-    @Column(nullable = false)
-    private int goal_money_1;
-    @Column(nullable = false)
-    private int goal_money_2;
-    @Column(nullable = false)
-    private int goal_money_3;
+    @Column
+    private int goalMoney1;
+    @Column
+    private int goalMoney2;
+    @Column
+    private int goalMoney3;
 
 
     public static SurveyEntity toSurveyEntity(SurveyDTO surveyDTO){
         SurveyEntity surveyEntity = new SurveyEntity();
         surveyEntity.setSurveyId(surveyDTO.getSurveyId());
-        surveyEntity.setFixed_entry(surveyDTO.getFixed_entry());
+        //if(surveyDTO.getFixedEntry())
+            //int idx = mail.indexOf("@");
+        surveyEntity.setFixedEntry(surveyDTO.getFixedEntry());
 
-        surveyEntity.setGoal_entry_1(surveyDTO.getGoal_entry_1());
-        surveyEntity.setGoal_entry_2(surveyDTO.getGoal_entry_2());
-        surveyEntity.setGoal_entry_3(surveyDTO.getGoal_entry_3());
+        surveyEntity.setGoalEntry1(surveyDTO.getGoalEntry1());
+        surveyEntity.setGoalEntry2(surveyDTO.getGoalEntry2());
+        surveyEntity.setGoalEntry3(surveyDTO.getGoalEntry3());
 
-        surveyEntity.setGoal_money_1(surveyDTO.getGoal_money_1());
-        surveyEntity.setGoal_money_2(surveyDTO.getGoal_money_2());
-        surveyEntity.setGoal_money_3(surveyDTO.getGoal_money_3());
+        surveyEntity.setGoalMoney1(surveyDTO.getGoalMoney1());
+        surveyEntity.setGoalMoney2(surveyDTO.getGoalMoney2());
+        surveyEntity.setGoalMoney3(surveyDTO.getGoalMoney3());
 
         return surveyEntity;
     }

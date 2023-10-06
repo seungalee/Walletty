@@ -15,7 +15,7 @@ public class MemberService {
     private final MemberRepository memberRepository; // 먼저 jpa, mysql dependency 추가
 
     public void save(MemberDTO memberDTO) {
-        // repsitory의 save 메서드 호출
+        // repository의 save 메서드 호출
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
         //Repository의 save메서드 호출 (조건. entity객체를 넘겨줘야 함)
@@ -36,6 +36,19 @@ public class MemberService {
                 //비밀번호 불일치
                 return null;
             }
+        } else {
+            // 조회 결과가 없다
+            return null;
+        }
+    }
+
+    public MemberDTO postMember(){
+        Optional<MemberEntity> byMemberId = memberRepository.findByMemberId("qq"); //여기는 프론트에서 받아오는 다른 값으로 바꾸기.
+        if(byMemberId.isPresent()){
+            // 조회 결과가 있다
+            MemberEntity memberEntity = byMemberId.get(); // Optional에서 꺼냄
+            MemberDTO dto = MemberDTO.toMemberDTO(memberEntity);
+            return dto;
         } else {
             // 조회 결과가 없다
             return null;

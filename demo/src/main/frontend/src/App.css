@@ -1,38 +1,223 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap");
+
+:root {
+  --mygray: #6c757d;
+  --myblack: #343a40;
+  --lgtpurple: #eae9fe;
+  --lgmidpurple: #c9c1ff;
+  --lmidpurple: #b1a5ff;
+  --midpurple: #998aff;
+  --mstrpurple: #6a53ff;
+  --strpurple: #5c37eb;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f3f4;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* Components */
+
+/* button */
+.button {
+  width: 250px;
+  height: 50px;
+  background-color: var(--midpurple);
+  border-radius: 5px;
+  border: 0px;
+  border-style: solid;
+  margin-bottom: 15px;
+  color: white;
+  font-weight: 600;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.button:hover {
+  background-color: var(--strpurple);
+}
+
+/* Login 
+
+page */
+.login_box div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_box div input {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 3px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.button_box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.button_up_text {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+/* Join
+
+page */
+.join_box_element input {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 3px;
+}
+
+.join_box_element select {
+  width: 150px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align-last: center;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.join_box_text {
+  margin-bottom: 6px;
+  color: var(--myblack);
+  padding-left: 5px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.join_box_element button {
+  margin-top: 20px;
+  width: 305px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Survey
+
+*/
+.survey_qs {
+  width: 600px;
+  background-color: white;
+  padding: 20px 30px 15px 30px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.survey_q_box {
+  margin-bottom: 30px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.survey_q_text {
+  margin-bottom: 20px;
+}
+.checkbox_list_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.checkbox_items {
+  width: 120px;
+  height: 40px;
+  margin: 10px 40px;
+  justify-content: space-between;
+  /* margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 70px;
+  margin-left: 70px; */
+  border: 1.3px var(--mygray);
+  border-style: solid;
+  background-color: var(--lgtpurple);
+  position: relative;
+  border-radius: 30px;
+  box-shadow: 1px 1px 1px var(--mygray);
+}
+
+.checkbox_items:last-child {
+  margin-right: 240px;
+}
+
+.checkbox_item_checked {
+  background-color: var(--midpurple);
+}
+
+.checkbox_items input {
+  position: absolute;
+  left: 30px;
+  top: 10px;
+}
+
+.checkbox_items label {
+  position: absolute;
+  left: 54px;
+  top: 7px;
+}
+
+div.checkbox_items:has(input.checkbox_item_checked) {
+  background-color: var(--lgmidpurple);
+}
+
+.button_survey {
+  background-color: #d8e1ff;
+  color: var(--myblack);
+  /* border: 0.5px var(--mygray);
+  border-style: solid; */
+  margin-left: 250px;
+  width: 100px;
+  font-weight: 600;
+}
+.button_survey:hover {
+  background-color: #bbd0ff;
+}
+
+/* Survey goalmoney
+
+page
+*/
+.goalmoney_box_element {
+  position: relative;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  padding-left: 35px;
+  background-color: var(--lgtpurple);
+}
+.goalmoney_box_element input {
+  position: absolute;
+  right: 45px;
+  top: 15px;
+  width: 175px;
+  height: 35px;
+  margin-bottom: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align: center;
+  border: 0;
+  border-bottom: 3px solid;
+  border-color: #c4bddb;
+  border-radius: 2px;
+  font-size: 25px;
+  font-weight: 700;
+  background-color: (var(--lgtpurple));
+  color: #726892;
+}
+.goalmoney_box_element input:focus {
+  outline: none;
+  border-bottom: 3px solid;
+  border-color: var(--mygray);
+  color: var(--mygray);
 }

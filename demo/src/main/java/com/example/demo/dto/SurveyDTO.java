@@ -1,10 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entity.SurveyEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
@@ -13,29 +10,30 @@ import lombok.ToString;
 public class SurveyDTO {
     private String surveyId;
 
-    private String fixed_entry;
+    private String fixedEntry;
 
-    private String goal_entry_1;
-    private String goal_entry_2;
-    private String goal_entry_3;
+    private String goalEntry1;
+    private String goalEntry2;
+    private String goalEntry3;
 
-    private int goal_money_1;
-    private int goal_money_2;
-    private int goal_money_3;
+    private int goalMoney1;
+    private int goalMoney2;
+    private int goalMoney3;
 
 
     public static SurveyDTO toSurveyDTO(SurveyEntity surveyEntity){
         SurveyDTO surveyDTO = new SurveyDTO();
         surveyDTO.setSurveyId(surveyEntity.getSurveyId());
-        surveyDTO.setFixed_entry(surveyEntity.getFixed_entry());
 
-        surveyDTO.setGoal_entry_1(surveyEntity.getGoal_entry_1());
-        surveyDTO.setGoal_entry_2(surveyEntity.getGoal_entry_2());
-        surveyDTO.setGoal_entry_3(surveyEntity.getGoal_entry_3());
+        surveyDTO.setFixedEntry(surveyEntity.getFixedEntry());
 
-        surveyDTO.setGoal_money_1(surveyEntity.getGoal_money_1());
-        surveyDTO.setGoal_money_2(surveyEntity.getGoal_money_2());
-        surveyDTO.setGoal_money_3(surveyEntity.getGoal_money_3());
+        surveyDTO.setGoalEntry1(surveyEntity.getGoalEntry1());
+        surveyDTO.setGoalEntry2(surveyEntity.getGoalEntry2());
+        surveyDTO.setGoalEntry3(surveyEntity.getGoalEntry3());
+
+        surveyDTO.setGoalMoney1(surveyEntity.getGoalMoney1());
+        surveyDTO.setGoalMoney2(surveyEntity.getGoalMoney2());
+        surveyDTO.setGoalMoney3(surveyEntity.getGoalMoney3());
 
         return surveyDTO;
     }
