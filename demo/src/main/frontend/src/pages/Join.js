@@ -57,6 +57,7 @@ const Join = () => {
         .then((response) => response.json())
         .then((result) => {
           console.log(result);
+          navigate("/login");
         });
     }
   };
