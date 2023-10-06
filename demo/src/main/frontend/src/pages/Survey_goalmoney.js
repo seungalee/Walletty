@@ -25,7 +25,7 @@ const Survey_goalmoney = () => {
       body: JSON.stringify({
         //local에서 꺼내쓰기
         surveyId: "ididd",
-        fixedEntry: fixedList.map((row) => row.name),
+        fixedEntry: fixedList.map((row) => row.name).toString(),
         goalEntry1: goalList[0].name,
         goalMoney1: Number(goalmoneyList.goalmoney1),
         goalEntry2: goalList[1].name,
