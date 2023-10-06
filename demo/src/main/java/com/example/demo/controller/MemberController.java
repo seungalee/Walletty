@@ -1,18 +1,21 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.MemberDTO;
+import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.SurveyDTO;
-import com.example.demo.entity.SurveyEntity;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.SurveyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 @Slf4j
 @RestController
@@ -159,7 +162,38 @@ public class MemberController {
         //log.debug("surveyDTOInfo = {}", surveyDTO.toString());
         return ResponseEntity.ok(surveyDTO.toString());
     }
+
     */
+    @GetMapping("/member/payment")
+    public void paymentForm() throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.tosspayments.com/v1/payments/orders/qqqqq123I893LDucg"))
+                .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+
+        String paymentstr = response.body();
+        paymentstr = paymentstr.replace("mId", "mid");
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // 1. 스트링에서 DTO로 매핑하기
+            PaymentDTO paymentDTO = mapper.readValue(paymentstr, PaymentDTO.class);
+            System.out.println(paymentDTO);
+
+
+        } catch (Exception e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+
+
+
+
 
 }
 //MemberController.class
