@@ -13,102 +13,26 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class PaymentDTO {
-    
-    //우리가 가공해서 넣을 값
+
+    private Long id;
+
     private String memberId;
-    private String entry;
-    private String orderTime;
 
+    // private String mid; // "mId": "tvivarepublica", // 어차피 다 똑같으니
 
-    private String mid;
+    // private String paymentKey;
 
-    //private String transactionKey;
-    private String paymentKey;
-    private String orderId;
-    private String method;
-
-    //private String customerKey;
-    //private boolean useEscrow;
-    //private String receiptUrl;
+    private String orderId; //"orderId": "pay-cafe-1-0901"
 
     private String status;
-    private String transactionAt;
-    //private String currency;
+
+    private String transactionAt; // "transactionAt": "2023-10-06T17:53:38+09:00"
 
     private int amount;
-    
+
+    private String entry; //항목
+
+    private String orderTime; //거래시간
 
 
 }
-
-
-/*
-package com.example.demo.dto;
-
-
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
-@JsonIgnoreProperties(ignoreUnknown=true)
-public class PaymentDTO {
-
-    private String mid;
-
-    //private String lastTransactionKey;
-    private String paymentKey;
-    private String orderId;
-    private String orderName;
-
-    //private int taxExemptionAmount;
-
-    private String status;
-    private String requestedAt;
-    private String approvedAt;
-
-    //private boolean useEscrow;
-    //private boolean cultureExpense;
-
-    //private String card;
-    //private String virtualAccount;
-    //private String transfer;
-    //private String mobilePhone;
-    //private String giftCertificate;
-    //private String cashReceipt;
-    //private String cashReceipts;
-    //private String discount;
-    //private String cancels;
-    //private String secret;
-    private String type;
-    //private String easyPay;
-    //private String country;
-    //private String failure;
-    //private boolean isPartialCancelable;
-    //private String receipt;
-    //private String checkout;
-    //private String currency;
-
-    private int totalAmount;
-    //private int balanceAmount;
-    //private int suppliedAmount;
-    //private int vat;
-    //private int taxFreeAmount;
-
-    private String method;
-    //private String version;
-
-    //항목, 거래시간
-    private String entry;
-    private String orderTime;
-
-
-
-}
-*/

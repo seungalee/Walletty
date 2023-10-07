@@ -4,6 +4,7 @@ import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.SurveyDTO;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.PaymentService;
 import com.example.demo.service.SurveyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -166,6 +167,12 @@ public class MemberController {
     }
 
     */
+
+    // ************* payment **************
+
+
+    private final PaymentService paymentService;
+
     @GetMapping("/member/payment")
     public void paymentForm() throws IOException, InterruptedException {
 
@@ -198,6 +205,12 @@ public class MemberController {
 
             List<PaymentDTO> dtos = Arrays.asList(mapper.readValue(paymentstr, PaymentDTO[].class));
             System.out.println(dtos.size() + "개의 dto : " +dtos);
+            for(PaymentDTO pay : dtos){
+                if(pay.getStatus().equals("DONE")){  //CANCELED, DONE, WAITING_FOR_DEPOSIT
+                    // System.out.println(pay); // 취소된 결제 내역도 들어감. (결제 완료된 기록도 있으니까)
+                    paymentService.save(pay);
+                }
+            }
 
 
         } catch (Exception e1) {
@@ -205,10 +218,6 @@ public class MemberController {
             e1.printStackTrace();
         }
     }
-
-
-
-
 
 
 }
