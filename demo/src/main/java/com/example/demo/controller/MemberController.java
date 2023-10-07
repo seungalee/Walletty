@@ -205,9 +205,13 @@ public class MemberController {
 
             List<PaymentDTO> dtos = Arrays.asList(mapper.readValue(paymentstr, PaymentDTO[].class));
             System.out.println(dtos.size() + "개의 dto : " +dtos);
+
             for(PaymentDTO pay : dtos){
-                if(pay.getStatus().equals("DONE")){  //CANCELED, DONE, WAITING_FOR_DEPOSIT
-                    // System.out.println(pay); // 취소된 결제 내역도 들어감. (결제 완료된 기록도 있으니까)
+                String data[] = pay.getOrderId().split("-");
+                if(pay.getStatus().equals("DONE") && data[0].equals("pay")){  //CANCELED, DONE, WAITING_FOR_DEPOSIT
+                    pay.setEntry(data[1]);
+                    pay.setOrderTime(data[3]);
+                    //System.out.println(pay);
                     paymentService.save(pay);
                 }
             }
