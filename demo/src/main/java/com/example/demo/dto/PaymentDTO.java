@@ -13,6 +13,12 @@ import lombok.ToString;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class PaymentDTO {
+    
+    //우리가 가공해서 넣을 값
+    private String memberId;
+    private String entry;
+    private String orderTime;
+
 
     private String mid;
 
@@ -30,11 +36,7 @@ public class PaymentDTO {
     //private String currency;
 
     private int amount;
-
-    //항목, 거래시간
-    private String entry;
-    private String orderTime;
-
+    
 
 
 }
