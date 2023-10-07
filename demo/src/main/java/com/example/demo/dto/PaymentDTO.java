@@ -16,6 +16,50 @@ public class PaymentDTO {
 
     private String mid;
 
+    //private String transactionKey;
+    private String paymentKey;
+    private String orderId;
+    private String method;
+
+    //private String customerKey;
+    //private boolean useEscrow;
+    //private String receiptUrl;
+
+    private String status;
+    private String transactionAt;
+    //private String currency;
+
+    private int amount;
+
+    //항목, 거래시간
+    private String entry;
+    private String orderTime;
+
+
+
+}
+
+
+/*
+package com.example.demo.dto;
+
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@JsonIgnoreProperties(ignoreUnknown=true)
+public class PaymentDTO {
+
+    private String mid;
+
     //private String lastTransactionKey;
     private String paymentKey;
     private String orderId;
@@ -65,3 +109,4 @@ public class PaymentDTO {
 
 
 }
+*/

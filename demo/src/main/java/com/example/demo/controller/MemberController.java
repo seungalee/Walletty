@@ -16,6 +16,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -166,8 +168,19 @@ public class MemberController {
     */
     @GetMapping("/member/payment")
     public void paymentForm() throws IOException, InterruptedException {
+
+        /*
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/payments/orders/qqqqq123I893LDucg"))
+                .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        */
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2022-01-01T00:00:00&endDate=2023-10-10T23:59:59"))
                 .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -179,9 +192,12 @@ public class MemberController {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            // 1. 스트링에서 DTO로 매핑하기
-            PaymentDTO paymentDTO = mapper.readValue(paymentstr, PaymentDTO.class);
-            System.out.println(paymentDTO);
+            // 스트링에서 DTO로 매핑하기
+            //PaymentDTO paymentDTO = mapper.readValue(paymentstr, PaymentDTO.class);
+            //System.out.println(paymentDTO);
+
+            List<PaymentDTO> dtos = Arrays.asList(mapper.readValue(paymentstr, PaymentDTO[].class));
+            System.out.println(dtos.size() + "개의 dto : " +dtos);
 
 
         } catch (Exception e1) {
