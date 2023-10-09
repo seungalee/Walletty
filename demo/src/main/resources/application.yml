@@ -18,5 +18,8 @@ spring:
     hibernate:
       ddl-auto: update
 
-chatgpt:
-  api-key: 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
+#chatgpt:
+#  api-key: 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
+
+api-key:
+  chat-gpt: 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
