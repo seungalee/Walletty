@@ -26,9 +26,13 @@ public class FeedbackService {
         int randomIndex = random.nextInt(sourceData.size()); // 무작위 인덱스 선택
         FeedbackCommentEntity randomComment = sourceData.get(randomIndex);
 
+        String sendFront = randomComment.getComment() + " " + content;
+
         FeedbackEntity feedbackEntity = new FeedbackEntity();
         feedbackEntity.setContent(content);
         feedbackEntity.setComment(randomComment.getComment());
+        feedbackEntity.setSendFront(sendFront);
+
         feedbackRepository.save(feedbackEntity);
 
     }
