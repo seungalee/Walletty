@@ -5,11 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf0afe3f-2b03-4351-b634-25aa6d27b201" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6023c99b-e45f-45ad-afa1-c41acac022b8/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6023c99b-e45f-45ad-afa1-c41acac022b8/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/demo/ChatGptConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/demo/ChatGptConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/demo/service/ChatGptService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/demo/service/ChatGptService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/ChatGptConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/ChatGptConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ChatGptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/service/ChatGptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/com/example/demo/controller/ChatGptController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/com/example/demo/controller/ChatGptController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ChatGptController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/demo/controller/ChatGptController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,9 +27,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -143,6 +145,10 @@
       <workItem from="1696691144379" duration="212000" />
       <workItem from="1696849284823" duration="3135000" />
       <workItem from="1696852443954" duration="3372000" />
+      <workItem from="1696858040413" duration="495000" />
+      <workItem from="1696858722488" duration="239000" />
+      <workItem from="1696917818072" duration="1555000" />
+      <workItem from="1696931612348" duration="3419000" />
     </task>
     <servers />
   </component>
