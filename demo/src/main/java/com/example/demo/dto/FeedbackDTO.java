@@ -14,7 +14,7 @@ public class FeedbackDTO {
     private long feedbackId;
     private String memberId;
     private String content;
-    private String cand; //후보
+    private String comment; //피드백 코멘트 후보
     private String sendFront;
 
     public static FeedbackDTO toFeedbackDTO(FeedbackEntity feedbackEntity){
@@ -22,7 +22,7 @@ public class FeedbackDTO {
         feedbackDTO.setFeedbackId(feedbackEntity.getFeedbackId());
         feedbackDTO.setMemberId(feedbackEntity.getMemberId());
         feedbackDTO.setContent(feedbackEntity.getContent());
-        feedbackDTO.setCand(feedbackEntity.getCand());
+        feedbackDTO.setComment(feedbackEntity.getComment());
         feedbackDTO.setSendFront(feedbackEntity.getSendFront());
         return feedbackDTO;
     }

@@ -5,10 +5,7 @@ import com.example.demo.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Setter
@@ -17,6 +14,7 @@ import javax.persistence.Table;
 public class FeedbackEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long feedbackId;
 
     @Column
@@ -26,7 +24,7 @@ public class FeedbackEntity {
     private String content;
 
     @Column
-    private String cand; //후보
+    private String comment; //후보
 
     @Column
     private String sendFront;
@@ -36,7 +34,7 @@ public class FeedbackEntity {
         feedbackEntity.setFeedbackId(feedbackDTO.getFeedbackId());
         feedbackEntity.setMemberId(feedbackDTO.getMemberId());
         feedbackEntity.setContent(feedbackDTO.getContent());
-        feedbackEntity.setCand(feedbackDTO.getCand());
+        feedbackEntity.setComment(feedbackDTO.getComment());
         feedbackEntity.setSendFront(feedbackDTO.getSendFront());
 
         return feedbackEntity;

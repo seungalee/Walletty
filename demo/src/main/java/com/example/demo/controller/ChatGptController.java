@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.ChatGptResponse;
 import com.example.demo.dto.QuestionRequest;
 import com.example.demo.service.ChatGptService;
+import com.example.demo.service.FeedbackCommentService;
 import com.example.demo.service.FeedbackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,8 @@ public class ChatGptController {
 
     private final FeedbackService feedbackService;
 
+    private final FeedbackCommentService feedbackCommentService;
+
     //@Operation(summary = "Question to Chat-GPT")
     @PostMapping("/question")
     public ChatGptResponse sendQuestion(
@@ -40,7 +43,7 @@ public class ChatGptController {
             //code = e.getMessage();
         }
         String content = chatGptResponse.getChoices().get(0).getMessage().getContent();
-        feedbackService.saveContent(content);
+        feedbackService.save(content);
         return chatGptResponse;
         //return apiResponse.getResponseEntity(locale, code, chatGptResponse != null ? chatGptResponse.getChoices().get(0).getMessage().getContent() : new ChatGptResponse());
     }
