@@ -51,12 +51,11 @@ public class ChatGptController {
         //return apiResponse.getResponseEntity(locale, code, chatGptResponse != null ? chatGptResponse.getChoices().get(0).getMessage().getContent() : new ChatGptResponse());
     }
 
-    @PostMapping("/feedback")
-    public FeedbackDTO sendFeedback(@RequestBody MemberDTO memberDTO){ // /feedback에서 받은 회원 정보(id만??)로 피드백 보내주기
-        //MemberDTO loginResult = memberService.login(memberDTO); // 해당 회원이 member_table에 있는지 확인
+    @PostMapping("/feedback") // 프론트에서 회원 id와 함께 피드백 요청하면 해당 회원의 피드백 테이블에 아직 안 보낸 피드백을 골라서 넘겨줌.
+    public String sendFeedback(@RequestBody MemberDTO memberDTO){ // /feedback에서 받은 회원 정보(id만??)로 피드백 보내주기
         FeedbackDTO feedbackDTO = feedbackService.findByMemberIdOkToSend(memberDTO.getMemberId(),"false");
-        // return "{\"sendFront\" : \"aaa\"}"; // String으로 리턴
-        return feedbackDTO; //이렇게 보내면 프론트가 sendFront 뽑아내내 써야함.
+        return "{\"sendFront\" : \"" + feedbackDTO.getSendFront() + "\"}"; // Json형식으로 feedback String 리턴
+        // return feedbackDTO.getSendFront();
     }
 
 
