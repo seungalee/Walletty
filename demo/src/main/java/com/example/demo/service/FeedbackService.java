@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.entity.FeedbackCommentEntity;
 import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.repository.FeedbackCommentRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -34,6 +36,18 @@ public class FeedbackService {
         feedbackEntity.setSendFront(sendFront);
 
         feedbackRepository.save(feedbackEntity);
+
+    }
+
+    public FeedbackDTO findByMemberIdOkToSend(String memberId, String okToSend) {
+        Optional<FeedbackEntity> byMemberIdOkToSend = feedbackRepository.findByMemberIdOkToSend(memberId,okToSend);
+        if(byMemberIdOkToSend.isPresent()) {
+            FeedbackEntity feedbackEntity = byMemberIdOkToSend.get();
+            FeedbackDTO fDTO = FeedbackDTO.toFeedbackDTO(feedbackEntity);
+            return fDTO;
+        }else{
+            return null;
+        }
 
     }
 

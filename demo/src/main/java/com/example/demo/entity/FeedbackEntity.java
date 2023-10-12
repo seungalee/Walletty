@@ -29,6 +29,9 @@ public class FeedbackEntity {
     @Column
     private String sendFront;
 
+    @Column
+    private String OkToSend;
+
     public static FeedbackEntity toFeedbackEntity(FeedbackDTO feedbackDTO){
         FeedbackEntity feedbackEntity = new FeedbackEntity();
         feedbackEntity.setFeedbackId(feedbackDTO.getFeedbackId());
@@ -36,6 +39,7 @@ public class FeedbackEntity {
         feedbackEntity.setContent(feedbackDTO.getContent());
         feedbackEntity.setComment(feedbackDTO.getComment());
         feedbackEntity.setSendFront(feedbackDTO.getSendFront());
+        feedbackEntity.setOkToSend(feedbackDTO.getOkToSend());
 
         return feedbackEntity;
     }
