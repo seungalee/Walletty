@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import com.example.demo.dto.AccountAnalyzeDTO;
-import com.example.demo.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,7 +23,7 @@ public class AccountAnalyzeEntity {
     private String entry;
 
     @Column
-    private String totalAmount;
+    private Integer totalAmount;
 
     public static AccountAnalyzeEntity toAccountAnalyzeEntity(AccountAnalyzeDTO accountAnalyzeDTO){
         AccountAnalyzeEntity accountAnalyzeEntity = new AccountAnalyzeEntity();
