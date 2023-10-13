@@ -53,6 +53,6 @@ public class AccountAnalyzeService {
                 accountAnalyzeRepository.save(entity);
             }
         }
-        return null; //여기 나중에 수정
+        return memberDTO; //여기 나중에 수정
     }
 }
