@@ -24,7 +24,7 @@ public class AccountAnalyzeController {
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
 
-    String memberId = "aa";
+    String memberId = "qq";
 
     @GetMapping("/member/payment")
     public void paymentForm() throws IOException, InterruptedException {
