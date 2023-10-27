@@ -1,11 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AccountAnalyzeDTO;
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.dto.PaymentDTO;
-import com.example.demo.entity.AccountAnalyzeEntity;
-import com.example.demo.entity.MemberEntity;
-import com.example.demo.entity.PaymentEntity;
+import com.example.demo.dto.*;
+import com.example.demo.entity.*;
 import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.repository.MemberRepository;
 import com.example.demo.repository.PaymentRepository;
@@ -13,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -24,12 +21,12 @@ public class AccountAnalyzeService {
     private final PaymentRepository paymentRepository;
     private final AccountAnalyzeRepository accountAnalyzeRepository;
 
-    public String saveAmount(String memberId){ //entity객체는 service에서만
+    public String saveAmount(String memberId) { //entity객체는 service에서만
         List<PaymentEntity> paymentAll = paymentRepository.findByMemberId(memberId); // 해당 회원은 무조건 payment테이블에 결제내역이 1개 이상 있다고 가정 (나중에 예외처리 추가 해도 됨)
 
-        for(PaymentEntity pay : paymentAll){
-            Optional<AccountAnalyzeEntity> analyzeEntry = accountAnalyzeRepository.findByEntryAndMemberId(pay.getEntry(),pay.getMemberId());
-            if(analyzeEntry.isPresent()){  // 분석 테이블에 이미 있는 항목이면 해당 항목에 값을 더해서 업데이트 하기
+        for (PaymentEntity pay : paymentAll) {
+            Optional<AccountAnalyzeEntity> analyzeEntry = accountAnalyzeRepository.findByEntryAndMemberId(pay.getEntry(), pay.getMemberId());
+            if (analyzeEntry.isPresent()) {  // 분석 테이블에 이미 있는 항목이면 해당 항목에 값을 더해서 업데이트 하기
                 // 1.
                 //AccountAnalyzeEntity analyzeEntity = analyzeEntry.get();
                 //AccountAnalyzeDTO dto = new AccountAnalyzeDTO(analyzeEntity.getAnalyzeId(), pay.getMemberId(), pay.getEntry(), pay.getAmount());
@@ -54,5 +51,15 @@ public class AccountAnalyzeService {
             }
         }
         return "memberDTO"; //여기 나중에 수정
+    }
+
+
+    public List<AccountAnalyzeDTO> findByMemberId(String memberId) {
+        List<AccountAnalyzeEntity> analyzeAll = accountAnalyzeRepository.findByMemberId(memberId);
+        List<AccountAnalyzeDTO> aDTO = new ArrayList<>();
+        for (AccountAnalyzeEntity entity : analyzeAll) {
+            aDTO.add(AccountAnalyzeDTO.toAccountAnalyzeDTO(entity));
+        }
+        return aDTO;
     }
 }

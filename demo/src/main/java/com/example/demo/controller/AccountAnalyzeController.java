@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AccountAnalyzeDTO;
+import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.PaymentDTO;
+import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,21 +26,11 @@ public class AccountAnalyzeController {
 
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
-
-    String memberId = "qq";
+    private final SurveyService surveyService;
+    String memberId = "aa";
 
     @GetMapping("/member/payment")
     public void paymentForm() throws IOException, InterruptedException {
-
-        /*
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/payments/orders/qqqqq123I893LDucg"))
-                .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        */
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2022-01-01T00:00:00&endDate=2023-10-20T23:59:59"))
@@ -76,6 +69,13 @@ public class AccountAnalyzeController {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
+    }
+
+    @GetMapping("/makeMission")
+    public void mission() {
+        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberId(memberId);
+        System.out.println(dtos);
+        System.out.println(surveyService.findBySurveyId(memberId));
     }
 
 }
