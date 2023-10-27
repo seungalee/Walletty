@@ -187,7 +187,7 @@ public class MemberController {
         */
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2022-01-01T00:00:00&endDate=2023-10-10T23:59:59"))
+                .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2022-01-01T00:00:00&endDate=2023-10-20T23:59:59"))
                 .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
@@ -211,6 +211,7 @@ public class MemberController {
                 if(pay.getStatus().equals("DONE") && data[0].equals("pay")){  //CANCELED, DONE, WAITING_FOR_DEPOSIT
                     pay.setEntry(data[1]);
                     pay.setOrderTime(data[3]);
+                    pay.setMemberId("qq");
                     //System.out.println(pay);
                     paymentService.save(pay);
                 }

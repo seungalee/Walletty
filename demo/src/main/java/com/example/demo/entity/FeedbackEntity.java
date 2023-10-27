@@ -30,7 +30,7 @@ public class FeedbackEntity {
     private String sendFront;
 
     @Column
-    private String OkToSend;
+    private String okToSend;
 
     public static FeedbackEntity toFeedbackEntity(FeedbackDTO feedbackDTO){
         FeedbackEntity feedbackEntity = new FeedbackEntity();

@@ -53,7 +53,7 @@ public class ChatGptController {
 
     @PostMapping("/feedback") // 프론트에서 회원 id와 함께 피드백 요청하면 해당 회원의 피드백 테이블에 아직 안 보낸 피드백을 골라서 넘겨줌.
     public String sendFeedback(@RequestBody MemberDTO memberDTO){ // /feedback에서 받은 회원 정보(id만??)로 피드백 보내주기
-        FeedbackDTO feedbackDTO = feedbackService.findByMemberIdOkToSend(memberDTO.getMemberId(),"false");
+        FeedbackDTO feedbackDTO = feedbackService.findByMemberIdAndOkToSend(memberDTO.getMemberId(),"false");
         return "{\"sendFront\" : \"" + feedbackDTO.getSendFront() + "\"}"; // Json형식으로 feedback String 리턴
         // return feedbackDTO.getSendFront();
     }

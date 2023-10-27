@@ -13,9 +13,9 @@ public class AccountAnalyzeController {
     private final AccountAnalyzeService accountAnalyzeService;
 
     @RequestMapping("/saveTotalAmount")
-    public MemberDTO saveTotalAmount(@RequestBody MemberDTO memberDTO){ // 분석테이블에 총 금액을 저장하길 원하는 회원 정보 (id값만 쓰임)
-        accountAnalyzeService.saveAmount(memberDTO);
-        return memberDTO;
+    public String saveTotalAmount(@RequestBody String memberId){ // 분석테이블에 총 금액을 저장하길 원하는 회원 정보 (id값만 쓰임)
+        accountAnalyzeService.saveAmount(memberId);
+        return "memberDTO";
     }
 
 }

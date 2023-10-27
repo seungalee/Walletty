@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface FeedbackCommentRepository extends JpaRepository<FeedbackCommentEntity, Integer>
 {
     // 이메일로 회원 정보 조회( select * from member_table where member_email=?)
-    Optional<FeedbackCommentEntity> findById(Integer Id);
+    Optional<FeedbackCommentEntity> findById(Integer id);
 }

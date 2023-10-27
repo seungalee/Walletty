@@ -24,8 +24,8 @@ public class AccountAnalyzeService {
     private final PaymentRepository paymentRepository;
     private final AccountAnalyzeRepository accountAnalyzeRepository;
 
-    public MemberDTO saveAmount(MemberDTO memberDTO){ //entity객체는 service에서만
-        List<PaymentEntity> paymentAll = paymentRepository.findByMemberId(memberDTO.getMemberId()); // 해당 회원은 무조건 payment테이블에 결제내역이 1개 이상 있다고 가정 (나중에 예외처리 추가 해도 됨)
+    public String saveAmount(String memberId){ //entity객체는 service에서만
+        List<PaymentEntity> paymentAll = paymentRepository.findByMemberId(memberId); // 해당 회원은 무조건 payment테이블에 결제내역이 1개 이상 있다고 가정 (나중에 예외처리 추가 해도 됨)
 
         for(PaymentEntity pay : paymentAll){
             Optional<AccountAnalyzeEntity> analyzeEntry = accountAnalyzeRepository.findByEntryAndMemberId(pay.getEntry(),pay.getMemberId());
@@ -53,6 +53,6 @@ public class AccountAnalyzeService {
                 accountAnalyzeRepository.save(entity);
             }
         }
-        return memberDTO; //여기 나중에 수정
+        return "memberDTO"; //여기 나중에 수정
     }
 }

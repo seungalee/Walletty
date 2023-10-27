@@ -39,8 +39,8 @@ public class FeedbackService {
 
     }
 
-    public FeedbackDTO findByMemberIdOkToSend(String memberId, String okToSend) {
-        Optional<FeedbackEntity> byMemberIdOkToSend = feedbackRepository.findByMemberIdOkToSend(memberId,okToSend);
+    public FeedbackDTO findByMemberIdAndOkToSend(String memberId, String okToSend) {
+        Optional<FeedbackEntity> byMemberIdOkToSend = feedbackRepository.findByMemberIdAndOkToSend(memberId,okToSend);
         if(byMemberIdOkToSend.isPresent()) {
             FeedbackEntity feedbackEntity = byMemberIdOkToSend.get();
             FeedbackDTO fDTO = FeedbackDTO.toFeedbackDTO(feedbackEntity);
