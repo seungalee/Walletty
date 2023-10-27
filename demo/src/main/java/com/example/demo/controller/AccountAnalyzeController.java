@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class AccountAnalyzeController {
-    
+
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
 
