@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.AccountAnalyzeDTO;
-import com.example.demo.dto.FeedbackDTO;
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.dto.PaymentDTO;
+import com.example.demo.dto.*;
 import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +13,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,7 +73,16 @@ public class AccountAnalyzeController {
     public void mission() {
         List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberId(memberId);
         System.out.println(dtos);
-        System.out.println(surveyService.findBySurveyId(memberId));
+        SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
+        List<String> fixedEntry = Arrays.asList(surveyDTO.getFixedEntry().split(","));
+        for (AccountAnalyzeDTO useEntry : dtos) {
+            for (String fEntry : fixedEntry) {
+                if (useEntry.equals(fEntry)) {
+                    System.out.println(fEntry);
+                }
+            }
+        }
+
     }
 
 }
