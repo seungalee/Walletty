@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.SurveyDTO;
+import com.example.demo.service.AccountAnalyzeService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.PaymentService;
 import com.example.demo.service.SurveyService;
@@ -168,61 +169,7 @@ public class MemberController {
 
     */
 
-    // ************* payment **************
 
-
-    private final PaymentService paymentService;
-
-    @GetMapping("/member/payment")
-    public void paymentForm() throws IOException, InterruptedException {
-
-        /*
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/payments/orders/qqqqq123I893LDucg"))
-                .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-        */
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2022-01-01T00:00:00&endDate=2023-10-20T23:59:59"))
-                .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-
-        String paymentstr = response.body();
-        paymentstr = paymentstr.replace("mId", "mid");
-
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            // 스트링에서 DTO로 매핑하기
-            //PaymentDTO paymentDTO = mapper.readValue(paymentstr, PaymentDTO.class);
-            //System.out.println(paymentDTO);
-
-            List<PaymentDTO> dtos = Arrays.asList(mapper.readValue(paymentstr, PaymentDTO[].class));
-            System.out.println(dtos.size() + "개의 dto : " +dtos);
-
-            for(PaymentDTO pay : dtos){
-                String data[] = pay.getOrderId().split("-");
-                if(pay.getStatus().equals("DONE") && data[0].equals("pay")){  //CANCELED, DONE, WAITING_FOR_DEPOSIT
-                    pay.setEntry(data[1]);
-                    pay.setOrderTime(data[3]);
-                    pay.setMemberId("qq");
-                    //System.out.println(pay);
-                    paymentService.save(pay);
-                }
-            }
-
-
-        } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-    }
 
 
 }

@@ -24,7 +24,7 @@ public class PaymentEntity {
     //@Column
     //private String paymentKey;
 
-    @Column(unique = true)
+    @Column
     private String orderId; //"orderId": "pay-cafe-1-0901"
 
     @Column
