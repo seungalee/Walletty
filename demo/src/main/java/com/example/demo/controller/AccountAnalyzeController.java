@@ -26,6 +26,9 @@ public class AccountAnalyzeController {
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
     private final SurveyService surveyService;
+
+    private final MissionService missionService;
+
     String memberId = "qq";
 
     @GetMapping("/member/payment")
@@ -129,6 +132,16 @@ public class AccountAnalyzeController {
 
         System.out.println(missionEntry);
         System.out.println(missionMoney);
+
+        //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now까지)
+        MissionDTO missionDTO = new MissionDTO();
+        missionDTO.setMemberId(memberId);
+        missionDTO.setMissionEntry(missionEntry);
+        missionDTO.setMissionMoney(missionMoney);
+        missionDTO.setNow("True");
+        missionService.save(missionDTO);
+
+
     }
 
 
