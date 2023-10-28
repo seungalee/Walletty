@@ -18,6 +18,7 @@ body {
   min-height: 100vh;
   background-color: #f5f3f4;
   font-family: "Noto Sans KR", sans-serif;
+  padding-top: 40px;
 }
 
 /* Components */
@@ -38,6 +39,22 @@ body {
 
 .button:hover {
   background-color: var(--strpurple);
+}
+/* 
+MyHeader
+*/
+.MyHeader {
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 5px;
+  box-shadow: 0 1px 4px -2px #989ca0;
+  /* background-color: #f8f3fb; */
 }
 
 /* Login 
@@ -220,4 +237,43 @@ page
   border-bottom: 3px solid;
   border-color: var(--mygray);
   color: var(--mygray);
+}
+
+/* Mission
+
+*/
+.Mission .MissionList {
+  width: 600px;
+  height: 800px;
+}
+.mission_select_box .SelectMenu {
+  width: 150px;
+  height: 30px;
+  border: 1px var(--mygray) solid;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align-last: center;
+  text-align: center;
+}
+
+/* feedback */
+.feedback_page {
+  display: flex;
+}
+.feedback_page img {
+  width: 150px;
+  height: 200px;
+  margin-right: 10px;
+}
+
+.FeedbackList {
+  background-color: white;
+  padding: 20px 30px;
+}
+
+.feedback_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

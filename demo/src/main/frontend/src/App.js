@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Survey from "./pages/Survey";
+import Feedback from "./pages/Feedback";
+import Mission from "./pages/Mission";
 import { UserProvider } from "./context/UserContext";
 import Survey_goalmoney from "./pages/Survey_goalmoney";
 
@@ -20,6 +22,8 @@ function App() {
             <Route path="/join" element={<Join />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/survey-goalmoney" element={<Survey_goalmoney />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/mission" element={<Mission />} />
           </Routes>
         </div>
       </BrowserRouter>
