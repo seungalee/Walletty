@@ -4,8 +4,8 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 const consumeList = [
-  { value: "eat_out", name: "외식" },
-  { value: "delivery", name: "배달" },
+  { value: "eatout", name: "외식" },
+  { value: "deliver", name: "배달" },
   { value: "cafe", name: "카페" },
   { value: "snack", name: "간식" },
   { value: "taxi", name: "택시" },
@@ -61,13 +61,13 @@ const Survey = () => {
     } else if (goalCheckedList.length !== 3) {
       alert("절약하고 싶은 항목은 반드시 세 개 선택해야 합니다.");
     } else if (
-      goalCheckedList.filter((it) => fixedCheckedList.includes(it)).length !== 0
+        goalCheckedList.filter((it) => fixedCheckedList.includes(it)).length !== 0
     ) {
       console.log(
-        goalCheckedList.filter((it) => fixedCheckedList.includes(it))
+          goalCheckedList.filter((it) => fixedCheckedList.includes(it))
       );
       alert(
-        "두 질문은 중복되는 항목을 가질 수 없습니다. 각자 다른 항목을 선택해 주세요"
+          "두 질문은 중복되는 항목을 가질 수 없습니다. 각자 다른 항목을 선택해 주세요"
       );
     } else {
       setGoalRight(!goalRight);
@@ -78,63 +78,63 @@ const Survey = () => {
   };
 
   return (
-    <div>
-      <h2>가입해주셔서 감사합니다!</h2>
-      <h4>
-        사용자님의 소비 습관을 파악하기 위한 설문을 제출하면 서비스가
-        시작됩니다.
-      </h4>
-      <div className="survey_qs">
-        <div className="survey_q_box">
-          <div className="survey_q_text">
-            소비하는 항목 중 줄이기 힘든 고정지출에는 어떤 것이 있나요? (최대
-            2개 선택)
-          </div>
-          <div className="checkbox_list_box">
-            {consumeList.map((item) => (
-              <div className="checkbox_items" key={`fixed_${item.value}`}>
-                <input
-                  className={`${
-                    fixedCheckedList.includes(item)
-                      ? "checkbox_item_checked"
-                      : ""
-                  }`}
-                  type="checkbox"
-                  id={`fixed_${item.value}`}
-                  checked={fixedCheckedList.includes(item)}
-                  onChange={(e) => fixedCheckHandler(e, item)}
-                />
+      <div>
+        <h2>가입해주셔서 감사합니다!</h2>
+        <h4>
+          사용자님의 소비 습관을 파악하기 위한 설문을 제출하면 서비스가
+          시작됩니다.
+        </h4>
+        <div className="survey_qs">
+          <div className="survey_q_box">
+            <div className="survey_q_text">
+              소비하는 항목 중 줄이기 힘든 고정지출에는 어떤 것이 있나요? (최대
+              2개 선택)
+            </div>
+            <div className="checkbox_list_box">
+              {consumeList.map((item) => (
+                  <div className="checkbox_items" key={`fixed_${item.value}`}>
+                    <input
+                        className={`${
+                            fixedCheckedList.includes(item)
+                                ? "checkbox_item_checked"
+                                : ""
+                        }`}
+                        type="checkbox"
+                        id={`fixed_${item.value}`}
+                        checked={fixedCheckedList.includes(item)}
+                        onChange={(e) => fixedCheckHandler(e, item)}
+                    />
 
-                <label htmlFor={`fixed_${item.value}`}>{item.name}</label>
-              </div>
-            ))}
+                    <label htmlFor={`fixed_${item.value}`}>{item.name}</label>
+                  </div>
+              ))}
+            </div>
           </div>
-        </div>
-        <div className="survey_q_box">
-          <div className="survey_q_text">
-            가장 절약하고 싶은 항목 세 가지를 선택해 주세요.
+          <div className="survey_q_box">
+            <div className="survey_q_text">
+              가장 절약하고 싶은 항목 세 가지를 선택해 주세요.
+            </div>
+            <div className="checkbox_list_box">
+              {consumeList.map((item) => (
+                  <div className="checkbox_items" key={`goal_${item.value}`}>
+                    <input
+                        className={`${
+                            goalCheckedList.includes(item)
+                                ? "checkbox_item_checked"
+                                : ""
+                        }`}
+                        type="checkbox"
+                        id={`goal_${item.value}`}
+                        checked={goalCheckedList.includes(item)}
+                        onChange={(e) => goalCheckHandler(e, item)}
+                    />
+                    <label htmlFor={`goal_${item.value}`}>{item.name}</label>
+                  </div>
+              ))}
+            </div>
           </div>
-          <div className="checkbox_list_box">
-            {consumeList.map((item) => (
-              <div className="checkbox_items" key={`goal_${item.value}`}>
-                <input
-                  className={`${
-                    goalCheckedList.includes(item)
-                      ? "checkbox_item_checked"
-                      : ""
-                  }`}
-                  type="checkbox"
-                  id={`goal_${item.value}`}
-                  checked={goalCheckedList.includes(item)}
-                  onChange={(e) => goalCheckHandler(e, item)}
-                />
-                <label htmlFor={`goal_${item.value}`}>{item.name}</label>
-              </div>
-            ))}
-          </div>
-        </div>
-        <Button text={"선택 완료"} onClick={allSubmitHandler} type={"survey"} />
-        {/* {goalRight && (
+          <Button text={"선택 완료"} onClick={allSubmitHandler} type={"survey"} />
+          {/* {goalRight && (
           <div className="survey_q_box">
             <div className="survey_q_text">
               각 항목별로 줄이고 싶은 목표 금액을 입력해 주세요. 목표 금액은
@@ -142,8 +142,8 @@ const Survey = () => {
             </div>
           </div>
         )} */}
+        </div>
       </div>
-    </div>
   );
 };
 
