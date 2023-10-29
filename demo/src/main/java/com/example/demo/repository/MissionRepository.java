@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface MissionRepository extends JpaRepository<MissionEntity, String> {
     Optional<MissionEntity> findByMemberId(String memberId);
+    Optional<MissionEntity> findByMemberIdAndStartdate(String memberId, String startdate);
 }

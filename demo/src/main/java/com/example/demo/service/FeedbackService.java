@@ -18,10 +18,9 @@ import java.util.Random;
 public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
-
     private final FeedbackCommentRepository feedbackCommentRepository;
 
-    public void save(String content) {
+    public void save(String id, String content) {
         List<FeedbackCommentEntity> sourceData = feedbackCommentRepository.findAll();
 
         Random random = new Random();
@@ -31,9 +30,11 @@ public class FeedbackService {
         String sendFront = randomComment.getComment() + " " + content;
 
         FeedbackEntity feedbackEntity = new FeedbackEntity();
+        feedbackEntity.setMemberId(id);
         feedbackEntity.setContent(content);
         feedbackEntity.setComment(randomComment.getComment());
         feedbackEntity.setSendFront(sendFront);
+        feedbackEntity.setOkToSend("false");
 
         feedbackRepository.save(feedbackEntity);
 
@@ -50,6 +51,8 @@ public class FeedbackService {
         }
 
     }
+
+
 
     /*
     public void saveContent(String content) {
