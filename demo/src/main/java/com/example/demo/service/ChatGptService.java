@@ -106,4 +106,49 @@ public class ChatGptService {
                 )
         );
     }
+
+    public ChatGptResponse askQuestionM(String selectedMemberId, String missionDate){
+        //String selectedMemberId = "qq";
+        //String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
+        List<MemberEntity> memberAll = memberRepository.findAll();
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId);
+        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartdate(selectedMemberId,missionDate);
+        Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
+
+        String finalQuestion = "이번주는 " + entryEntity.get().getEntryKorean() + "비에서 " + missionEntity.get().getMissionMoney()
+                + "원 이하로 돈을 쓰라고 엄마 말투로 짧게 잔소리를 해줘.";
+
+        System.out.println(finalQuestion);
+
+        List<ChatGptMessage> messages = new ArrayList<>();
+        messages.add(ChatGptMessage.builder()
+                .role(ChatGptConfig.USER)
+                .content("이번주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 짧게 잔소리를 해줘.")
+                .build());
+        messages.add(ChatGptMessage.builder()
+                .role(ChatGptConfig.ASSISTANT)
+                .content("이번주에는 교통비를 1000원 이하로 쓰도록 해!")
+                .build());
+        messages.add(ChatGptMessage.builder()
+                .role(ChatGptConfig.SYSTEM)
+                .content("assistant는 잔소리하는 엄마야")
+                .build());
+        messages.add(ChatGptMessage.builder()
+                .role(ChatGptConfig.ROLE)
+//                .content(questionRequest.getQuestion())
+                .content(finalQuestion)
+                .build());
+        return this.getResponse(
+                this.buildHttpEntity(
+                        new ChatGptRequest(
+                                ChatGptConfig.CHAT_MODEL,
+                                ChatGptConfig.MAX_TOKEN,
+                                ChatGptConfig.TEMPERATURE,
+                                ChatGptConfig.STREAM,
+                                messages
+                                //ChatGptConfig.TOP_P
+                        )
+                )
+        );
+    }
 }

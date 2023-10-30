@@ -10,6 +10,7 @@ import com.example.demo.repository.MemberRepository;
 import com.example.demo.service.ChatGptService;
 import com.example.demo.service.FeedbackCommentService;
 import com.example.demo.service.FeedbackService;
+import com.example.demo.service.MissionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +35,8 @@ public class ChatGptController {
 
     private final FeedbackService feedbackService;
     private final MemberRepository memberRepository;
+
+    private final MissionService missionService;
 
 
     //@Operation(summary = "Question to Chat-GPT")
@@ -60,6 +63,21 @@ public class ChatGptController {
         //}
         //return chatGptResponse;
         //return apiResponse.getResponseEntity(locale, code, chatGptResponse != null ? chatGptResponse.getChoices().get(0).getMessage().getContent() : new ChatGptResponse());
+    }
+
+    @RequestMapping("/questionM")
+    public void sendQuestionM(@RequestBody MemberDTO memberDTO){
+        ChatGptResponse chatGptResponse = null;
+
+        String selectedMemberId = memberDTO.getMemberId();
+        String missionDate = "0908";
+
+        chatGptResponse = chatGptService.askQuestionM(selectedMemberId, missionDate);
+
+        String content = chatGptResponse.getChoices().get(0).getMessage().getContent();
+        System.out.println(content);
+        // 여기에 id 관련 추가
+        missionService.saveMissionSen(selectedMemberId, missionDate, content);
     }
 
     @PostMapping("/feedback") // 프론트에서 회원 id와 함께 피드백 요청하면 해당 회원의 피드백 테이블에 아직 안 보낸 피드백을 골라서 넘겨줌.
