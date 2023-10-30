@@ -28,10 +28,12 @@ public class MissionService {
 
     public void saveMissionSen(String memberId, String missionDate, String content) {
 
-        Optional<MissionEntity> missionEntity = missionRepository.findByMemberIdAndStartdate(memberId, missionDate);
-        if(missionEntity.isPresent()) {
-            System.out.println(missionEntity.get().getMissionEntry());
-            missionEntity.get().setMissionSen(content);
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByMemberIdAndStartdate(memberId, missionDate);
+        if(ismissionEntity.isPresent()) {
+            //System.out.println(ismissionEntity.get().getMissionEntry());
+            MissionEntity missionEntity = ismissionEntity.get();
+            missionEntity.setMissionSen(content);
+            missionRepository.save(missionEntity);
         }else{
             System.out.println("미션 테이블에 id랑 날짜가 없는데 미션을 줄 수 없음. db 다시 업데이트");
         }

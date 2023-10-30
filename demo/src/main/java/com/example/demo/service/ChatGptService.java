@@ -116,14 +116,14 @@ public class ChatGptService {
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
 
         String finalQuestion = "이번주는 " + entryEntity.get().getEntryKorean() + "비에서 " + missionEntity.get().getMissionMoney()
-                + "원 이하로 돈을 쓰라고 엄마 말투로 짧게 잔소리를 해줘.";
+                + "원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.";
 
         System.out.println(finalQuestion);
 
         List<ChatGptMessage> messages = new ArrayList<>();
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.USER)
-                .content("이번주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 짧게 잔소리를 해줘.")
+                .content("이번주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.")
                 .build());
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.ASSISTANT)
