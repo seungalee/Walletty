@@ -4,6 +4,7 @@ import MyHeader from "../components/MyHeader";
 import { useUserState } from "../context/UserContext";
 
 const Feedback = () => {
+  const id = "test";
   const [data, setData] = useState([]);
   const [allFeedbackList, setAllFeedbackList] = useState([]);
   const dummyData = [
@@ -28,7 +29,7 @@ const Feedback = () => {
       missionMoney: "25000",
       missionSen: "쇼핑비를 2만5천원 절약해봐!",
       now: "true",
-      feedbackSen: "쇼핑비를 지나치게 많이 썼어",
+      feedbackSen: "쇼핑비를 지나치게 많이 썼어.",
       accDeposit: "DONE",
       successed: "false",
     },
@@ -60,29 +61,65 @@ const Feedback = () => {
   ];
   const { current: checkArray } = useRef(dummyData);
   useEffect(() => {
-    setAllFeedbackList(dummyData);
-    console.log(allFeedbackList);
-    const newList = allFeedbackList.map(
-      ({
-        enddate,
-        missionEntry,
-        missionMoney,
-        now,
-        accDeposit,
-        successed,
-        ...rest
-      }) => rest
-    );
-    setData(newList);
-    console.log(newList);
-    console.log(data);
-    console.log(data.length);
+    // setAllFeedbackList(dummyData);
+    // console.log(allFeedbackList);6
+    // const newList = allFeedbackList.map(
+    //   ({
+    //     enddate,
+    //     missionEntry,
+    //     missionMoney,
+    //     now,
+    //     accDeposit,
+    //     successed,
+    //     ...rest
+    //   }) => rest
+    // );
+    // setData(newList);
+    // console.log(newList);
+    // console.log(data);
+    // console.log(data.length);
+    fetch("/chat-gpt/feedback", {
+      method: "POST",
+      body: JSON.stringify({
+        memberId: "qq",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((result) => result.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  const testApi = () => {
+    fetch("/feedback", {
+      method: "POST",
+      body: JSON.stringify({
+        memberId: id,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((result) => result.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const { user } = useUserState();
   return (
     <div>
       <MyHeader nowpage={"feedback"} />
       <div className="feedback_page">
+        {/* <button onClick={testApi}>요청보내기</button> */}
         <img src="/assets/chatbot_mom.png" />
         <FeedbackList feedbackList={data} listLen={data.length} />
       </div>

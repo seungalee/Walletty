@@ -47,7 +47,7 @@ const RightStyled = styled.div`
       font-weight: ${(props) => props.nowpage === "feedback" && "700"};
     }
     &:nth-child(5) {
-      font-weight: ${(props) => props.nowpage === "safe" && "700"};
+      font-weight: ${(props) => props.nowpage === "vault" && "700"};
     }
   }
 `;
@@ -71,9 +71,9 @@ const MyHeader = ({ nowpage }) => {
     e.preventDefault();
     navigate("/feedback");
   };
-  const safeClickHandler = (e) => {
+  const vaultClickHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/vault");
   };
   const logoutClickHandler = (e) => {
     e.preventDefault();
@@ -90,7 +90,7 @@ const MyHeader = ({ nowpage }) => {
         <div onClick={statisticsClickHandler}>통계</div>
         <div onClick={missionClickHandler}>미션</div>
         <div onClick={feedbackClickHandler}>피드백</div>
-        <div onClick={safeClickHandler}>금고</div>
+        <div onClick={vaultClickHandler}>금고</div>
         <div onClick={logoutClickHandler}>로그아웃</div>
       </RightStyled>
     </div>

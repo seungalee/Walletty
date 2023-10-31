@@ -25,7 +25,7 @@ public class FeedbackDTO {
         feedbackDTO.setContent(feedbackEntity.getContent());
         feedbackDTO.setComment(feedbackEntity.getComment());
         feedbackDTO.setSendFront(feedbackEntity.getSendFront());
-        feedbackDTO.setOkToSend(feedbackDTO.getOkToSend());
+        feedbackDTO.setOkToSend(feedbackEntity.getOkToSend());
         return feedbackDTO;
     }
 }
