@@ -9,6 +9,7 @@ import com.example.demo.repository.FeedbackRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -50,6 +51,15 @@ public class FeedbackService {
             return null;
         }
 
+    }
+
+    public List<FeedbackDTO> findByMemberId(String memberId) {
+        List<FeedbackEntity> byMemberId = feedbackRepository.findByMemberId(memberId);
+        List<FeedbackDTO> fDTO = new ArrayList<>();
+        for (FeedbackEntity ent : byMemberId){
+            fDTO.add(FeedbackDTO.toFeedbackDTO(ent));
+        }
+        return fDTO;
     }
 
 
