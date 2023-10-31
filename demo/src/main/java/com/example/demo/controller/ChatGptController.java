@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ChatGptResponse;
-import com.example.demo.dto.FeedbackDTO;
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.dto.QuestionRequest;
+import com.example.demo.dto.*;
 import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.entity.MemberEntity;
 import com.example.demo.repository.MemberRepository;
@@ -85,6 +82,12 @@ public class ChatGptController {
         FeedbackDTO feedbackDTO = feedbackService.findByMemberIdAndOkToSend(memberDTO.getMemberId(),"false");
         return "{\"sendFront\" : \"" + feedbackDTO.getSendFront() + "\"}"; // Json형식으로 feedback String 리턴
         // return feedbackDTO.getSendFront();
+    }
+
+    @PostMapping("/mission") // 프론트에서 회원 id와 함께 미션 요청하면 해당 회원의 미션 테이블에서 현재 미션을 골라서 넘겨줌.
+    public String sendMission(@RequestBody MemberDTO memberDTO){
+        MissionDTO missionDTO = missionService.findByMemberIdAndNow(memberDTO.getMemberId(),"True");
+        return "{\"missionSen\" : \"" + missionDTO.getMissionSen() + "\"}";
     }
 
 

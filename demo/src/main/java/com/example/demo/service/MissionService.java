@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.MissionDTO;
 import com.example.demo.entity.AccountAnalyzeEntity;
 import com.example.demo.entity.FeedbackCommentEntity;
@@ -40,4 +41,14 @@ public class MissionService {
 
     }
 
+    public MissionDTO findByMemberIdAndNow(String memberId, String now) {
+        Optional<MissionEntity> byMemberIdNow = missionRepository.findByMemberIdAndNow(memberId,now);
+        if(byMemberIdNow.isPresent()) {
+            MissionEntity missionEntity = byMemberIdNow.get();
+            MissionDTO mDTO = MissionDTO.toMissionDTO(missionEntity);
+            return mDTO;
+        }else{
+            return null;
+        }
+    }
 }
