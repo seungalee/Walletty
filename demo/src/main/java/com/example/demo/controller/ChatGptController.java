@@ -86,9 +86,10 @@ public class ChatGptController {
     }
 
     @PostMapping("/mission") // 프론트에서 회원 id와 함께 미션 요청하면 해당 회원의 미션 테이블에서 현재 미션을 골라서 넘겨줌.
-    public String sendMission(@RequestBody MemberDTO memberDTO){
-        MissionDTO missionDTO = missionService.findByMemberIdAndNow(memberDTO.getMemberId(),"True");
-        return "{\"missionSen\" : \"" + missionDTO.getMissionSen() + "\"}";
+    public List<MissionDTO> sendMission(@RequestBody MemberDTO memberDTO){
+        List<MissionDTO> missionDTO = missionService.findByMemberId(memberDTO.getMemberId());
+        //return "{\"missionSen\" : \"" + missionDTO.getMissionSen() + "\"}";
+        return missionDTO;
     }
 
 

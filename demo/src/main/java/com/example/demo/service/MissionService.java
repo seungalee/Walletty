@@ -10,6 +10,7 @@ import com.example.demo.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -41,6 +42,7 @@ public class MissionService {
 
     }
 
+    /*
     public MissionDTO findByMemberIdAndNow(String memberId, String now) {
         Optional<MissionEntity> byMemberIdNow = missionRepository.findByMemberIdAndNow(memberId,now);
         if(byMemberIdNow.isPresent()) {
@@ -50,5 +52,16 @@ public class MissionService {
         }else{
             return null;
         }
+    }
+
+     */
+
+    public List<MissionDTO> findByMemberId(String memberId) {
+        List<MissionEntity> byMemberId = missionRepository.findByMemberId(memberId);
+        List<MissionDTO> mDTO = new ArrayList<>();
+        for (MissionEntity ent : byMemberId){
+            mDTO.add(MissionDTO.toMissionDTO(ent));
+        }
+        return mDTO;
     }
 }
