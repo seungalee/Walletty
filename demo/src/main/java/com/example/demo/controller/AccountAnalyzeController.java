@@ -30,7 +30,7 @@ public class AccountAnalyzeController {
 
     @GetMapping("/member/payment")
     public void paymentForm() throws IOException, InterruptedException {
-
+        // 트랜잭션은 orderId의 날짜 기준으로 일주일 단위로 가져온다고 가정. 결제내역을 가져올 때는 그때그때 코드 수정 필요.
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2023-11-01T00:00:00&endDate=2023-11-30T23:59:59"))
                 .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
