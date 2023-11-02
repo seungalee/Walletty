@@ -31,7 +31,6 @@ public class ChatGptController {
     private final ChatGptService chatGptService;
 
     private final FeedbackService feedbackService;
-    private final MemberRepository memberRepository;
 
     private final MissionService missionService;
 

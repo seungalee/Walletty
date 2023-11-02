@@ -121,7 +121,7 @@ public class ChatGptService {
         List<ChatGptMessage> messages = new ArrayList<>();
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.USER)
-                .content("이번 주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.")
+                .content("이번 주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.") //교통비를 이라고 쓰는게 더 낫지 않나?? 나중에 보고 수정
                 .build());
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.ASSISTANT)

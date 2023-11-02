@@ -30,6 +30,9 @@ public class FeedbackEntity {
     private String sendFront;
 
     @Column
+    private String startdate;
+
+    @Column
     private String okToSend;
 
     public static FeedbackEntity toFeedbackEntity(FeedbackDTO feedbackDTO){
@@ -39,6 +42,7 @@ public class FeedbackEntity {
         feedbackEntity.setContent(feedbackDTO.getContent());
         feedbackEntity.setComment(feedbackDTO.getComment());
         feedbackEntity.setSendFront(feedbackDTO.getSendFront());
+        feedbackEntity.setStartdate(feedbackDTO.getStartdate());
         feedbackEntity.setOkToSend(feedbackDTO.getOkToSend());
 
         return feedbackEntity;

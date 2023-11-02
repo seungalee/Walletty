@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface FeedbackRepository extends JpaRepository<FeedbackEntity, String> {
+public interface FeedbackRepository extends JpaRepository<FeedbackEntity, Long> {
     List<FeedbackEntity> findByMemberId(String memberId);
     Optional<FeedbackEntity> findByMemberIdAndOkToSend(String memberId, String okToSend);
 }

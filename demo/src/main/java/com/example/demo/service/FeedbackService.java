@@ -6,6 +6,7 @@ import com.example.demo.entity.FeedbackCommentEntity;
 import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.repository.FeedbackCommentRepository;
 import com.example.demo.repository.FeedbackRepository;
+import com.example.demo.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;
     private final FeedbackCommentRepository feedbackCommentRepository;
+    private final MissionRepository missionRepository;
 
     public void save(String id, String content) {
         List<FeedbackCommentEntity> sourceData = feedbackCommentRepository.findAll();
@@ -35,6 +37,7 @@ public class FeedbackService {
         feedbackEntity.setContent(content);
         feedbackEntity.setComment(randomComment.getComment());
         feedbackEntity.setSendFront(sendFront);
+        //feedbackEntity.setStartdate(missionRepository.findByMemberIdAndStartDate(id,));
         feedbackEntity.setOkToSend("false");
 
         feedbackRepository.save(feedbackEntity);

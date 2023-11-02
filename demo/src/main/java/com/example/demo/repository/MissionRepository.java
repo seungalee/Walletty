@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MissionRepository extends JpaRepository<MissionEntity, String> {
+public interface MissionRepository extends JpaRepository<MissionEntity, Integer> {
     List<MissionEntity> findByMemberId(String memberId);
     Optional<MissionEntity> findByMemberIdAndStartDate(String memberId, String startDate);
 
