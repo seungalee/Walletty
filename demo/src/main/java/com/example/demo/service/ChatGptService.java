@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.ChatGptConfig;
 import com.example.demo.ChatGptMessage;
+import com.example.demo.dto.AccountAnalyzeDTO;
 import com.example.demo.dto.ChatGptRequest;
 import com.example.demo.dto.ChatGptResponse;
 import com.example.demo.dto.QuestionRequest;
@@ -59,15 +60,15 @@ public class ChatGptService {
 
         return responseEntity.getBody();
     }
-    public ChatGptResponse askQuestion(String selectedMemberId, String missionDate){
+    public ChatGptResponse askQuestion(String selectedMemberId, String startDate){
         //String selectedMemberId = "qq";
         //String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
-        List<MemberEntity> memberAll = memberRepository.findAll();
-        Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId);
-        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId,missionDate);
-        Optional<AccountAnalyzeEntity> accountAnalyzeEntity = accountAnalyzeRepository.
-                findByEntryAndMemberId(missionEntity.get().getMissionEntry(),selectedMemberId); // enddate로도 find??
-        Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
+        // List<MemberEntity> memberAll = memberRepository.findAll(); //ㅇ
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId); // 사용자 이름
+        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId,startDate); //다음주차 미션 항목을 가져오기 위함.
+        Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry()); // 영어 ->한글 변환을 위함
+        Optional<AccountAnalyzeEntity> accountAnalyzeEntity = accountAnalyzeRepository.findByEntryAndMemberIdAndOkToUse(
+                missionEntity.get().getMissionEntry(),selectedMemberId,false); // 해당 사용자의 이번주 피드백 항목에 대한 totalAmount를 얻기 위함.
 
         String finalQuestion = "내 이름은 " + memberEntity.get().getMemberName() + "이고, 내가 "
                 + entryEntity.get().getEntryKorean() + "에 " + accountAnalyzeEntity.get().getTotalAmount() + "원을 썼는데 나에게 "
@@ -112,7 +113,7 @@ public class ChatGptService {
         Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId, startDate);
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
 
-        String finalQuestion = "이번 주는 " + entryEntity.get().getEntryKorean() + "비에서 "
+        String finalQuestion = "이번 주는 " + entryEntity.get().getEntryKorean() + "비를 "
                 + missionEntity.get().getMissionMoney()
                 + "원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.";
 
@@ -121,7 +122,7 @@ public class ChatGptService {
         List<ChatGptMessage> messages = new ArrayList<>();
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.USER)
-                .content("이번 주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.") //교통비를 이라고 쓰는게 더 낫지 않나?? 나중에 보고 수정
+                .content("이번 주는 교통비를 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.") // 나중에 보고 수정
                 .build());
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.ASSISTANT)

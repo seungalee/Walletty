@@ -28,6 +28,9 @@ public class AccountAnalyzeEntity {
     @Column
     private String orderWeek;
 
+    @Column
+    private Boolean okToUse;
+
     public static AccountAnalyzeEntity toAccountAnalyzeEntity(AccountAnalyzeDTO accountAnalyzeDTO){
         AccountAnalyzeEntity accountAnalyzeEntity = new AccountAnalyzeEntity();
         accountAnalyzeEntity.setAnalyzeId(accountAnalyzeDTO.getAnalyzeId());
@@ -35,6 +38,7 @@ public class AccountAnalyzeEntity {
         accountAnalyzeEntity.setEntry(accountAnalyzeDTO.getEntry());
         accountAnalyzeEntity.setTotalAmount(accountAnalyzeDTO.getTotalAmount());
         accountAnalyzeEntity.setOrderWeek(accountAnalyzeDTO.getOrderWeek());
+        accountAnalyzeEntity.setOkToUse(accountAnalyzeDTO.getOkToUse());
         return accountAnalyzeEntity;
     }
 }

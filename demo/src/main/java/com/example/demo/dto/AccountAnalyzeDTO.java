@@ -17,6 +17,7 @@ public class AccountAnalyzeDTO {
     private String entry;
     private Integer totalAmount;
     private String orderWeek;
+    private Boolean okToUse; //미션이랑 피드백을 만들 때 사용을 했는지 여부
 
     public static AccountAnalyzeDTO toAccountAnalyzeDTO(AccountAnalyzeEntity accountAnalyzeEntity){
         AccountAnalyzeDTO accountAnalyzeDTO = new AccountAnalyzeDTO();
@@ -25,15 +26,17 @@ public class AccountAnalyzeDTO {
         accountAnalyzeDTO.setEntry(accountAnalyzeEntity.getEntry());
         accountAnalyzeDTO.setTotalAmount(accountAnalyzeEntity.getTotalAmount());
         accountAnalyzeDTO.setOrderWeek(accountAnalyzeEntity.getOrderWeek());
+        accountAnalyzeDTO.setOkToUse(accountAnalyzeEntity.getOkToUse());
         return accountAnalyzeDTO;
     }
 
-    public AccountAnalyzeDTO(String memberId, String entry, Integer totalAmount, String orderWeek) {
+    public AccountAnalyzeDTO(String memberId, String entry, Integer totalAmount, String orderWeek, Boolean okToUse) {
         // 전역 변수에 인풋으로 들어온 변수값 매핑
         this.memberId = memberId;
         this.entry = entry;
         this.totalAmount = totalAmount;
         this.orderWeek = orderWeek;
+        this.okToUse = okToUse;
     }
     public AccountAnalyzeDTO(long analyzeId, String memberId, String entry, Integer totalAmount) {
         // 전역 변수에 인풋으로 들어온 변수값 매핑

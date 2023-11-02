@@ -34,7 +34,7 @@ public class MissionController {
         String missionEntry = "";
         int missionMoney = 0;
 
-        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberId(memberId);
+        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
         System.out.println(dtos);
 
         List<String> missionEntries = new ArrayList<>();

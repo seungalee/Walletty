@@ -23,7 +23,7 @@ public class FeedbackService {
     private final FeedbackCommentRepository feedbackCommentRepository;
     private final MissionRepository missionRepository;
 
-    public void save(String id, String content) {
+    public void save(String id, String content, String startDate) {
         List<FeedbackCommentEntity> sourceData = feedbackCommentRepository.findAll();
 
         Random random = new Random();
@@ -37,7 +37,7 @@ public class FeedbackService {
         feedbackEntity.setContent(content);
         feedbackEntity.setComment(randomComment.getComment());
         feedbackEntity.setSendFront(sendFront);
-        //feedbackEntity.setStartdate(missionRepository.findByMemberIdAndStartDate(id,));
+        feedbackEntity.setStartdate(startDate);
         feedbackEntity.setOkToSend("false");
 
         feedbackRepository.save(feedbackEntity);

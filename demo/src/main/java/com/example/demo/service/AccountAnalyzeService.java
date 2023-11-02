@@ -66,7 +66,7 @@ public class AccountAnalyzeService {
                 } else if (paydate>=1108 && paydate<=1114) {
                     paydate = 1114;
                 }
-                AccountAnalyzeDTO dto = new AccountAnalyzeDTO(pay.getMemberId(), pay.getEntry(), pay.getAmount(), Integer.toString(paydate));
+                AccountAnalyzeDTO dto = new AccountAnalyzeDTO(pay.getMemberId(), pay.getEntry(), pay.getAmount(), Integer.toString(paydate), false);
                 AccountAnalyzeEntity entity = AccountAnalyzeEntity.toAccountAnalyzeEntity(dto);
                 accountAnalyzeRepository.save(entity);
             }
@@ -74,9 +74,24 @@ public class AccountAnalyzeService {
         return "memberDTO"; //여기 나중에 수정
     }
 
-
-    public List<AccountAnalyzeDTO> findByMemberId(String memberId) {
-        List<AccountAnalyzeEntity> analyzeAll = accountAnalyzeRepository.findByMemberId(memberId);
+    public String findThisWeek(String selectedMemberId){
+        List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, false); //이번주차 결제내역 분석
+        AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 orderWeek 다 같으니까)
+        String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석의 결제내역 마지막 날
+        Integer startDateOfMission = Integer.parseInt(endDateOfAnalyze) + 1; // 의 다음날이 다음주차 미션 시작 날
+        String startDate = String.valueOf(startDateOfMission);
+        return startDate;
+    }
+    public void changeOkToUseWithTrue(String memberId){ // 피드백, 미션 다 만들고 난 뒤 이번주차 결제내역 분석 항목들 모두 okToUse바꿔주기
+        List<AccountAnalyzeEntity> thisWeekEntity = accountAnalyzeRepository.findByMemberIdAndOkToUse(memberId,false);
+        List<AccountAnalyzeDTO> thisWeekDTO = new ArrayList<>();
+        for (AccountAnalyzeEntity entity : thisWeekEntity) {
+            //thisWeekDTO.add(AccountAnalyzeDTO.toAccountAnalyzeDTO(entity));
+            entity.setOkToUse(true);
+        }
+    }
+    public List<AccountAnalyzeDTO> findByMemberIdAndOkToUse(String memberId, Boolean okToUse) {
+        List<AccountAnalyzeEntity> analyzeAll = accountAnalyzeRepository.findByMemberIdAndOkToUse(memberId,okToUse);
         List<AccountAnalyzeDTO> aDTO = new ArrayList<>();
         for (AccountAnalyzeEntity entity : analyzeAll) {
             aDTO.add(AccountAnalyzeDTO.toAccountAnalyzeDTO(entity));
