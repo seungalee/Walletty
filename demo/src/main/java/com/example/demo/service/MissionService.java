@@ -21,18 +21,16 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
 
-    //String memberId, String missionEntry, int missionMoney 저장
     public void save(MissionDTO missionDTO) {
         MissionEntity missionEntity = MissionEntity.toMissionEntity(missionDTO);
         missionRepository.save(missionEntity);
 
     }
 
-    public void saveMissionSen(String memberId, String missionDate, String content) {
+    public void saveMissionSen(String memberId, String startDate, String content) {
 
-        Optional<MissionEntity> ismissionEntity = missionRepository.findByMemberIdAndStartdate(memberId, missionDate);
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByMemberIdAndStartDate(memberId, startDate);
         if(ismissionEntity.isPresent()) {
-            //System.out.println(ismissionEntity.get().getMissionEntry());
             MissionEntity missionEntity = ismissionEntity.get();
             missionEntity.setMissionSen(content);
             missionRepository.save(missionEntity);

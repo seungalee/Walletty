@@ -32,7 +32,7 @@ public class PaymentDTO {
 
     private String entry; //항목
 
-    private String orderTime; //거래시간
+    private String orderDate; //거래날짜
 
 
 }

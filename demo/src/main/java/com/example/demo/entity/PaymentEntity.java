@@ -19,6 +19,7 @@ public class PaymentEntity {
 
     @Column
     private String memberId;
+
     //private String mid; // "mId": "tvivarepublica",
 
     //@Column
@@ -40,19 +41,18 @@ public class PaymentEntity {
     private String entry; //항목
 
     @Column
-    private String orderTime; //거래시간
+    private String orderDate; //거래날짜
 
     public static PaymentEntity toPaymentEntity(PaymentDTO paymentDTO){
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setId(paymentDTO.getId());
         paymentEntity.setMemberId(paymentDTO.getMemberId());
-        //paymentEntity.setPaymentKey(paymentDTO.getPaymentKey());
         paymentEntity.setOrderId(paymentDTO.getOrderId());
         paymentEntity.setStatus(paymentDTO.getStatus());
         paymentEntity.setTransactionAt(paymentDTO.getTransactionAt());
         paymentEntity.setAmount(paymentDTO.getAmount());
         paymentEntity.setEntry(paymentDTO.getEntry());
-        paymentEntity.setOrderTime(paymentDTO.getOrderTime());
+        paymentEntity.setOrderDate(paymentDTO.getOrderDate());
 
         return paymentEntity;
     }

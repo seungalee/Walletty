@@ -44,7 +44,7 @@ public class ChatGptController {
         //try {
             // 여기에 id 관련 추가
         String selectedMemberId = memberDTO.getMemberId();
-        String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
+        String missionDate = "1108"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
         //List<MemberEntity> memberAll = memberRepository.findAll();
         //for (MemberEntity mem : memberAll) { //너무 많이 돌아감.
         //    selectedMemberId = mem.getMemberId();
@@ -67,14 +67,14 @@ public class ChatGptController {
         ChatGptResponse chatGptResponse = null;
 
         String selectedMemberId = memberDTO.getMemberId();
-        String missionDate = "0908";
+        String startDate = "1108";
 
-        chatGptResponse = chatGptService.askQuestionM(selectedMemberId, missionDate);
+        chatGptResponse = chatGptService.askQuestionM(selectedMemberId, startDate);
 
         String content = chatGptResponse.getChoices().get(0).getMessage().getContent();
         System.out.println(content);
         // 여기에 id 관련 추가
-        missionService.saveMissionSen(selectedMemberId, missionDate, content);
+        missionService.saveMissionSen(selectedMemberId, startDate, content);
     }
 
     @PostMapping("/feedback") // 프론트에서 회원 id와 함께 피드백 요청하면 해당 회원의 피드백 테이블에 아직 안 보낸 피드백을 골라서 넘겨줌.

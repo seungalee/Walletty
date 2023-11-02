@@ -16,6 +16,7 @@ public class AccountAnalyzeDTO {
     private String memberId;
     private String entry;
     private Integer totalAmount;
+    private String orderWeek;
 
     public static AccountAnalyzeDTO toAccountAnalyzeDTO(AccountAnalyzeEntity accountAnalyzeEntity){
         AccountAnalyzeDTO accountAnalyzeDTO = new AccountAnalyzeDTO();
@@ -23,14 +24,16 @@ public class AccountAnalyzeDTO {
         accountAnalyzeDTO.setMemberId(accountAnalyzeEntity.getMemberId());
         accountAnalyzeDTO.setEntry(accountAnalyzeEntity.getEntry());
         accountAnalyzeDTO.setTotalAmount(accountAnalyzeEntity.getTotalAmount());
+        accountAnalyzeDTO.setOrderWeek(accountAnalyzeEntity.getOrderWeek());
         return accountAnalyzeDTO;
     }
 
-    public AccountAnalyzeDTO(String memberId, String entry, Integer totalAmount) {
+    public AccountAnalyzeDTO(String memberId, String entry, Integer totalAmount, String orderWeek) {
         // 전역 변수에 인풋으로 들어온 변수값 매핑
         this.memberId = memberId;
         this.entry = entry;
         this.totalAmount = totalAmount;
+        this.orderWeek = orderWeek;
     }
     public AccountAnalyzeDTO(long analyzeId, String memberId, String entry, Integer totalAmount) {
         // 전역 변수에 인풋으로 들어온 변수값 매핑

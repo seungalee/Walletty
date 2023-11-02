@@ -25,12 +25,16 @@ public class AccountAnalyzeEntity {
     @Column
     private Integer totalAmount;
 
+    @Column
+    private String orderWeek;
+
     public static AccountAnalyzeEntity toAccountAnalyzeEntity(AccountAnalyzeDTO accountAnalyzeDTO){
         AccountAnalyzeEntity accountAnalyzeEntity = new AccountAnalyzeEntity();
         accountAnalyzeEntity.setAnalyzeId(accountAnalyzeDTO.getAnalyzeId());
         accountAnalyzeEntity.setMemberId(accountAnalyzeDTO.getMemberId());
         accountAnalyzeEntity.setEntry(accountAnalyzeDTO.getEntry());
         accountAnalyzeEntity.setTotalAmount(accountAnalyzeDTO.getTotalAmount());
+        accountAnalyzeEntity.setOrderWeek(accountAnalyzeDTO.getOrderWeek());
         return accountAnalyzeEntity;
     }
 }

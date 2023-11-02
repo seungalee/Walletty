@@ -13,8 +13,8 @@ import lombok.ToString;
 public class MissionDTO {
     private int missionId;
     private String memberId;
-    private String startdate;
-    private String enddate;
+    private String startDate;
+    private String endDate;
     private String missionEntry;
     private int missionMoney;
     private String missionSen;
@@ -25,8 +25,8 @@ public class MissionDTO {
         missionDTO.setMissionId(missionEntity.getMissionId());
         missionDTO.setMemberId(missionEntity.getMemberId());
 
-        missionDTO.setStartdate(missionEntity.getStartdate());
-        missionDTO.setEnddate(missionEntity.getEnddate());
+        missionDTO.setStartDate(missionEntity.getStartDate());
+        missionDTO.setEndDate(missionEntity.getEndDate());
 
         missionDTO.setMissionEntry(missionEntity.getMissionEntry());
         missionDTO.setMissionMoney(missionEntity.getMissionMoney());

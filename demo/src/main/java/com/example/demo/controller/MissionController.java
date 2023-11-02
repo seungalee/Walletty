@@ -26,7 +26,7 @@ public class MissionController {
     private final SurveyService surveyService;
     private final MissionService missionService;
 
-    String memberId = "qq";
+    String memberId = "aa";
 
     @GetMapping("/makeMission")
     public void mission() {
@@ -39,8 +39,10 @@ public class MissionController {
 
         List<String> missionEntries = new ArrayList<>();
 
+        int missionStart = 0;
         for (AccountAnalyzeDTO useEntry : dtos) {
             missionEntries.add(useEntry.getEntry());
+            missionStart = Integer.parseInt(useEntry.getOrderWeek())+1;
         }
         System.out.println(missionEntries);
 
@@ -104,11 +106,17 @@ public class MissionController {
         System.out.println(missionEntry);
         System.out.println(missionMoney);
 
-        //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now까지)
+        int missionEnd = missionStart + 7;
+        String startDate = Integer.toString(missionStart);
+        String endDate = Integer.toString(missionEnd);
+
+        //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
         MissionDTO missionDTO = new MissionDTO();
         missionDTO.setMemberId(memberId);
         missionDTO.setMissionEntry(missionEntry);
         missionDTO.setMissionMoney(missionMoney);
+        missionDTO.setStartDate(startDate);
+        missionDTO.setEndDate(endDate);
         missionDTO.setNow("True");
         missionService.save(missionDTO);
 

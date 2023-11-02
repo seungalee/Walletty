@@ -45,7 +45,13 @@ public class AccountAnalyzeService {
                 originEntity.setTotalAmount(updateAmount);
 
             } else { // 분석 테이블에 없는 항목이면 새로 항목 추가 후 값 넣기
-                AccountAnalyzeDTO dto = new AccountAnalyzeDTO(pay.getMemberId(), pay.getEntry(), pay.getAmount());
+                int paydate = Integer.parseInt(pay.getOrderDate());
+                if(paydate>=1101 && paydate<=1107){
+                    paydate = 1107;
+                } else if (paydate>=1108 && paydate<=1114) {
+                    paydate = 1114;
+                }
+                AccountAnalyzeDTO dto = new AccountAnalyzeDTO(pay.getMemberId(), pay.getEntry(), pay.getAmount(), Integer.toString(paydate));
                 AccountAnalyzeEntity entity = AccountAnalyzeEntity.toAccountAnalyzeEntity(dto);
                 accountAnalyzeRepository.save(entity);
             }

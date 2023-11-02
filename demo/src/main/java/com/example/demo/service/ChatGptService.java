@@ -64,7 +64,7 @@ public class ChatGptService {
         //String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
         List<MemberEntity> memberAll = memberRepository.findAll();
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId);
-        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartdate(selectedMemberId,missionDate);
+        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId,missionDate);
         Optional<AccountAnalyzeEntity> accountAnalyzeEntity = accountAnalyzeRepository.
                 findByEntryAndMemberId(missionEntity.get().getMissionEntry(),selectedMemberId); // enddate로도 find??
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
@@ -107,15 +107,13 @@ public class ChatGptService {
         );
     }
 
-    public ChatGptResponse askQuestionM(String selectedMemberId, String missionDate){
-        //String selectedMemberId = "qq";
-        //String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
-        List<MemberEntity> memberAll = memberRepository.findAll();
-        Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId);
-        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartdate(selectedMemberId,missionDate);
+    public ChatGptResponse askQuestionM(String selectedMemberId, String startDate){
+
+        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId, startDate);
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
 
-        String finalQuestion = "이번주는 " + entryEntity.get().getEntryKorean() + "비에서 " + missionEntity.get().getMissionMoney()
+        String finalQuestion = "이번 주는 " + entryEntity.get().getEntryKorean() + "비에서 "
+                + missionEntity.get().getMissionMoney()
                 + "원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.";
 
         System.out.println(finalQuestion);
@@ -123,11 +121,11 @@ public class ChatGptService {
         List<ChatGptMessage> messages = new ArrayList<>();
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.USER)
-                .content("이번주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.")
+                .content("이번 주는 교통비에서 1000원 이하로 돈을 쓰라고 엄마 말투로 한줄로 잔소리를 해줘.")
                 .build());
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.ASSISTANT)
-                .content("이번주에는 교통비를 1000원 이하로 쓰도록 해!")
+                .content("이번 주에는 교통비를 1000원 이하로 쓰도록 해!")
                 .build());
         messages.add(ChatGptMessage.builder()
                 .role(ChatGptConfig.SYSTEM)

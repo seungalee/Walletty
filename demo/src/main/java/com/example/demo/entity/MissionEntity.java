@@ -19,9 +19,9 @@ public class MissionEntity {
     @Column
     private String memberId;
     @Column
-    private String startdate;
+    private String startDate;
     @Column
-    private String enddate;
+    private String endDate;
     @Column
     private String missionEntry;
     @Column
@@ -35,8 +35,8 @@ public class MissionEntity {
         MissionEntity missionEntity = new MissionEntity();
         missionEntity.setMissionId(missionDTO.getMissionId());
         missionEntity.setMemberId(missionDTO.getMemberId());
-        missionEntity.setStartdate(missionDTO.getStartdate());
-        missionEntity.setEnddate(missionDTO.getEnddate());
+        missionEntity.setStartDate(missionDTO.getStartDate());
+        missionEntity.setEndDate(missionDTO.getEndDate());
         missionEntity.setMissionEntry(missionDTO.getMissionEntry());
         missionEntity.setMissionMoney(missionDTO.getMissionMoney());
         missionEntity.setMissionSen(missionDTO.getMissionSen());

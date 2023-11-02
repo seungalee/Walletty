@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface MissionRepository extends JpaRepository<MissionEntity, String> {
     List<MissionEntity> findByMemberId(String memberId);
-    Optional<MissionEntity> findByMemberIdAndStartdate(String memberId, String startdate);
+    Optional<MissionEntity> findByMemberIdAndStartDate(String memberId, String startDate);
 
     //Optional<MissionEntity> findByMemberIdAndNow(String memberId, String now);
 }
