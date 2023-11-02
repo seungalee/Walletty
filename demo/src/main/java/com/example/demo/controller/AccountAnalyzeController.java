@@ -26,13 +26,22 @@ public class AccountAnalyzeController {
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
 
-    String memberId = "aa";
 
-    @GetMapping("/member/payment")
-    public void paymentForm() throws IOException, InterruptedException {
-        // 트랜잭션은 orderId의 날짜 기준으로 일주일 단위로 가져온다고 가정. 결제내역을 가져올 때는 그때그때 코드 수정 필요.
+    @GetMapping("/payment/{date}")
+    public void paymentForm(@PathVariable("date") String date) throws IOException, InterruptedException {
+        // 트랜잭션은 orderId의 날짜 기준으로 일주일 단위로 가져온다고 가정.
+        // 나중에 memberId도 json으로 받은걸로 변결
+        String apiUri = "";
+        String memberId = "";
+        if(date.equals("1")){
+            apiUri = "https://api.tosspayments.com/v1/transactions?startDate=2023-11-01T00:00:00&endDate=2023-11-02T21:13:40";
+            memberId = "aa";
+        } else if (date.equals("2")) {
+            apiUri = "https://api.tosspayments.com/v1/transactions?startDate=2023-11-02T21:13:40&endDate=2023-11-30T00:00:00";
+            memberId = "bb";
+        }
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.tosspayments.com/v1/transactions?startDate=2023-11-01T00:00:00&endDate=2023-11-30T23:59:59"))
+                .uri(URI.create(apiUri))
                 .header("Authorization", "Basic dGVzdF9za19leDZCSkdRT1ZEOUVhR3hYNVpSclc0dzJ6TmJnOg==")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
