@@ -25,7 +25,7 @@ public class EntryController {
         entryDTOList.add(new EntryDTO(3,"eatout","외식",""));
         entryDTOList.add(new EntryDTO(4,"beauty","미용",""));
         entryDTOList.add(new EntryDTO(5,"snack","간식",""));
-        entryDTOList.add(new EntryDTO(6,"shopping","배달 음식",""));
+        entryDTOList.add(new EntryDTO(6,"shopping","쇼핑",""));
         entryDTOList.add(new EntryDTO(7,"taxi","택시",""));
 
         // 값 넣기.

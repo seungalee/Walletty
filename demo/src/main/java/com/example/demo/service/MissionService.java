@@ -65,6 +65,19 @@ public class MissionService {
         return mDTO;
     }
 
+    public MissionDTO findByStartDate(String startDate) {
+
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByStartDate(startDate);
+        if(ismissionEntity.isPresent()) {
+            MissionEntity missionEntity = ismissionEntity.get();
+            MissionDTO mdto = MissionDTO.toMissionDTO(missionEntity);
+            return mdto;
+        }
+        else{
+            return null;
+        }
+    }
+
     public AccountAnalyzeEntity changeOkToUseWithMissionEntry(String entry, String memberId, String orderWeek) {
         AccountAnalyzeEntity missionEntity =
                 accountAnalyzeRepository.findByEntryAndMemberIdAndOkToUseAndOrderWeek(entry, memberId, false, orderWeek);
@@ -76,4 +89,6 @@ public class MissionService {
             return null;
         }
     }
+
+
 }

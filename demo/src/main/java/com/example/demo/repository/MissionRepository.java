@@ -12,5 +12,7 @@ public interface MissionRepository extends JpaRepository<MissionEntity, Integer>
     List<MissionEntity> findByMemberId(String memberId);
     Optional<MissionEntity> findByMemberIdAndStartDate(String memberId, String startDate);
 
+    Optional<MissionEntity> findByStartDate(String startDate);
+
     //Optional<MissionEntity> findByMemberIdAndNow(String memberId, String now);
 }
