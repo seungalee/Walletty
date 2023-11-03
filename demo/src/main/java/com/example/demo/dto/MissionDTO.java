@@ -19,6 +19,7 @@ public class MissionDTO {
     private int missionMoney;
     private String missionSen;
     private String now;
+    //private boolean success;
 
     public static MissionDTO toMissionDTO(MissionEntity missionEntity){
         MissionDTO missionDTO = new MissionDTO();
@@ -33,6 +34,8 @@ public class MissionDTO {
 
         missionDTO.setMissionSen(missionEntity.getMissionSen());
         missionDTO.setNow(missionEntity.getNow());
+
+        //missionDTO.setSuccess(missionEntity.getSuccess());
 
         return missionDTO;
     }

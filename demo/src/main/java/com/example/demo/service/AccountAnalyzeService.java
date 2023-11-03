@@ -103,4 +103,12 @@ public class AccountAnalyzeService {
         return aDTO;
     }
 
+    public List<AccountAnalyzeDTO> findByMemberIdAndOrderWeek(String memberId, String orderWeek) {
+        List<AccountAnalyzeEntity> analyzeAll = accountAnalyzeRepository.findByMemberIdAndOrderWeek(memberId,orderWeek);
+        List<AccountAnalyzeDTO> aDTO = new ArrayList<>();
+        for (AccountAnalyzeEntity entity : analyzeAll) {
+            aDTO.add(AccountAnalyzeDTO.toAccountAnalyzeDTO(entity));
+        }
+        return aDTO;
+    }
 }

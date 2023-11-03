@@ -30,6 +30,8 @@ public class MissionEntity {
     private String missionSen;
     @Column
     private String now;
+    //@Column
+    //private boolean success;
 
     public static MissionEntity toMissionEntity(MissionDTO missionDTO){
         MissionEntity missionEntity = new MissionEntity();
@@ -41,6 +43,8 @@ public class MissionEntity {
         missionEntity.setMissionMoney(missionDTO.getMissionMoney());
         missionEntity.setMissionSen(missionDTO.getMissionSen());
         missionEntity.setNow(missionDTO.getNow());
+        //missionEntity.setSuccess(missionDTO.getSuccess());
         return missionEntity;
     }
+
 }
