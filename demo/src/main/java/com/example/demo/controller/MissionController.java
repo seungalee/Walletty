@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.dto.AccountAnalyzeDTO;
 import com.example.demo.dto.MissionDTO;
 import com.example.demo.dto.SurveyDTO;
+import com.example.demo.entity.AccountAnalyzeEntity;
+import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.service.AccountAnalyzeService;
 import com.example.demo.service.MissionService;
 import com.example.demo.service.PaymentService;
@@ -22,11 +24,13 @@ import java.util.List;
 public class MissionController {
 
     private final AccountAnalyzeService accountAnalyzeService;
+    private final AccountAnalyzeRepository accountAnalyzeRepository;
 
     private final SurveyService surveyService;
     private final MissionService missionService;
 
-    String memberId = "aa";
+
+    //String memberId = "aa";
 
     @GetMapping("/makeMission")
     public void mission() {
@@ -34,15 +38,18 @@ public class MissionController {
         String missionEntry = "";
         int missionMoney = 0;
 
-        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
+        //List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
+        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByOkToUse(false);
         System.out.println(dtos);
 
         List<String> missionEntries = new ArrayList<>();
 
         int missionStart = 0;
+        String memberId = "";
         for (AccountAnalyzeDTO useEntry : dtos) {
             missionEntries.add(useEntry.getEntry());
-            missionStart = Integer.parseInt(useEntry.getOrderWeek())+1;
+            missionStart = Integer.parseInt(useEntry.getOrderWeek()) + 1;
+            memberId = useEntry.getMemberId();
         }
         System.out.println(missionEntries);
 
@@ -52,30 +59,30 @@ public class MissionController {
 
         for (AccountAnalyzeDTO useEntry : dtos) {
             if (useEntry.getEntry().equals(surveyDTO.getGoalEntry1())) {
-                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney1() > diff_max){
+                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney1() > diff_max) {
                     diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney1();
                     missionEntry = surveyDTO.getGoalEntry1();
                     missionMoney = surveyDTO.getGoalMoney1();
                 }
             }
             if (useEntry.getEntry().equals(surveyDTO.getGoalEntry2())) {
-                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney2() > diff_max){
+                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney2() > diff_max) {
                     diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney2();
                     missionEntry = surveyDTO.getGoalEntry2();
                     missionMoney = surveyDTO.getGoalMoney2();
                 }
             }
             if (useEntry.getEntry().equals(surveyDTO.getGoalEntry3())) {
-                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney3() > diff_max){
+                if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney3() > diff_max) {
                     diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney3();
                     missionEntry = surveyDTO.getGoalEntry3();
                     missionMoney = surveyDTO.getGoalMoney3();
                 }
             }
         }
-        if(missionMoney>0) {
+        if (missionMoney > 0) {
             missionMoney += ((diff_max / 2) / 1000) * 1000;
-        } else{//목표금액보다 많이 쓴 항목이 없다면? 고정 항목을 제외하고 가장 많이 사용한 항목에서 10% 줄이라고 함.
+        } else {//목표금액보다 많이 쓴 항목이 없다면? 고정 항목을 제외하고 가장 많이 사용한 항목에서 10% 줄이라고 함.
             //survey_table의 fixed_entry는 미션 항목에서 제외
             List<String> fixedEntry = Arrays.asList(surveyDTO.getFixedEntry().split(","));
             for (AccountAnalyzeDTO useEntry : dtos) {
@@ -91,15 +98,15 @@ public class MissionController {
             int maxUse = 0;
             for (AccountAnalyzeDTO useEntry : dtos) {
                 //survey_table의 fixed_entry가 아니라면
-                if(missionEntries.contains(useEntry.getEntry())){
-                    if(useEntry.getTotalAmount()>maxUse){
+                if (missionEntries.contains(useEntry.getEntry())) {
+                    if (useEntry.getTotalAmount() > maxUse) {
                         missionEntry = useEntry.getEntry();
                         missionMoney = useEntry.getTotalAmount();
                     }
                 }
             }
-            missionMoney = (int) (missionMoney*0.9);
-            missionMoney = ((missionMoney/1000)*1000);
+            missionMoney = (int) (missionMoney * 0.9);
+            missionMoney = ((missionMoney / 1000) * 1000);
 
         }
 
@@ -120,6 +127,7 @@ public class MissionController {
         missionDTO.setNow("True");
         missionService.save(missionDTO);
 
-
+        missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
     }
+
 }

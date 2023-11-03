@@ -21,6 +21,13 @@ public class EntryController {
 
         entryDTOList.add(new EntryDTO(1,"cafe","카페","음료 대신 물을 마시거나 음료를 사먹는 횟수를 줄여서"));
         entryDTOList.add(new EntryDTO(2,"deliver","배달 음식","직접 요리해서 먹거나 배달음식을 줄여서"));
+
+        entryDTOList.add(new EntryDTO(3,"eatout","외식",""));
+        entryDTOList.add(new EntryDTO(4,"beauty","미용",""));
+        entryDTOList.add(new EntryDTO(5,"snack","간식",""));
+        entryDTOList.add(new EntryDTO(6,"shopping","배달 음식",""));
+        entryDTOList.add(new EntryDTO(7,"taxi","택시",""));
+
         // 값 넣기.
         for(EntryDTO dtos : entryDTOList){
             entryService.save(dtos);

@@ -19,4 +19,8 @@ public interface AccountAnalyzeRepository extends JpaRepository<AccountAnalyzeEn
      Optional<AccountAnalyzeEntity> findByEntryAndMemberIdAndOrderWeek(String entry, String memberId, String orderWeek);
      Optional<AccountAnalyzeEntity> findByEntryAndMemberIdAndOkToUse(String entry, String memberId, Boolean okToUse);
      List<AccountAnalyzeEntity> findByMemberIdAndOkToUse(String memberId, Boolean okToUse);
+
+     List<AccountAnalyzeEntity> findByOkToUse(Boolean okToUse);
+
+     AccountAnalyzeEntity findByEntryAndMemberIdAndOkToUseAndOrderWeek(String entry, String memberId, boolean b, String orderWeek);
 }

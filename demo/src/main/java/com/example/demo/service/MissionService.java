@@ -6,6 +6,7 @@ import com.example.demo.entity.AccountAnalyzeEntity;
 import com.example.demo.entity.FeedbackCommentEntity;
 import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.entity.MissionEntity;
+import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Random;
 public class MissionService {
 
     private final MissionRepository missionRepository;
+    private final AccountAnalyzeRepository accountAnalyzeRepository;
 
     public void save(MissionDTO missionDTO) {
         MissionEntity missionEntity = MissionEntity.toMissionEntity(missionDTO);
@@ -61,5 +63,17 @@ public class MissionService {
             mDTO.add(MissionDTO.toMissionDTO(ent));
         }
         return mDTO;
+    }
+
+    public AccountAnalyzeEntity changeOkToUseWithMissionEntry(String entry, String memberId, String orderWeek) {
+        AccountAnalyzeEntity missionEntity =
+                accountAnalyzeRepository.findByEntryAndMemberIdAndOkToUseAndOrderWeek(entry, memberId, false, orderWeek);
+        if(missionEntity!=null){
+            missionEntity.setOkToUse(true);
+            return accountAnalyzeRepository.save(missionEntity);
+        }
+        else{
+            return null;
+        }
     }
 }
