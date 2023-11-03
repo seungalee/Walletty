@@ -8,12 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -31,6 +25,7 @@ public class MemberController {
     private final AccountAnalyzeService accountAnalyzeService;
     private final ChatGptService chatGptService;
     private final MissionService missionService;
+    private final MissionController missionController;
     private final FeedbackService feedbackService;
 
     // 회원가입 페이지 출력 요청
@@ -95,12 +90,13 @@ public class MemberController {
                     return "{\"message\" : \"success\"}";
                 }
                 else { // 이번 주차 피드백, 미션이 만들어지지 않은 경우
-                    // 1. 미션 로직을 통해 미션 항목 선정
-                    // 미션 로직 완성 후 service 함수 호출 코드 추가
 
                     // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
                     String selectedMemberId = surveyDTO.getSurveyId();
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+                    // 1. 미션 로직을 통해 미션 항목 선정
+                    missionController.mission(selectedMemberId);
 
                     // 2. 선정된 항목으로 미션 문장 만들고 저장
                     ChatGptResponse chatGptResponseForMission = null;
@@ -167,13 +163,12 @@ public class MemberController {
 
         // 설문조사 끝나자 마자 최근 일주일 간의 결제내역 분석결과를 기반으로 미션 생성 (payment 객체 불러와서 AA table에 분석 결과가 저장되어있는 상태에서)
 
-        // 1. 미션 로직을 통해 미션 항목 선정
-        // 미션 로직 완성 후 service 함수 호출 코드 추가
-
-
         // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
         String selectedMemberId = surveyDTO.getSurveyId();
         String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+        // 1. 미션 로직을 통해 미션 항목 선정
+        missionController.mission(selectedMemberId);
 
         // 2. 선정된 항목으로 미션 문장 만들고 저장
         ChatGptResponse chatGptResponseForMission = null;

@@ -37,29 +37,14 @@ public class AccountAnalyzeService {
             Optional<AccountAnalyzeEntity> analyzeEntry =
                     accountAnalyzeRepository.findByEntryAndMemberIdAndOrderWeek(pay.getEntry(), pay.getMemberId(), Integer.toString(paydate));
 
-            if (analyzeEntry.isPresent() && paydate==1107){
+            if (analyzeEntry.isPresent()){  // 분석 테이블의 해당 주차에 이미 있는 항목이면 해당 항목에 값을 더해서 업데이트 하기
 
-                // 분석 테이블에 이미 있는 항목이고 이번주의 항목이면 해당 항목에 값을 더해서 업데이트 하기
-
-                // 1.
-                //AccountAnalyzeEntity analyzeEntity = analyzeEntry.get();
-                //AccountAnalyzeDTO dto = new AccountAnalyzeDTO(analyzeEntity.getAnalyzeId(), pay.getMemberId(), pay.getEntry(), pay.getAmount());
-                //AccountAnalyzeEntity entity = AccountAnalyzeEntity.toAccountAnalyzeEntity(dto);
-                //accountAnalyzeRepository.save(entity); // -> 원래 값이 update가 되는지, 새로 생성되는지 확인하기
-
-                //2.
-                //AccountAnalyzeEntity originEntity = analyzeEntry.get();
-                //Integer updateAmount = originEntity.getTotalAmount() + pay.getAmount();
-                //originEntity.setTotalAmount(updateAmount);
-                //accountAnalyzeRepository.save(originEntity);
-
-                //3.
                 AccountAnalyzeEntity originEntity = analyzeEntry.get();
                 Integer updateAmount = originEntity.getTotalAmount() + pay.getAmount();
                 originEntity.setTotalAmount(updateAmount);
 
 
-            } else { // 분석 테이블에 있는 항목이고 다음주의 항목이거나 분석 테이블에 없는 항목이면 새로 항목 추가 후 값 넣기
+            } else { // 분석 테이블의 해당 주차에 없는 항목이면 새로 항목 추가 후 값 넣기
 
                 AccountAnalyzeDTO dto = new AccountAnalyzeDTO(pay.getMemberId(), pay.getEntry(), pay.getAmount(), Integer.toString(paydate), false);
                 AccountAnalyzeEntity entity = AccountAnalyzeEntity.toAccountAnalyzeEntity(dto);
@@ -70,6 +55,7 @@ public class AccountAnalyzeService {
     }
 
     public String findThisWeek(String selectedMemberId){
+        // List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, false); //이번주차 결제내역 분석
         List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, false); //이번주차 결제내역 분석
         AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 orderWeek 다 같으니까)
         String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석의 결제내역 마지막 날
@@ -79,9 +65,7 @@ public class AccountAnalyzeService {
     }
     public void changeOkToUseWithTrue(String memberId){ // 피드백, 미션 다 만들고 난 뒤 이번주차 결제내역 분석 항목들 모두 okToUse바꿔주기
         List<AccountAnalyzeEntity> thisWeekEntity = accountAnalyzeRepository.findByMemberIdAndOkToUse(memberId,false);
-        List<AccountAnalyzeDTO> thisWeekDTO = new ArrayList<>();
         for (AccountAnalyzeEntity entity : thisWeekEntity) {
-            //thisWeekDTO.add(AccountAnalyzeDTO.toAccountAnalyzeDTO(entity));
             entity.setOkToUse(true);
         }
     }

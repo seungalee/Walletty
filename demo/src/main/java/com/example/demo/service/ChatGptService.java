@@ -61,9 +61,6 @@ public class ChatGptService {
         return responseEntity.getBody();
     }
     public ChatGptResponse askQuestion(String selectedMemberId, String startDate){
-        //String selectedMemberId = "qq";
-        //String missionDate = "0908"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
-        // List<MemberEntity> memberAll = memberRepository.findAll(); //ㅇ
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberId(selectedMemberId); // 사용자 이름
         Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId,startDate); //다음주차 미션 항목을 가져오기 위함.
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry()); // 영어 ->한글 변환을 위함
@@ -109,9 +106,9 @@ public class ChatGptService {
     }
 
     public ChatGptResponse askQuestionM(String selectedMemberId, String startDate){
-
-        Optional<MissionEntity> missionEntity  = missionRepository.findByMemberIdAndStartDate(selectedMemberId, startDate);
+        Optional<MissionEntity> missionEntity = missionRepository.findByMemberIdAndStartDate(selectedMemberId, startDate);
         Optional<EntryEntity> entryEntity = entryRepository.findByEntry(missionEntity.get().getMissionEntry());
+
 
         String finalQuestion = "이번 주는 " + entryEntity.get().getEntryKorean() + "비를 "
                 + missionEntity.get().getMissionMoney()

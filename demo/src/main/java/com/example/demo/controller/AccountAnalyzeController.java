@@ -30,7 +30,7 @@ public class AccountAnalyzeController {
     @GetMapping("/payment/{date}/{memberId}")
     public void paymentForm(@PathVariable("date") String date,@PathVariable("memberId") String memberId) throws IOException, InterruptedException {
         // 트랜잭션은 orderId의 날짜 기준으로 일주일 단위로 가져온다고 가정.
-        // 나중에 memberId도 json으로 받은걸로 변결
+        // 나중에 memberId도 json으로 받은걸로 변경
         String apiUri = "";
         if(date.equals("1")){
             apiUri = "https://api.tosspayments.com/v1/transactions?startDate=2023-11-01T00:00:00&endDate=2023-11-02T21:13:40";
