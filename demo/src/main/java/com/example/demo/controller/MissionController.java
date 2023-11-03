@@ -3,22 +3,19 @@ package com.example.demo.controller;
 import com.example.demo.dto.AccountAnalyzeDTO;
 import com.example.demo.dto.MissionDTO;
 import com.example.demo.dto.SurveyDTO;
-import com.example.demo.entity.AccountAnalyzeEntity;
-import com.example.demo.entity.MissionEntity;
 import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.service.AccountAnalyzeService;
 import com.example.demo.service.MissionService;
-import com.example.demo.service.PaymentService;
 import com.example.demo.service.SurveyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -32,18 +29,14 @@ public class MissionController {
     private final MissionService missionService;
 
 
-    String memberId = "aa";
 
-    //@GetMapping("/makeMission/{memberId}")
-    @GetMapping("/makeMission")
-    public void mission() {
-        //(@PathVariable("date") String date)
+    @GetMapping("/makeMission/{memberId}")
+    public void mission(@PathVariable("memberId") String memberId) {
 
         String missionEntry = "";
         int missionMoney = 0;
 
         List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
-        //List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByOkToUse(false);
         System.out.println(dtos);
 
         List<String> missionEntries = new ArrayList<>();
@@ -59,12 +52,14 @@ public class MissionController {
 
         // 가장 먼저 지난 미션 항목은 미션을 주지 않음
         String lastMissionDate = Integer.toString(missionStart - 7);
-        MissionDTO lastmission = missionService.findByStartDate(lastMissionDate);
+        MissionDTO lastmission = missionService.findByMemberIdAndStartDate(memberId,lastMissionDate);
+
+        SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
+        //survey_table의 목표금액과 차가 큰 항목을 우선해서 미션 줌
+        int diff_max = 0;
 
         if (lastmission == null) {
-            SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
-            //survey_table의 목표금액과 차가 큰 항목을 우선해서 미션 줌
-            int diff_max = 0;
+
 
             for (AccountAnalyzeDTO useEntry : dtos) {
                 if (useEntry.getEntry().equals(surveyDTO.getGoalEntry1())) {
@@ -119,30 +114,9 @@ public class MissionController {
 
             }
 
-            System.out.println(missionEntry);
-            System.out.println(missionMoney);
 
-            int missionEnd = missionStart + 7;
-            String startDate = Integer.toString(missionStart);
-            String endDate = Integer.toString(missionEnd);
 
-            //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
-            MissionDTO missionDTO = new MissionDTO();
-            missionDTO.setMemberId(memberId);
-            missionDTO.setMissionEntry(missionEntry);
-            missionDTO.setMissionMoney(missionMoney);
-            missionDTO.setStartDate(startDate);
-            missionDTO.setEndDate(endDate);
-            missionDTO.setNow("True");
-            missionService.save(missionDTO);
-
-            //missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
-
-        } else {
-
-            SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
-            //survey_table의 목표금액과 차가 큰 항목을 우선해서 미션 줌
-            int diff_max = 0;
+        } else { //지난 항목이 있을 때
 
             for (AccountAnalyzeDTO useEntry : dtos) {
 
@@ -206,25 +180,27 @@ public class MissionController {
 
             }
 
-            System.out.println(missionEntry);
-            System.out.println(missionMoney);
 
-            int missionEnd = missionStart + 7;
-            String startDate = Integer.toString(missionStart);
-            String endDate = Integer.toString(missionEnd);
-
-            //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
-            MissionDTO missionDTO = new MissionDTO();
-            missionDTO.setMemberId(memberId);
-            missionDTO.setMissionEntry(missionEntry);
-            missionDTO.setMissionMoney(missionMoney);
-            missionDTO.setStartDate(startDate);
-            missionDTO.setEndDate(endDate);
-            missionDTO.setNow("True");
-            missionService.save(missionDTO);
-
-            //missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
         }
+
+        System.out.println(missionEntry);
+        System.out.println(missionMoney);
+
+        int missionEnd = missionStart + 7;
+        String startDate = Integer.toString(missionStart);
+        String endDate = Integer.toString(missionEnd);
+
+        //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
+        MissionDTO missionDTO = new MissionDTO();
+        missionDTO.setMemberId(memberId);
+        missionDTO.setMissionEntry(missionEntry);
+        missionDTO.setMissionMoney(missionMoney);
+        missionDTO.setStartDate(startDate);
+        missionDTO.setEndDate(endDate);
+        missionDTO.setNow("True");
+        missionService.save(missionDTO);
+
+        //missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
     }
 
 }

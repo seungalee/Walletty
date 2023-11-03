@@ -91,4 +91,16 @@ public class MissionService {
     }
 
 
+    public MissionDTO findByMemberIdAndStartDate(String memberId, String startDate) {
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByMemberIdAndStartDate(memberId, startDate);
+        if(ismissionEntity.isPresent()) {
+            MissionEntity missionEntity = ismissionEntity.get();
+            MissionDTO mdto = MissionDTO.toMissionDTO(missionEntity);
+            return mdto;
+        }
+        else{
+            return null;
+        }
+
+    }
 }
