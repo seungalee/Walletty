@@ -30,7 +30,7 @@ public class EntryController {
 
         // 값 넣기.
         for(EntryDTO dtos : entryDTOList){
-            entryService.save(dtos);
+            entryService.save();
         }
     }
 }

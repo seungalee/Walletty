@@ -3,10 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.SurveyDTO;
-import com.example.demo.service.AccountAnalyzeService;
-import com.example.demo.service.MemberService;
-import com.example.demo.service.PaymentService;
-import com.example.demo.service.SurveyService;
+import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +28,7 @@ public class MemberController {
 
     // 생성자 주입
     private final MemberService memberService;
+    private final EntryService entryService;
 
     // 회원가입 페이지 출력 요청
 //    @GetMapping("/member/save")
@@ -58,6 +56,8 @@ public class MemberController {
     @PostMapping("/member/join")   // 나중에 RequestMapping으로 수정
     public MemberDTO join(@RequestBody MemberDTO memberDTO){ // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
         memberService.save(memberDTO);  // 받아온 값으로 회원가입하기, 이미 있는 회원 고려 안 함 >> 우리가 값 넣을 때 없는 값으로만 넣기.
+        entryService.save(); // 회원가입 하면 자동으로 entry_table에 값 들어가도록
+
         return memberDTO;
     }
 
