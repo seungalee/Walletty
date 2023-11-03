@@ -38,7 +38,7 @@ public class FeedbackCommentController {
 
         //List<FeedbackCommentDTO> feedbackCommentDTOList; // 값 넣기.
         for(FeedbackCommentDTO comment : feedbackCommentDTOList){
-            feedbackCommentService.save(comment);
+            feedbackCommentService.save();
         }
         //return FeedbackCommentDTO;
     }

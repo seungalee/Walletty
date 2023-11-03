@@ -29,6 +29,7 @@ public class MemberController {
     // 생성자 주입
     private final MemberService memberService;
     private final EntryService entryService;
+    private final FeedbackCommentService feedbackCommentService;
 
     // 회원가입 페이지 출력 요청
 //    @GetMapping("/member/save")
@@ -57,7 +58,7 @@ public class MemberController {
     public MemberDTO join(@RequestBody MemberDTO memberDTO){ // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
         memberService.save(memberDTO);  // 받아온 값으로 회원가입하기, 이미 있는 회원 고려 안 함 >> 우리가 값 넣을 때 없는 값으로만 넣기.
         entryService.save(); // 회원가입 하면 자동으로 entry_table에 값 들어가도록
-
+        feedbackCommentService.save(); // 회원가입 하면 자동으로 feedback_comment_table에 값 들어가도록
         return memberDTO;
     }
 
