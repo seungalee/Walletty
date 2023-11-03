@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ChatGptResponse;
 import com.example.demo.dto.MemberDTO;
 import com.example.demo.dto.PaymentDTO;
 import com.example.demo.dto.SurveyDTO;
@@ -30,6 +31,10 @@ public class MemberController {
     private final MemberService memberService;
     private final EntryService entryService;
     private final FeedbackCommentService feedbackCommentService;
+    private final AccountAnalyzeService accountAnalyzeService;
+    private final ChatGptService chatGptService;
+    private final MissionService missionService;
+    private final FeedbackService feedbackService;
 
     // 회원가입 페이지 출력 요청
 //    @GetMapping("/member/save")
@@ -133,6 +138,33 @@ public class MemberController {
 
         System.out.println(surveyDTO);
         surveyService.save(surveyDTO);
+
+        // 설문조사 끝나자 마자 최근 일주일 간의 결제내역 분석결과를 기반으로 미션 생성 (payment 객체 불러와서 AA table에 분석 결과가 저장되어있는 상태에서)
+
+        // 1. 미션 로직을 통해 미션 항목 선정
+        // 미션 로직 완성 후 service 함수 호출 코드 추가
+
+
+        // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
+        String selectedMemberId = surveyDTO.getSurveyId();
+        String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+        // 2. 선정된 항목으로 미션 문장 만들고 저장
+        ChatGptResponse chatGptResponseForMission = null;
+        chatGptResponseForMission = chatGptService.askQuestionM(selectedMemberId, startDate);
+        String missionContent = chatGptResponseForMission.getChoices().get(0).getMessage().getContent();
+        System.out.println(missionContent);
+        missionService.saveMissionSen(selectedMemberId, startDate, missionContent);
+
+        // 3. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
+        ChatGptResponse chatGptResponseForFeedback = null;
+        chatGptResponseForFeedback = chatGptService.askQuestion(selectedMemberId, startDate);
+        String feedbackContent = chatGptResponseForFeedback.getChoices().get(0).getMessage().getContent();
+        feedbackService.save(selectedMemberId, feedbackContent, startDate);
+
+        // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
+        accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
         return surveyDTO;
     }
 

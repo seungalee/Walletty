@@ -18,7 +18,7 @@ public class FeedbackCommentController {
     private final FeedbackCommentService feedbackCommentService;
 
     @RequestMapping("/saveFeedbackComment")
-    public void saveFeedbackComment(){
+    public void saveFeedbackComment(){ // member controller에서 사용 중. 나중에 삭제.
         // List feedbackCommentDTOList = new ArrayList();
         // FeedbackCommentDTO feedbackCommentDTO = new FeedbackCommentDTO();
         // feedbackCommentDTOList.add(feedbackCommentDTO);

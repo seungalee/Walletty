@@ -35,7 +35,7 @@ public class ChatGptController {
 
     //@Operation(summary = "Question to Chat-GPT")
     @RequestMapping("/question")
-    public void sendQuestion(@RequestBody MemberDTO memberDTO) {
+    public void sendQuestion(@RequestBody MemberDTO memberDTO) { // member controller에서 사용 중. 나중에 삭제.
         //String code = ResponseCode.CD_SUCCESS;
         ChatGptResponse chatGptResponse = null;
         //try {
@@ -62,7 +62,7 @@ public class ChatGptController {
     }
 
     @RequestMapping("/questionM")
-    public void sendQuestionM(@RequestBody MemberDTO memberDTO){
+    public void sendQuestionM(@RequestBody MemberDTO memberDTO){ // member controller에서 사용 중. 나중에 삭제.
         ChatGptResponse chatGptResponse = null;
 
         String selectedMemberId = memberDTO.getMemberId();
