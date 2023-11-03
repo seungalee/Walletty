@@ -32,26 +32,28 @@ public class MissionController {
     private final MissionService missionService;
 
 
-    //String memberId = "aa";
+    String memberId = "aa";
 
+    //@GetMapping("/makeMission/{memberId}")
     @GetMapping("/makeMission")
     public void mission() {
+        //(@PathVariable("date") String date)
 
         String missionEntry = "";
         int missionMoney = 0;
 
-        //List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
-        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByOkToUse(false);
+        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
+        //List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByOkToUse(false);
         System.out.println(dtos);
 
         List<String> missionEntries = new ArrayList<>();
 
         int missionStart = 0;
-        String memberId = "";
+        //String memberId = "";
         for (AccountAnalyzeDTO useEntry : dtos) {
             missionEntries.add(useEntry.getEntry());
             missionStart = Integer.parseInt(useEntry.getOrderWeek()) + 1;
-            memberId = useEntry.getMemberId();
+            //memberId = useEntry.getMemberId();
         }
         System.out.println(missionEntries);
 
@@ -134,7 +136,7 @@ public class MissionController {
             missionDTO.setNow("True");
             missionService.save(missionDTO);
 
-            missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
+            //missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
 
         } else {
 
@@ -221,7 +223,7 @@ public class MissionController {
             missionDTO.setNow("True");
             missionService.save(missionDTO);
 
-            missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
+            //missionService.changeOkToUseWithMissionEntry(missionEntry, memberId, Integer.toString(missionStart - 1));
         }
     }
 
