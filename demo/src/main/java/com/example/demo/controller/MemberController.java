@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ChatGptResponse;
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.dto.PaymentDTO;
-import com.example.demo.dto.SurveyDTO;
+import com.example.demo.dto.*;
 import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -93,7 +90,36 @@ public class MemberController {
         if (loginResult != null) { // login 성공
             SurveyDTO surveyDTO = surveyService.findBySurveyId(memberDTO.getMemberId()); //survey_table에 해당 회원의 정보가 있는지 확인
             if (surveyDTO != null){ // 이미 설문조사를 한 회원
-                return "{\"message\" : \"success\"}";
+                List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberDTO.getMemberId(),false);
+                if(dtos.isEmpty()){ // 이번 주차 피드백, 미션이 만들어진 경우
+                    return "{\"message\" : \"success\"}";
+                }
+                else { // 이번 주차 피드백, 미션이 만들어지지 않은 경우
+                    // 1. 미션 로직을 통해 미션 항목 선정
+                    // 미션 로직 완성 후 service 함수 호출 코드 추가
+
+                    // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
+                    String selectedMemberId = surveyDTO.getSurveyId();
+                    String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+                    // 2. 선정된 항목으로 미션 문장 만들고 저장
+                    ChatGptResponse chatGptResponseForMission = null;
+                    chatGptResponseForMission = chatGptService.askQuestionM(selectedMemberId, startDate);
+                    String missionContent = chatGptResponseForMission.getChoices().get(0).getMessage().getContent();
+                    System.out.println(missionContent);
+                    missionService.saveMissionSen(selectedMemberId, startDate, missionContent);
+
+                    // 3. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
+                    ChatGptResponse chatGptResponseForFeedback = null;
+                    chatGptResponseForFeedback = chatGptService.askQuestion(selectedMemberId, startDate);
+                    String feedbackContent = chatGptResponseForFeedback.getChoices().get(0).getMessage().getContent();
+                    feedbackService.save(selectedMemberId, feedbackContent, startDate);
+
+                    // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
+                    accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
+                    return "{\"message\" : \"success\"}";
+                }
             }
             else { // 아직 설문조사를 하지 않은 회원 (회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때)
                 return "{\"message\" : \"successFirst\"}";
