@@ -1,12 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.MemberDTO;
-import com.example.demo.dto.PaymentDTO;
-import com.example.demo.dto.SurveyDTO;
-import com.example.demo.service.AccountAnalyzeService;
-import com.example.demo.service.MemberService;
-import com.example.demo.service.PaymentService;
-import com.example.demo.service.SurveyService;
+import com.example.demo.dto.*;
+import com.example.demo.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +26,12 @@ public class MemberController {
 
     // 생성자 주입
     private final MemberService memberService;
+    private final EntryService entryService;
+    private final FeedbackCommentService feedbackCommentService;
+    private final AccountAnalyzeService accountAnalyzeService;
+    private final ChatGptService chatGptService;
+    private final MissionService missionService;
+    private final FeedbackService feedbackService;
 
     // 회원가입 페이지 출력 요청
 //    @GetMapping("/member/save")
@@ -58,6 +59,8 @@ public class MemberController {
     @PostMapping("/member/join")   // 나중에 RequestMapping으로 수정
     public MemberDTO join(@RequestBody MemberDTO memberDTO){ // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
         memberService.save(memberDTO);  // 받아온 값으로 회원가입하기, 이미 있는 회원 고려 안 함 >> 우리가 값 넣을 때 없는 값으로만 넣기.
+        entryService.save(); // 회원가입 하면 자동으로 entry_table에 값 들어가도록
+        feedbackCommentService.save(); // 회원가입 하면 자동으로 feedback_comment_table에 값 들어가도록
         return memberDTO;
     }
 
@@ -87,7 +90,36 @@ public class MemberController {
         if (loginResult != null) { // login 성공
             SurveyDTO surveyDTO = surveyService.findBySurveyId(memberDTO.getMemberId()); //survey_table에 해당 회원의 정보가 있는지 확인
             if (surveyDTO != null){ // 이미 설문조사를 한 회원
-                return "{\"message\" : \"success\"}";
+                List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberDTO.getMemberId(),false);
+                if(dtos.isEmpty()){ // 이번 주차 피드백, 미션이 만들어진 경우
+                    return "{\"message\" : \"success\"}";
+                }
+                else { // 이번 주차 피드백, 미션이 만들어지지 않은 경우
+                    // 1. 미션 로직을 통해 미션 항목 선정
+                    // 미션 로직 완성 후 service 함수 호출 코드 추가
+
+                    // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
+                    String selectedMemberId = surveyDTO.getSurveyId();
+                    String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+                    // 2. 선정된 항목으로 미션 문장 만들고 저장
+                    ChatGptResponse chatGptResponseForMission = null;
+                    chatGptResponseForMission = chatGptService.askQuestionM(selectedMemberId, startDate);
+                    String missionContent = chatGptResponseForMission.getChoices().get(0).getMessage().getContent();
+                    System.out.println(missionContent);
+                    missionService.saveMissionSen(selectedMemberId, startDate, missionContent);
+
+                    // 3. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
+                    ChatGptResponse chatGptResponseForFeedback = null;
+                    chatGptResponseForFeedback = chatGptService.askQuestion(selectedMemberId, startDate);
+                    String feedbackContent = chatGptResponseForFeedback.getChoices().get(0).getMessage().getContent();
+                    feedbackService.save(selectedMemberId, feedbackContent, startDate);
+
+                    // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
+                    accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
+                    return "{\"message\" : \"success\"}";
+                }
             }
             else { // 아직 설문조사를 하지 않은 회원 (회원가입 후 첫 로그인일 때 == survey table에 해당 id를 가진 회원의 정보가 없을 때)
                 return "{\"message\" : \"successFirst\"}";
@@ -132,6 +164,33 @@ public class MemberController {
 
         System.out.println(surveyDTO);
         surveyService.save(surveyDTO);
+
+        // 설문조사 끝나자 마자 최근 일주일 간의 결제내역 분석결과를 기반으로 미션 생성 (payment 객체 불러와서 AA table에 분석 결과가 저장되어있는 상태에서)
+
+        // 1. 미션 로직을 통해 미션 항목 선정
+        // 미션 로직 완성 후 service 함수 호출 코드 추가
+
+
+        // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
+        String selectedMemberId = surveyDTO.getSurveyId();
+        String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
+
+        // 2. 선정된 항목으로 미션 문장 만들고 저장
+        ChatGptResponse chatGptResponseForMission = null;
+        chatGptResponseForMission = chatGptService.askQuestionM(selectedMemberId, startDate);
+        String missionContent = chatGptResponseForMission.getChoices().get(0).getMessage().getContent();
+        System.out.println(missionContent);
+        missionService.saveMissionSen(selectedMemberId, startDate, missionContent);
+
+        // 3. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
+        ChatGptResponse chatGptResponseForFeedback = null;
+        chatGptResponseForFeedback = chatGptService.askQuestion(selectedMemberId, startDate);
+        String feedbackContent = chatGptResponseForFeedback.getChoices().get(0).getMessage().getContent();
+        feedbackService.save(selectedMemberId, feedbackContent, startDate);
+
+        // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
+        accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
         return surveyDTO;
     }
 

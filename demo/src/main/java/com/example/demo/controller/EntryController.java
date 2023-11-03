@@ -16,7 +16,7 @@ public class EntryController {
     private final EntryService entryService;
 
     @RequestMapping("/saveEntry")
-    public void saveFeedbackComment(){
+    public void saveFeedbackComment(){ // member controller에서 사용 중. 나중에 삭제.
         ArrayList<EntryDTO> entryDTOList = new ArrayList<EntryDTO>();
 
         entryDTOList.add(new EntryDTO(1,"cafe","카페","음료 대신 물을 마시거나 음료를 사먹는 횟수를 줄여서"));
@@ -30,7 +30,7 @@ public class EntryController {
 
         // 값 넣기.
         for(EntryDTO dtos : entryDTOList){
-            entryService.save(dtos);
+            entryService.save();
         }
     }
 }
