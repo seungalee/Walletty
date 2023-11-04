@@ -73,6 +73,7 @@ const Mission = () => {
         .then((result) => result.json())
         .then((result) => {
           setAllMissionList(result);
+          console.log("mission");
           console.log(result);
         })
         .catch((err) => {

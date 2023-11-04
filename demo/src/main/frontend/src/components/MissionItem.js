@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const MissionStyled = styled.div`
   width: 500px;
-  height: 70px;
+  height: 100px;
   padding: 10px 15px 15px 10px;
   margin: 15px 15px;
   box-shadow: 1px 1px 3px var(--mygray);
