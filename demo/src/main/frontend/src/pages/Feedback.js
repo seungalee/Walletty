@@ -2,10 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import FeedbackList from "../components/FeedbackList";
 import MyHeader from "../components/MyHeader";
 import { useUserState } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Feedback = () => {
-  const id = "test";
+  const navigate = useNavigate();
+  const id = localStorage.getItem("memberId");
   const [data, setData] = useState([]);
+  const [allMissionList, setAllMissionList] = useState([]);
   const [allFeedbackList, setAllFeedbackList] = useState([]);
   const dummyData = [
     {
@@ -78,22 +81,65 @@ const Feedback = () => {
     // console.log(newList);
     // console.log(data);
     // console.log(data.length);
-    fetch("/chat-gpt/feedback", {
-      method: "POST",
-      body: JSON.stringify({
-        memberId: "qq",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((result) => result.json())
-      .then((result) => {
-        console.log(result);
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      fetch("/chat-gpt/feedback", {
+        method: "POST",
+        body: JSON.stringify({
+          //memberId: id,
+          memberId: "qq",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((result) => result.json())
+        .then((result) => {
+          console.log(result);
+          setAllFeedbackList(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      fetch("/chat-gpt/mission", {
+        method: "POST",
+        body: JSON.stringify({
+          memberId: id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((result) => {
+          setAllMissionList(result);
+          console.log(`mission:${result}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      //startdate 기준 합치기
+      const map = new Map();
+      allFeedbackList.forEach((item) => map.set(item.startdate, item));
+      allMissionList.forEach((item) =>
+        map.set(item.startdate, { ...map.get(item.startdate), ...item })
+      );
+      const missionFeedbackList = Array.from(map.values());
+      const newList = missionFeedbackList.map(
+        ({
+          missionId,
+          memberId,
+          missionEntry,
+          missionMoney,
+          now,
+          content,
+          comment,
+          ...rest
+        }) => rest
+      );
+    } else {
+      navigate("/login");
+    }
   }, []);
 
   const testApi = () => {

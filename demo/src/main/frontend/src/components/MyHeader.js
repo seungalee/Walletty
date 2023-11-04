@@ -53,6 +53,7 @@ const RightStyled = styled.div`
 `;
 
 const MyHeader = ({ nowpage }) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
   const navigate = useNavigate();
 
   const profileClickHandler = (e) => {
@@ -77,7 +78,12 @@ const MyHeader = ({ nowpage }) => {
   };
   const logoutClickHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    if (isLoggedIn === "true") {
+      localStorage.setItem("isLoggedIn", "false");
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <div className="MyHeader">
@@ -91,7 +97,9 @@ const MyHeader = ({ nowpage }) => {
         <div onClick={missionClickHandler}>미션</div>
         <div onClick={feedbackClickHandler}>피드백</div>
         <div onClick={vaultClickHandler}>금고</div>
-        <div onClick={logoutClickHandler}>로그아웃</div>
+        <div onClick={logoutClickHandler}>
+          {isLoggedIn === "true" ? "로그아웃" : "로그인"}
+        </div>
       </RightStyled>
     </div>
   );

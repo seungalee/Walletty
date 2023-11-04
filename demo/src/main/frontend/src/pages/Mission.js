@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import MissionList from "../components/MissionList";
 import MyHeader from "../components/MyHeader";
+import { useNavigate } from "react-router-dom";
 
 const Mission = () => {
+  const navigate = useNavigate();
+  const id = localStorage.getItem("memberId");
   const [data, setData] = useState([]);
   const [allMissionList, setAllMissionList] = useState([]);
   const dummyData = [
@@ -57,15 +60,34 @@ const Mission = () => {
     },
   ];
   useEffect(() => {
-    setAllMissionList(dummyData);
-    console.log(allMissionList);
-    const newList = allMissionList.map(
-      ({ missionEntry, missionMoney, now, feedbackSen, accDeposit, ...rest }) =>
-        rest
-    );
-    setData(newList);
-    console.log(data);
-  }, [dummyData]);
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      fetch("/chat-gpt/mission", {
+        method: "POST",
+        body: JSON.stringify({
+          memberId: id,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((result) => result.json())
+        .then((result) => {
+          setAllMissionList(result);
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      console.log(allMissionList);
+      const newList = allMissionList.map(
+        ({ missionEntry, missionMoney, now, ...rest }) => rest
+      );
+      setData(newList);
+      console.log(data);
+    } else {
+      navigate("/login");
+    }
+  }, []);
 
   //   useEffect(
   //     () =>

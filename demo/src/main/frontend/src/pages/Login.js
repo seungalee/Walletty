@@ -37,6 +37,7 @@ const Login = () => {
         if (result.message === "success") {
           console.log("로그인에 성공하였습니다.");
           localStorage.setItem("memberId", state.id);
+          localStorage.setItem("isLoggedIn", "true");
           //localstorage.setItem("token", result.token)
           // local 말고 db에도 데이터 surveyDone 필요
           // 로그인 시 db에서 goal, fixed, 미션 등 가져오기

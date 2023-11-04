@@ -7,8 +7,8 @@ const MissionStyled = styled.div`
   margin: 15px 15px;
   box-shadow: 1px 1px 3px var(--mygray);
   background-color: ${(props) => {
-    if (props.successed === "true") return "rgba(187, 208, 255, 0.3)";
-    else if (props.successed === "false") return "rgba(255, 214, 255, 0.3)";
+    if (props.success === "true") return "rgba(187, 208, 255, 0.3)";
+    else if (props.success === "false") return "rgba(255, 214, 255, 0.3)";
     else return "rgba(201, 193, 255, 0.3)";
   }};
 `;
@@ -25,16 +25,22 @@ const MissionStatusStyled = styled.div`
   margin-bottom: 4px;
 `;
 
-const MissionItem = ({ id, startdate, enddate, missionSen, successed }) => {
+const MissionItem = ({
+  missionId,
+  startDate,
+  endDate,
+  missionSen,
+  success,
+}) => {
   return (
     <div className="MissionItem">
-      <MissionStyled successed={`${successed}`}>
+      <MissionStyled success={`${success}`}>
         <MissionStatusStyled>
-          {successed === "true" && "성공"}
-          {successed === "false" && "실패"}
-          {successed === "doing" && "진행 중"}
+          {success === "true" && "성공"}
+          {success === "false" && "실패"}
+          {success === "doing" && "진행 중"}
         </MissionStatusStyled>
-        <div className="mission_date">{`${startdate} ~ ${enddate}`}</div>
+        <div className="mission_date">{`${startDate} ~ ${endDate}`}</div>
         <div className="mission_content">{missionSen}</div>
       </MissionStyled>
     </div>
