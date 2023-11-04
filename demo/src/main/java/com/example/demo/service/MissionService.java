@@ -42,6 +42,19 @@ public class MissionService {
 
     }
 
+    public void saveAccept(int missionId) {
+
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByMissionId(missionId);
+        if(ismissionEntity.isPresent()) {
+            MissionEntity missionEntity = ismissionEntity.get();
+            missionEntity.setAccept(true);
+            missionRepository.save(missionEntity);
+        }else{
+            System.out.println("미션 테이블에 missionId가 없음. DB 다시 확인");
+        }
+
+    }
+
     /*
     public MissionDTO findByMemberIdAndNow(String memberId, String now) {
         Optional<MissionEntity> byMemberIdNow = missionRepository.findByMemberIdAndNow(memberId,now);
