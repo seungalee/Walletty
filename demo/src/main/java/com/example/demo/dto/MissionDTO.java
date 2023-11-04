@@ -20,7 +20,7 @@ public class MissionDTO {
     private String missionSen;
     private String now;
     private Boolean accept;
-    private Boolean success;
+    private String success;
 
     public static MissionDTO toMissionDTO(MissionEntity missionEntity){
         MissionDTO missionDTO = new MissionDTO();

@@ -33,7 +33,7 @@ public class MissionEntity {
     @Column
     private Boolean accept;
     @Column
-    private Boolean success;
+    private String success;
 
     public static MissionEntity toMissionEntity(MissionDTO missionDTO){
         MissionEntity missionEntity = new MissionEntity();
