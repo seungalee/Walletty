@@ -21,6 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onLoginHandler = (e) => {
+    console.log(state.id);
     e.preventDefault();
     fetch("/member/login", {
       method: "POST",
@@ -47,6 +48,8 @@ const Login = () => {
             userId: state.id,
           });
         } else if (result.message === "successFirst") {
+          localStorage.setItem("memberId", state.id);
+          localStorage.setItem("isLoggedIn", "true");
           navigate("/survey");
         } else if (result.message === "fail") {
           alert("아이디나 비밀번호를 확인해 주세요.");

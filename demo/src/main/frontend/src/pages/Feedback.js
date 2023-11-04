@@ -86,7 +86,7 @@ const Feedback = () => {
         method: "POST",
         body: JSON.stringify({
           //memberId: id,
-          memberId: "qq",
+          memberId: id,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -94,7 +94,9 @@ const Feedback = () => {
       })
         .then((result) => result.json())
         .then((result) => {
+          console.log("feedback");
           console.log(result);
+
           setAllFeedbackList(result);
         })
         .catch((err) => {
@@ -113,7 +115,8 @@ const Feedback = () => {
         .then((result) => result.json())
         .then((result) => {
           setAllMissionList(result);
-          console.log(`mission:${result}`);
+          console.log("mission");
+          console.log(result);
         })
         .catch((err) => {
           console.log(err);
