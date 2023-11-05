@@ -190,8 +190,8 @@ public class MemberController {
         // 5. profile save & goalEntry 업데이트
         // survey 최초 한 번만 한다고 가정하고 -> level = 1
         // 나중에 survey 변경할 수 있도록 수정한다면 이 부분 바꿔야 함.
-        ProfileDTO profileDTO = new ProfileDTO(selectedMemberId,1,"낭비꾼"); // 나중에 goalEntry 추가
-        profileService.updateGoalEntry(profileDTO);
+        profileService.updateGoalEntry(selectedMemberId); // 나중에 goalEntry 추가
+
 
         return surveyDTO;
     }
