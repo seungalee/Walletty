@@ -27,6 +27,7 @@ public class MemberController {
     private final MissionService missionService;
     private final MissionController missionController;
     private final FeedbackService feedbackService;
+    private final ProfileService profileService;
 
     // 회원가입 페이지 출력 요청
 //    @GetMapping("/member/save")
@@ -185,6 +186,12 @@ public class MemberController {
 
         // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
         accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
+        // 5. profile save & goalEntry 업데이트
+        // survey 최초 한 번만 한다고 가정하고 -> level = 1
+        // 나중에 survey 변경할 수 있도록 수정한다면 이 부분 바꿔야 함.
+        ProfileDTO profileDTO = new ProfileDTO(selectedMemberId,1,"낭비꾼"); // 나중에 goalEntry 추가
+        profileService.updateGoalEntry(profileDTO);
 
         return surveyDTO;
     }

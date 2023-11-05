@@ -26,6 +26,7 @@ public class AccountAnalyzeController {
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
 
+    private final ProfileService profileService;
 
     @GetMapping("/payment/{date}/{memberId}")
     public void paymentForm(@PathVariable("date") String date,@PathVariable("memberId") String memberId) throws IOException, InterruptedException {
@@ -67,6 +68,10 @@ public class AccountAnalyzeController {
                 }
             }
             accountAnalyzeService.saveAmount(memberId);
+
+            // payment 들고올 때 분석 테이블 저장 후 profile의 weekTotalAmount 업데이트
+            profileService.updateWeekTotalAmount(memberId);
+
 
 
         } catch (Exception e1) {
