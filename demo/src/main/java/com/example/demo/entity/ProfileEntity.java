@@ -42,6 +42,11 @@ public class ProfileEntity {
     public static ProfileEntity toProfileEntity(ProfileDTO profileDTO){
         ProfileEntity profileEntity = new ProfileEntity();
         profileEntity.setMemberId(profileDTO.getMemberId());
+        profileEntity.setMissionCnt(profileDTO.getMissionCnt());
+        profileEntity.setSuccessCnt(profileDTO.getSuccessCnt());
+        profileEntity.setLevel(profileDTO.getLevel());
+        profileEntity.setPosition(profileDTO.getPosition());
+        profileEntity.setWeekTotalAmount(profileDTO.getWeekTotalAmount());
 
         return profileEntity;
     }

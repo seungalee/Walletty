@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.ProfileDTO;
 import com.example.demo.entity.AccountAnalyzeEntity;
+import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.entity.MissionEntity;
 import com.example.demo.entity.ProfileEntity;
 import com.example.demo.repository.AccountAnalyzeRepository;
@@ -10,6 +12,7 @@ import com.example.demo.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +101,12 @@ public class ProfileService {
 
             //originEntity.setSuccessMission(); //나중에 추가하기
         }
+    }
+
+    public ProfileDTO findByMemberId(String memberId){
+        Optional<ProfileEntity> byMemberId = profileRepository.findByMemberId(memberId);
+        ProfileDTO profileDTO = ProfileDTO.toProfileDTO(byMemberId.get());
+        return profileDTO;
     }
 
 }
