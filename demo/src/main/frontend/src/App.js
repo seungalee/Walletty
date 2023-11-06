@@ -11,7 +11,7 @@ import Feedback from "./pages/Feedback";
 import Mission from "./pages/Mission";
 import Survey_goalmoney from "./pages/Survey_goalmoney";
 import Vault from "./pages/Vault";
-
+import Toss from "./pages/Toss";
 function App() {
   return (
     <UserProvider>
@@ -26,6 +26,7 @@ function App() {
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/mission" element={<Mission />} />
             <Route path="/vault" element={<Vault />} />
+            <Route path="/toss" element={<Toss />} />
           </Routes>
         </div>
       </BrowserRouter>

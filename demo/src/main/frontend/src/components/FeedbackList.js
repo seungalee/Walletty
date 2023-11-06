@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FeedbackItem from "./FeedbackItem";
 import styled from "styled-components";
 
@@ -15,7 +15,7 @@ const ButtonStyled = styled.button`
 `;
 
 const FeedbackList = ({ feedbackList, listLen }) => {
-  const [feedbackNum, setFeedbackNum] = useState(2);
+  const [feedbackNum, setFeedbackNum] = useState(1);
   const getMoreFeedbackList = () => {
     return feedbackList.slice(listLen - feedbackNum);
   };
@@ -34,7 +34,7 @@ const FeedbackList = ({ feedbackList, listLen }) => {
         )}
       </div>
       {getMoreFeedbackList().map((it) => (
-        <FeedbackItem key={it.idx} {...it} />
+        <FeedbackItem key={it.feedbackId} {...it} />
       ))}
     </div>
   );

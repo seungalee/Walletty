@@ -1,11 +1,11 @@
 import { useState } from "react";
 import VaultItem from "./VaultItem";
 
-const VaultList = ({ vaultList }) => {
+const VaultList = ({ totalVaultList }) => {
   return (
     <div className="VaultList">
-      {vaultList.map((it) => (
-        <VaultItem key={it.idx} {...it} />
+      {totalVaultList.map((it) => (
+        <VaultItem key={it.missionId} {...it} />
       ))}
     </div>
   );

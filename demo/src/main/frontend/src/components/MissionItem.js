@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 const MissionStyled = styled.div`
   width: 500px;
-  height: 100px;
+  height: auto;
   padding: 10px 15px 15px 10px;
   margin: 15px 15px;
   box-shadow: 1px 1px 3px var(--mygray);
   background-color: ${(props) => {
-    if (props.success === "true") return "rgba(187, 208, 255, 0.3)";
-    else if (props.success === "false") return "rgba(255, 214, 255, 0.3)";
+    if (props.success === "success") return "rgba(187, 208, 255, 0.3)";
+    else if (props.success === "fail") return "rgba(255, 214, 255, 0.3)";
     else return "rgba(201, 193, 255, 0.3)";
   }};
 `;
@@ -36,9 +36,9 @@ const MissionItem = ({
     <div className="MissionItem">
       <MissionStyled success={`${success}`}>
         <MissionStatusStyled>
-          {success === "true" && "성공"}
-          {success === "false" && "실패"}
-          {success === "doing" && "진행 중"}
+          {success === "success" && "성공"}
+          {success === "fail" && "실패"}
+          {!success && "진행 중"}
         </MissionStatusStyled>
         <div className="mission_date">{`${startDate} ~ ${endDate}`}</div>
         <div className="mission_content">{missionSen}</div>
