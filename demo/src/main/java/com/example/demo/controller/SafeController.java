@@ -18,13 +18,25 @@ public class SafeController {
     private final MissionService missionService;
     private final ProfileService profileService;
 
-    @RequestMapping("/missionAccept/{missionId}") //일단 금고 입금이 제대로 돌아가는지를 확인하기 위해 만듦.
-    //실제는 프론트에서 수락 버튼을 누르면 missionId를 전달
+    @RequestMapping("/missionAccept/{missionId}") // 수락 버튼을 눌렀을 때 프론트에서 missionId를 줌
     public void missionAccept(@PathVariable("missionId") int missionId){
-        safeService.save(missionId); // 버튼 누르면 금고 테이블 입금 여부에 true
-        missionService.saveAccept(missionId);//미션 테이블에 미션 수락 true
+        safeService.saveMissionId(missionId); // 금고 테이블에 row 생김
+        missionService.saveAccept(missionId); // 미션 테이블에 accept가 true
 
         // 미션 수락한 경우 profile의 missionCnt 업데이트
         profileService.updateMission(missionId);
+    }
+
+    @RequestMapping("/moneyInSafe/{missionId}") // 입금 완료했을 때 프론트에서 missionId를 줌
+    public void moneyInSafe(@PathVariable("missionId") int missionId){
+        safeService.updateInSafe(missionId);
+
+    }
+
+
+    @RequestMapping("/moneyOutSafe/{missionId}") // 금고에서 돈 돌려받기를 눌렀을 때 프론트에서 missionId를 줌
+    public void moneyOutSafe(@PathVariable("missionId") int missionId){
+        safeService.updateOutSafe(missionId);
+
     }
 }
