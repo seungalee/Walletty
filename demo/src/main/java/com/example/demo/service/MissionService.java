@@ -138,4 +138,14 @@ public class MissionService {
             System.out.println("잘못된 missionId입니다.");
         }
     }
+
+    public void changeWeek(String memberId, String lastStartDate) {
+        Optional<MissionEntity> lastMission =
+                missionRepository.findByMemberIdAndStartDate(memberId,lastStartDate);
+
+        if (lastMission.isPresent()) {
+            MissionEntity originEntity = lastMission.get();
+            originEntity.setNow("false");
+        }
+    }
 }

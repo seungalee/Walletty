@@ -96,6 +96,12 @@ public class MemberController {
                     String selectedMemberId = surveyDTO.getSurveyId();
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
 
+                    // 0. 저번주(아직 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 없는 걸로 설정
+                    // 지난 주차로 바꾸는 것 : 피드백 okToSend -> True, 미션 now -> false
+                    String lastStartDate = accountAnalyzeService.findLastWeek(selectedMemberId); // lastStartDate = "1108"
+                    feedbackService.changeWeek(selectedMemberId, lastStartDate);
+                    missionService.changeWeek(selectedMemberId, lastStartDate);
+
                     // 1. 미션 로직을 통해 미션 항목 선정
                     missionController.mission(selectedMemberId);
 
@@ -114,6 +120,8 @@ public class MemberController {
 
                     // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
                     accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
+
+                    //
 
                     return "{\"message\" : \"success\"}";
                 }

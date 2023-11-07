@@ -16,7 +16,7 @@ public class AccountAnalyzeDTO {
     private String memberId;
     private String entry;
     private Integer totalAmount;
-    private String orderWeek;
+    private String orderWeek; // ex) 1101~1107 이면 1107
     private Boolean okToUse; //미션이랑 피드백을 만들 때 사용을 했는지 여부. 해당 주차를 중복으로 만들지 않기 위함.
 
     //private Boolean thisWeek; // 이번주면 True

@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 
+import com.example.demo.dto.AccountAnalyzeDTO;
 import com.example.demo.dto.FeedbackDTO;
+import com.example.demo.entity.AccountAnalyzeEntity;
 import com.example.demo.entity.FeedbackCommentEntity;
 import com.example.demo.entity.FeedbackEntity;
 import com.example.demo.repository.FeedbackCommentRepository;
@@ -42,6 +44,16 @@ public class FeedbackService {
 
         feedbackRepository.save(feedbackEntity);
 
+    }
+
+    public void changeWeek(String memberId, String lastStartDate){
+        Optional<FeedbackEntity> lastFeedback =
+                feedbackRepository.findByMemberIdAndStartdate(memberId,lastStartDate);
+
+        if (lastFeedback.isPresent()) {
+            FeedbackEntity originEntity = lastFeedback.get();
+            originEntity.setOkToSend("true");
+        }
     }
 
     public FeedbackDTO findByMemberIdAndOkToSend(String memberId, String okToSend) {

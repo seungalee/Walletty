@@ -241,7 +241,7 @@ public class MissionController {
         missionDTO.setMissionMoney(missionMoney);
         missionDTO.setStartDate(startDate);
         missionDTO.setEndDate(endDate);
-        missionDTO.setNow("True");
+        missionDTO.setNow("true");
 
         return missionDTO;
 

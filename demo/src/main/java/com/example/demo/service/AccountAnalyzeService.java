@@ -63,6 +63,16 @@ public class AccountAnalyzeService {
         String startDate = String.valueOf(startDateOfMission);
         return startDate;
     }
+
+    public String findLastWeek(String selectedMemberId){
+        List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, true); //직전주차 결제내역 분석 //지금은 이렇게 해두고 나중에 바꾸기
+        AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 orderWeek 다 같으니까)
+        String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석의 결제내역 마지막 날
+        Integer startDateOfMission = Integer.parseInt(endDateOfAnalyze) + 1; // 의 다음날이 다음주차 미션 시작 날
+        String startDate = String.valueOf(startDateOfMission);
+        return startDate;
+    }
+
     public void changeOkToUseWithTrue(String memberId){ // 피드백, 미션 다 만들고 난 뒤 이번주차 결제내역 분석 항목들 모두 okToUse바꿔주기
         List<AccountAnalyzeEntity> thisWeekEntity = accountAnalyzeRepository.findByMemberIdAndOkToUse(memberId,false);
         for (AccountAnalyzeEntity entity : thisWeekEntity) {

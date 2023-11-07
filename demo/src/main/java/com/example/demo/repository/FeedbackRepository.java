@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface FeedbackRepository extends JpaRepository<FeedbackEntity, Long> {
     List<FeedbackEntity> findByMemberId(String memberId);
     Optional<FeedbackEntity> findByMemberIdAndOkToSend(String memberId, String okToSend);
+    Optional<FeedbackEntity> findByMemberIdAndStartdate(String memberId, String startdate);
 }
