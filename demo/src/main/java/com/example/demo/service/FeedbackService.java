@@ -11,6 +11,7 @@ import com.example.demo.repository.FeedbackRepository;
 import com.example.demo.repository.MissionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FeedbackService {
 
     private final FeedbackRepository feedbackRepository;

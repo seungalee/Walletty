@@ -11,6 +11,7 @@ import com.example.demo.repository.MissionRepository;
 import com.example.demo.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service //스프링이 관리해주는 객체 == 스프링 빈
 @RequiredArgsConstructor //controller와 같이. final 멤버변수 생성자 만드는 역할
+@Transactional
 public class ProfileService {
     private final ProfileRepository profileRepository; // 먼저 jpa, mysql dependency 추가
     private final AccountAnalyzeRepository accountAnalyzeRepository;
