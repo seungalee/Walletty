@@ -29,28 +29,6 @@ public class MemberController {
     private final FeedbackService feedbackService;
     private final ProfileService profileService;
 
-    // 회원가입 페이지 출력 요청
-//    @GetMapping("/member/save")
-//    public String saveForm() {
-//        return "save";
-//    }
-
-//    @PostMapping("/member/save")    // name값을 requestparam에 담아온다
-//    public String save(@ModelAttribute MemberDTO memberDTO) {
-//        System.out.println("MemberController.save");
-//        System.out.println("memberDTO = " + memberDTO);
-//        memberService.save(memberDTO);
-//
-//        return "login";
-//    }
-
-//    @GetMapping("/member/join")  // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
-//    public ResponseEntity join(@RequestBody MemberDTO memberDTO){
-//        memberService.save(memberDTO);
-//        //log.debug("joinInfo = {}", memberDTO.toString());
-//        return new ResponseEntity<>("success", HttpStatus.OK);
-//    }
-
     // 회원가입 로직
     @PostMapping("/member/join")   // 나중에 RequestMapping으로 수정
     public MemberDTO join(@RequestBody MemberDTO memberDTO){ // /join에서 받은 회원가입 정보를 /member/join에서 받아오기
@@ -59,25 +37,6 @@ public class MemberController {
         feedbackCommentService.save(); // 회원가입 하면 자동으로 feedback_comment_table에 값 들어가도록
         return memberDTO;
     }
-
-//    @GetMapping("/member/login")
-//    public String loginForm() {
-//        return "login";
-//    }
-
-
-//    @PostMapping("/member/login") // session : 로그인 유지
-//    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
-//        MemberDTO loginResult = memberService.login(memberDTO);
-//        if (loginResult != null) {
-//            // login 성공
-//            session.setAttribute("loginId", loginResult.getMemberId());
-//            return "main";
-//        } else {
-//            // login 실패
-//            return "login";
-//        }
-//    }
 
     // 로그인 로직
     @PostMapping("/member/login")
@@ -147,22 +106,6 @@ public class MemberController {
 
     private final SurveyService surveyService;
 
-    /*
-    @GetMapping("/member/survey")
-    public String surveyForm() {
-        return "survey";
-    }
-
-    @PostMapping("/member/survey")
-    public String survey(@ModelAttribute SurveyDTO surveyDTO) {
-        System.out.println("MemberController.survey");
-        System.out.println("SurveyDTO = " + surveyDTO);
-        surveyService.save(surveyDTO);
-
-        return "index";
-    }
-    */
-
     // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
     @PostMapping(value="/member/survey")
     public SurveyDTO setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
@@ -220,26 +163,12 @@ public class MemberController {
         return surveydto;
     }
 
-    /*
-    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
-    @RequestMapping("/member/surveyDTO")
-    public ResponseEntity<String> setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
-
-        System.out.println(surveyDTO);
-
-        //String loginId = surveyService.getLoginId(session);
-        //String loginId = surveyDTO.getSurveyId();
-        //System.out.println("login id = " + loginId);
-
-        surveyService.save(surveyDTO);
-        //log.debug("surveyDTOInfo = {}", surveyDTO.toString());
-        return ResponseEntity.ok(surveyDTO.toString());
+    @RequestMapping("/surveyDTO")
+    @ResponseBody
+    public SurveyDTO sendSurveyDTO(@RequestBody String memberId){
+        SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
+        return surveyDTO;
     }
-
-    */
-
-
-
 
 }
 //MemberController.class
