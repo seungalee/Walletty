@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.SafeDTO;
 import com.example.demo.service.MissionService;
 import com.example.demo.service.ProfileService;
 import com.example.demo.service.SafeService;
@@ -8,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -38,5 +41,11 @@ public class SafeController {
     public void moneyOutSafe(@PathVariable("missionId") int missionId){
         safeService.updateOutSafe(missionId);
 
+    }
+
+    @RequestMapping("/safeDTO") // 백에서 safeDTO를 list로 보내줌.
+    public List<SafeDTO> sendSafeDTO(){
+        List<SafeDTO> safeDTOs = safeService.findAll();
+        return safeDTOs;
     }
 }

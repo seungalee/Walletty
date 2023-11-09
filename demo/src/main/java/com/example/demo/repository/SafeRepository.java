@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface SafeRepository  extends JpaRepository<SafeEntity, Integer> {
 
     Optional<SafeEntity> findByMissionId(int missionId);
+    //List<SafeEntity> findAllBy();
 }
