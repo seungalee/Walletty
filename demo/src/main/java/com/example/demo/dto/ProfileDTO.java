@@ -36,6 +36,8 @@ public class ProfileDTO {
 
     public ProfileDTO (String memberId, Integer level, String position, Integer weekTotalAmount){ //goalEntry 나중에 추가
         this.memberId = memberId;
+        this.missionCnt = 0;
+        this.successCnt = 0;
         this.level = level;
         this.position = position;
         this.weekTotalAmount = weekTotalAmount;
