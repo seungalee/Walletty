@@ -13,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service //스프링이 관리해주는 객체 == 스프링 빈
 @RequiredArgsConstructor //controller와 같이. final 멤버변수 생성자 만드는 역할
@@ -74,16 +72,62 @@ public class ProfileService {
             originEntity.setMissionCnt(updateCnt);
         }
     }
+    public String findAnalyzeLatestWeek(String memberId){
+        // 분석테이블에 아직 미션 피드백을 안만든 이번주를 제외하고 가져와서
+        List<AccountAnalyzeEntity> aaAll = accountAnalyzeRepository.findByMemberIdAndOkToUse(memberId, true);
+
+        // 중복 제거한 날짜만 추출
+        List<Integer> weekAll = new ArrayList<Integer>();
+        for(AccountAnalyzeEntity all : aaAll){
+            Integer intWeek = Integer.parseInt(all.getOrderWeek());
+            weekAll.add(intWeek);
+        }
+        Set<Integer> weekSet = new HashSet<Integer>(weekAll);
+        List<Integer> week = new ArrayList<Integer>(weekSet);
+        System.out.println(week);
+
+        // 가장 큰 숫자, 즉 가장 최신 날짜 추출
+        Integer last = Collections.max(week);
+        String lastDate = String.valueOf(last);
+        return lastDate;
+    }
     public void updateSuccess(int missionId) { // 미션 성공 or 실패 한 경우 -> successCnt, level, position, successMission
 
         Optional<MissionEntity> mission = missionRepository.findByMissionId(missionId);
-        Optional<ProfileEntity> profile = profileRepository.findByMemberId(mission.get().getMemberId());
+        String memberId = mission.get().getMemberId();
+        Optional<ProfileEntity> profile = profileRepository.findByMemberId(memberId);
+
+        // 아직 미션피드백 안만든 이번주차를 제외하고 분석테이블에 있는 가장 최신 주 == 해당 missionId의 미션 항목에 대하
+        // String lastDate = findAnalyzeLatestWeek(memberId);
+
+        // 해당 미션을 만든 분석테이블 주차의 날짜
+        String missionDate = mission.get().getStartDate();
+        Integer analyzeDate = Integer.parseInt(missionDate) - 1;
+        String lastDate = String.valueOf(analyzeDate);
+
+        // 미션 항목의 totalMoney를 위함
+        Optional<AccountAnalyzeEntity> accountAnalyzeEntity = accountAnalyzeRepository.
+                findByEntryAndMemberIdAndOrderWeek(mission.get().getMissionEntry(),memberId,lastDate);
 
         if (profile.isPresent()){ // 무조건 처음에 updateWeekTotalAmount를 통해 해당 멤버아이디의 프로필이 만들어져있는 상태임! 이미 있으니 해당 컬럼만 update.
             ProfileEntity originEntity = profile.get();
+
+            // successCnt 업데이트
             Integer updateCnt = originEntity.getSuccessCnt() + 1; // 데모를 위해 무조건 success만 했다고 가정
             originEntity.setSuccessCnt(updateCnt);
 
+            // successMission 업데이트. 최신순을 유지하기 위해 한 칸 씩 밀기.
+            originEntity.setSuccessMission3(originEntity.getSuccessMission2());
+            originEntity.setSuccessMission2(originEntity.getSuccessMission1());
+            // 제일 최근 미션인 successMission1은 파라미터로 넘어온 missionId에 해당하는 미션의 comment를 요약해서 넣기.
+            String entry = mission.get().getMissionEntry();
+            int missionMoney = mission.get().getMissionMoney();
+            int totalMoney = accountAnalyzeEntity.get().getTotalAmount();
+            int savingMoney = totalMoney - missionMoney;
+            String missionSummary = entry + "비 " + savingMoney +"원 절약 성공!";
+            originEntity.setSuccessMission1(missionSummary);
+
+            // level 업데이트
             Integer updateLevel = originEntity.getLevel() + 1;
             originEntity.setLevel(updateLevel);
 
@@ -100,8 +144,6 @@ public class ProfileService {
                 updatePosition = "부자";
             }
             originEntity.setPosition(updatePosition);
-
-            //originEntity.setSuccessMission(); //나중에 추가하기
         }
     }
 

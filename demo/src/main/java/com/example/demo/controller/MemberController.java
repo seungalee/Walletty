@@ -61,6 +61,8 @@ public class MemberController {
                     // 2. 미션 성공한 경우 profile의 successCnt update, 실패한 경우는 update X
                     profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정
 
+                    // profile에 최근에 성공한 미션 3개 update
+
                     // 3. 저번주(아직 DB엔 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 아직 없는 걸로 설정
                     // 지난 주차로 바꾸는 것 : 피드백 okToSend -> True, 미션 now -> false
                     String lastStartDate = accountAnalyzeService.findLastWeek(selectedMemberId); // lastStartDate = "1108"
@@ -87,6 +89,7 @@ public class MemberController {
                     accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
 
                     // 이번 주차 미션, 피드백 생성 및 DB반영 완료
+
 
                     return "{\"message\" : \"success\"}";
                 }

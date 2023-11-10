@@ -31,6 +31,16 @@ public class ProfileEntity {
     @Column
     private Integer weekTotalAmount;
 
+    @Column
+    private String successMission1;
+
+    @Column
+    private String successMission2;
+
+    @Column
+    private String successMission3;
+
+
 //    @SuppressWarnings("JpaAttributeTypeInspection")
 //    @Column
 //    private List<String> goalEntry; //3개
@@ -47,6 +57,9 @@ public class ProfileEntity {
         profileEntity.setLevel(profileDTO.getLevel());
         profileEntity.setPosition(profileDTO.getPosition());
         profileEntity.setWeekTotalAmount(profileDTO.getWeekTotalAmount());
+        profileEntity.setSuccessMission1(profileDTO.getSuccessMission1());
+        profileEntity.setSuccessMission2(profileDTO.getSuccessMission2());
+        profileEntity.setSuccessMission3(profileDTO.getSuccessMission3());
 
         return profileEntity;
     }
