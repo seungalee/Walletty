@@ -105,4 +105,10 @@ public class AccountAnalyzeService {
         }
         return aDTO;
     }
+
+    public int findbySurveyIdAndEntry(String surveyId, String goalEntry) {
+        AccountAnalyzeEntity analyzeEntity = accountAnalyzeRepository.findByMemberIdAndEntry(surveyId, goalEntry);
+
+        return analyzeEntity.getTotalAmount();
+    }
 }

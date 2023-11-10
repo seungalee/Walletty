@@ -106,7 +106,7 @@ public class MemberController {
 
     private final SurveyService surveyService;
 
-    // 설문조사 작성하고 db에 저장하기(로그인했을 때 id 가져와서->여기 session에서 값 못 가져오는 문제 있음)
+    // 설문조사 작성하고 db에 저장하기
     @PostMapping(value="/member/survey")
     public SurveyDTO setSurveyDTO(@RequestBody SurveyDTO surveyDTO){
 
@@ -147,6 +147,7 @@ public class MemberController {
         return surveyDTO;
     }
 
+    /*
     // 설문조사 보여주기(로그인했을 때 id 가져와서)
     @RequestMapping("/api/v1/surveydto")
     @ResponseBody
@@ -162,12 +163,28 @@ public class MemberController {
         System.out.println("react connect");
         return surveydto;
     }
+     */
 
     @RequestMapping("/surveyDTO")
     @ResponseBody
     public SurveyDTO sendSurveyDTO(@RequestBody String memberId){
         SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
         return surveyDTO;
+    }
+
+    // ************* survey_limit **************
+
+    private final SurveyLimitService surveyLimitService;
+
+    @RequestMapping("/surveyLimitDTO")
+    @ResponseBody
+    public SurveyLimitDTO sendSurveyLimit(@RequestBody SurveyDTO surveyDTO){
+        int entry1totalAmount = accountAnalyzeService.findbySurveyIdAndEntry(surveyDTO.getSurveyId(), surveyDTO.getGoalEntry1());
+        int entry2totalAmount = accountAnalyzeService.findbySurveyIdAndEntry(surveyDTO.getSurveyId(), surveyDTO.getGoalEntry2());
+        int entry3totalAmount = accountAnalyzeService.findbySurveyIdAndEntry(surveyDTO.getSurveyId(), surveyDTO.getGoalEntry3());
+
+        SurveyLimitDTO surveyLimitDTO = surveyLimitService.save(surveyDTO.getSurveyId(), entry1totalAmount, entry2totalAmount, entry3totalAmount);
+        return surveyLimitDTO;
     }
 
 }
