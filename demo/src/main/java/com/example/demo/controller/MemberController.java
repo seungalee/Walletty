@@ -50,6 +50,8 @@ public class MemberController {
                 }
                 else { // 이번 주차 피드백, 미션이 만들어지지 않은 경우
 
+                    // 전제조건 : 이번주차 결제내역 링크를 통해 가져온 상태여야 함.
+
                     // 이번 주 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
                     String selectedMemberId = surveyDTO.getSurveyId();
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
@@ -58,13 +60,12 @@ public class MemberController {
                     int missionId = missionService.findbyNow("true");
                     missionService.isMissionSuccess(missionId);
 
-                    // 2. 미션 성공한 경우 profile의 successCnt update, 실패한 경우는 update X
+                    // 2. 미션 성공한 경우 profile의 successCnt, level, position, successMission(최근에 성공한 미션 3개) update
+                    // 실패한 경우는 update X
                     profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정
 
-                    // profile에 최근에 성공한 미션 3개 update
-
                     // 3. 저번주(아직 DB엔 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 아직 없는 걸로 설정
-                    // 지난 주차로 바꾸는 것 : 피드백 okToSend -> True, 미션 now -> false
+                    // 지난 주차로 바꾸는 것 : 피드백 okToSend : false -> true, 미션 now : true -> false
                     String lastStartDate = accountAnalyzeService.findLastWeek(selectedMemberId); // lastStartDate = "1108"
                     feedbackService.changeWeek(selectedMemberId, lastStartDate);
                     missionService.changeWeek(selectedMemberId, lastStartDate);

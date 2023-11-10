@@ -13,7 +13,7 @@ public interface MissionRepository extends JpaRepository<MissionEntity, Integer>
 
     Optional<MissionEntity> findByMissionId(int missionId);
     Optional<MissionEntity> findByMemberIdAndStartDate(String memberId, String startDate);
-
+    Optional<MissionEntity> findByMemberIdAndNow(String memberId, String now);
     Optional<MissionEntity> findByStartDate(String startDate);
 
     Optional<MissionEntity> findByNow(String now);

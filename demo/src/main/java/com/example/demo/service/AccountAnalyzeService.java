@@ -4,15 +4,13 @@ import com.example.demo.dto.*;
 import com.example.demo.entity.*;
 import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.repository.MemberRepository;
+import com.example.demo.repository.MissionRepository;
 import com.example.demo.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service //스프링이 관리해주는 객체 == 스프링 빈
 @RequiredArgsConstructor //controller와 같이. final 멤버변수 생성자 만드는 역할
@@ -20,6 +18,7 @@ import java.util.Optional;
 public class AccountAnalyzeService {
     private final PaymentRepository paymentRepository;
     private final AccountAnalyzeRepository accountAnalyzeRepository;
+    private final MissionRepository missionRepository;
 
     public String saveAmount(String memberId) { //entity객체는 service에서만
         List<PaymentEntity> paymentAll = paymentRepository.findByMemberId(memberId);
@@ -54,23 +53,20 @@ public class AccountAnalyzeService {
         return "memberDTO"; //여기 나중에 수정
     }
 
-    public String findThisWeek(String selectedMemberId){
-        // List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, false); //이번주차 결제내역 분석
+    public String findThisWeek(String selectedMemberId){ // 미션 피드백 기준 : ex) 1108, 1115
+        // 분석 테이블에는 이번 주차가 있지만 okToUse가 false인 상태 (아직 미션 피드백을 만들지 않았으니까)
         List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, false); //이번주차 결제내역 분석
-        AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 orderWeek 다 같으니까)
-        String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석의 결제내역 마지막 날
+        AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 thisWeek list에 모든 객체의 orderWeek 다 같으니까)
+        String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석 orderWeek (== 마지막 결제내역 날짜) ex) 1107, 1114
         Integer startDateOfMission = Integer.parseInt(endDateOfAnalyze) + 1; // 의 다음날이 다음주차 미션 시작 날
         String startDate = String.valueOf(startDateOfMission);
         return startDate;
     }
 
-    public String findLastWeek(String selectedMemberId){
-        List<AccountAnalyzeEntity> thisWeek = accountAnalyzeRepository.findByMemberIdAndOkToUse(selectedMemberId, true); //직전주차 결제내역 분석 //지금은 이렇게 해두고 나중에 바꾸기
-        AccountAnalyzeEntity thisDate = thisWeek.get(0); // 첫 번째 객체 (어차피 orderWeek 다 같으니까)
-        String endDateOfAnalyze = thisDate.getOrderWeek(); // 이번주차 분석의 결제내역 마지막 날
-        Integer startDateOfMission = Integer.parseInt(endDateOfAnalyze) + 1; // 의 다음날이 다음주차 미션 시작 날
-        String startDate = String.valueOf(startDateOfMission);
-        return startDate;
+    public String findLastWeek(String selectedMemberId){ // 미션 피드백 기준 : ex) 1108
+        // 미션테이블에 now가 true인 미션을 가져오기 (제일 최신 미션. == 아직 이번주 미션 만들기 전이기 때문에 지난주 미션임.)
+        Optional<MissionEntity> missionEntity = missionRepository.findByMemberIdAndNow(selectedMemberId,"true");
+        return missionEntity.get().getStartDate();
     }
 
     public void changeOkToUseWithTrue(String memberId){ // 피드백, 미션 다 만들고 난 뒤 이번주차 결제내역 분석 항목들 모두 okToUse바꿔주기

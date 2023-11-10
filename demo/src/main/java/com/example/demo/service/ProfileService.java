@@ -102,7 +102,7 @@ public class ProfileService {
         // 아직 미션피드백 안만든 이번주차를 제외하고 분석테이블에 있는 가장 최신 주 == 해당 missionId의 미션 항목에 대하
         // String lastDate = findAnalyzeLatestWeek(memberId);
 
-        // 해당 미션을 만든 분석테이블 주차의 날짜
+        // 해당 미션을 만든 분석테이블 주차의 날짜 // 분석 기준 : ex) 1107
         String missionDate = mission.get().getStartDate();
         Integer analyzeDate = Integer.parseInt(missionDate) - 1;
         String lastDate = String.valueOf(analyzeDate);
