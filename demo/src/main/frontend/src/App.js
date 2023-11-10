@@ -12,6 +12,9 @@ import Mission from "./pages/Mission";
 import Survey_goalmoney from "./pages/Survey_goalmoney";
 import Vault from "./pages/Vault";
 import Toss from "./pages/Toss";
+import Profile from "./pages/Profile";
+import Statistics from "./pages/Statistics";
+
 function App() {
   return (
     <UserProvider>
@@ -27,6 +30,8 @@ function App() {
             <Route path="/mission" element={<Mission />} />
             <Route path="/vault" element={<Vault />} />
             <Route path="/toss" element={<Toss />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/statistics" element={<Statistics />} />
           </Routes>
         </div>
       </BrowserRouter>

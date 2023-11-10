@@ -58,11 +58,11 @@ const MyHeader = ({ nowpage }) => {
 
   const profileClickHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/profile");
   };
   const statisticsClickHandler = (e) => {
     e.preventDefault();
-    navigate("/");
+    navigate("/statistics");
   };
   const missionClickHandler = (e) => {
     e.preventDefault();
