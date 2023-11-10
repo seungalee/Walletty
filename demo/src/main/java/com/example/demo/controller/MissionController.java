@@ -30,7 +30,7 @@ public class MissionController {
     @RequestMapping("/isMissionSuccess/{missionId}")
     public void isSuccess(@PathVariable("missionId") int missionId){
 
-        missionService.isMissionSuccess(missionId);
+        //missionService.isMissionSuccess(missionId);
 
         // 미션 성공 or 실패 한 경우 profile update
         profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정

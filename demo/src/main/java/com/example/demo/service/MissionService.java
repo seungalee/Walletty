@@ -350,4 +350,15 @@ public class MissionService {
 
 
     }
+
+    public int findbyNow(String now) {
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByNow(now);
+        if(ismissionEntity.isPresent()) {
+            MissionEntity missionEntity = ismissionEntity.get();
+            return missionEntity.getMissionId();
+        }else{
+            System.out.println("미션 테이블에 id랑 날짜가 없는데 미션을 줄 수 없음. db 다시 업데이트");
+            return 0;
+        }
+    }
 }

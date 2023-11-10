@@ -57,6 +57,8 @@ public class MemberController {
                     // 여기서 미션 성공여부 확인하는 코드 구현.
                     // 1주차 미션의 금액이랑 2주차 분석테이블의 금액이랑 비교해서 미션 금액 > 분석 금액 이면 success 바꾸는 것
                     // now가 true인 미션아이디를 찾아와서 변수 이름 "missionId" 로
+                    int missionId = missionService.findbyNow("true");
+                    missionService.isMissionSuccess(missionId);
 
                     // 미션 성공 or 실패 한 경우 profile의 successCnt update
                     // 여기 /isMissionSuccess/aa 링크로 테스트 먼저하고 바꿔놓기!
