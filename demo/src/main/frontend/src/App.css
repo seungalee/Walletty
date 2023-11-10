@@ -283,3 +283,12 @@ page
   width: 600px;
   height: 800px;
 }
+
+.vault_buttons {
+  margin-top: 7px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 0px;
+  top: 0px;
+}
