@@ -19,6 +19,7 @@ const VaultList = ({ totalVaultList }) => {
           navigate("/feedback");
         }
       }
+      console.log(filteredVaultList);
     });
   }, [filteredVaultList]);
   return (
