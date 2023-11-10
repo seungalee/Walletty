@@ -67,9 +67,12 @@ public class AccountAnalyzeController {
                     paymentService.save(pay);
                 }
             }
+
+            // payment 들고올 때 분석 테이블 저장 후
             accountAnalyzeService.saveAmount(memberId);
 
-            // payment 들고올 때 분석 테이블 저장 후 profile의 weekTotalAmount 업데이트
+            // profile의 weekTotalAmount 업데이트
+            // 회원가입 후 첫 결제내역 분석일 때 프로필 새로 생성 (save) , 처음이 아니라면 update
             profileService.updateWeekTotalAmount(memberId);
 
 

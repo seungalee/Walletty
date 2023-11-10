@@ -32,6 +32,15 @@ public class ProfileEntity {
     private Integer weekTotalAmount;
 
     @Column
+    private String goalEntry1;
+
+    @Column
+    private String goalEntry2;
+
+    @Column
+    private String goalEntry3;
+
+    @Column
     private String successMission1;
 
     @Column
@@ -57,6 +66,9 @@ public class ProfileEntity {
         profileEntity.setLevel(profileDTO.getLevel());
         profileEntity.setPosition(profileDTO.getPosition());
         profileEntity.setWeekTotalAmount(profileDTO.getWeekTotalAmount());
+        profileEntity.setGoalEntry1(profileDTO.getGoalEntry1());
+        profileEntity.setGoalEntry2(profileDTO.getGoalEntry2());
+        profileEntity.setGoalEntry3(profileDTO.getGoalEntry3());
         profileEntity.setSuccessMission1(profileDTO.getSuccessMission1());
         profileEntity.setSuccessMission2(profileDTO.getSuccessMission2());
         profileEntity.setSuccessMission3(profileDTO.getSuccessMission3());

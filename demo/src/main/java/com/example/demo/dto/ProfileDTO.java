@@ -20,7 +20,9 @@ public class ProfileDTO {
     private Integer level;
     private String position;
     private Integer weekTotalAmount;
-//    private List<String> goalEntry; //3개
+    private String goalEntry1;
+    private String goalEntry2;
+    private String goalEntry3;
     private String successMission1; // 제일 최근에 성공한 미션
     private String successMission2;
     private String successMission3;
@@ -33,6 +35,9 @@ public class ProfileDTO {
         profileDTO.setSuccessCnt(profileEntity.getSuccessCnt());
         profileDTO.setLevel(profileEntity.getLevel());
         profileDTO.setPosition(profileEntity.getPosition());
+        profileDTO.setGoalEntry1(profileEntity.getGoalEntry1());
+        profileDTO.setGoalEntry2(profileEntity.getGoalEntry2());
+        profileDTO.setGoalEntry3(profileEntity.getGoalEntry3());
         profileDTO.setWeekTotalAmount(profileEntity.getWeekTotalAmount());
         profileDTO.setSuccessMission1(profileEntity.getSuccessMission1());
         profileDTO.setSuccessMission2(profileEntity.getSuccessMission2());

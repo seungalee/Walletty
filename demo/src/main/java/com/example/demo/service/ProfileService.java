@@ -2,13 +2,11 @@ package com.example.demo.service;
 
 import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.ProfileDTO;
-import com.example.demo.entity.AccountAnalyzeEntity;
-import com.example.demo.entity.FeedbackEntity;
-import com.example.demo.entity.MissionEntity;
-import com.example.demo.entity.ProfileEntity;
+import com.example.demo.entity.*;
 import com.example.demo.repository.AccountAnalyzeRepository;
 import com.example.demo.repository.MissionRepository;
 import com.example.demo.repository.ProfileRepository;
+import com.example.demo.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,17 +20,7 @@ public class ProfileService {
     private final ProfileRepository profileRepository; // 먼저 jpa, mysql dependency 추가
     private final AccountAnalyzeRepository accountAnalyzeRepository;
     private final MissionRepository missionRepository;
-
-    public void updateGoalEntry(String memberId) { // survey : update goalEntry
-
-        Optional<ProfileEntity> profile = profileRepository.findByMemberId(memberId);
-
-        if (profile.isPresent()){
-            ProfileEntity originEntity = profile.get();
-            //String updateEntry = profileDTO.getGoalEntry(); //String updateEntry = goalEntry;
-            //originEntity.setGoal(updateEntry);
-        }
-    }
+    private final SurveyRepository surveyRepository;
 
     public void updateWeekTotalAmount(String memberId) { // payment 들고올 때 weekTotalAmount
 
@@ -58,6 +46,20 @@ public class ProfileService {
             ProfileEntity profileEntity = ProfileEntity.toProfileEntity(profileDTO);
             profileRepository.save(profileEntity);
             //Repository의 save메서드 호출 (조건. entity객체를 넘겨줘야 함)
+        }
+    }
+
+    public void updateGoalEntry(String memberId) { // survey : update goalEntry
+
+        Optional<ProfileEntity> profile = profileRepository.findByMemberId(memberId);
+
+        if (profile.isPresent()){
+            ProfileEntity originEntity = profile.get();
+            Optional<SurveyEntity> surveyEntity = surveyRepository.findBySurveyId(memberId);
+
+            originEntity.setGoalEntry1(surveyEntity.get().getGoalEntry1());
+            originEntity.setGoalEntry2(surveyEntity.get().getGoalEntry2());
+            originEntity.setGoalEntry3(surveyEntity.get().getGoalEntry3());
         }
     }
 
