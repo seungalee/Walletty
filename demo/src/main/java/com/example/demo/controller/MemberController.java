@@ -54,6 +54,14 @@ public class MemberController {
                     String selectedMemberId = surveyDTO.getSurveyId();
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
 
+                    // 여기서 미션 성공여부 확인하는 코드 구현.
+                    // 1주차 미션의 금액이랑 2주차 분석테이블의 금액이랑 비교해서 미션 금액 > 분석 금액 이면 success 바꾸는 것
+                    // now가 true인 미션아이디를 찾아와서 변수 이름 "missionId" 로
+
+                    // 미션 성공 or 실패 한 경우 profile의 successCnt update
+                    // 여기 /isMissionSuccess/aa 링크로 테스트 먼저하고 바꿔놓기!
+                    // profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정
+
                     // 0. 저번주(아직 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 없는 걸로 설정
                     // 지난 주차로 바꾸는 것 : 피드백 okToSend -> True, 미션 now -> false
                     String lastStartDate = accountAnalyzeService.findLastWeek(selectedMemberId); // lastStartDate = "1108"
