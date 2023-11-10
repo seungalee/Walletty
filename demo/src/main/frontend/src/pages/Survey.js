@@ -92,7 +92,7 @@ const Survey = () => {
       //   .then((response) => response.json())
       //   .then((result) => {
       //     console.log(result);
-      //     navigate("/survey-goalmoney");
+      navigate("/survey-goalmoney");
       //   });
     }
   };

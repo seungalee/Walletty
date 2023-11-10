@@ -1,5 +1,5 @@
 import Button from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Survey_goalmoney = () => {
@@ -12,6 +12,8 @@ const Survey_goalmoney = () => {
     goalmoney2: "",
     goalmoney3: "",
   });
+  const [leastGoalMoney, setLeastGoalMoney] = useState("");
+  const [FilteredLeastGoalMoney, setFilteredLeastGoalMoney] = useState("");
   const handleChangeState = (e) => {
     setGoalmoneyList({
       ...goalmoneyList,
@@ -20,31 +22,68 @@ const Survey_goalmoney = () => {
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    fetch("/member/survey", {
+    if (goalmoneyList.goalmoney1 > leastGoalMoney.entry1totalAmount90) {
+      alert(`${goalList[0].name} 항목 금액을 조건에 맞게 다시 설정해 주세요.`);
+    } else if (goalmoneyList.goalmoney2 > leastGoalMoney.entry2totalAmount90) {
+      alert(`${goalList[1].name} 항목 금액을 조건에 맞게 다시 설정해 주세요.`);
+    } else if (goalmoneyList.goalmoney3 > leastGoalMoney.entry3totalAmount90) {
+      alert(`${goalList[2].name} 항목 금액을 조건에 맞게 다시 설정해 주세요.`);
+    } else {
+      fetch("/member/survey", {
+        method: "POST",
+        body: JSON.stringify({
+          //local에서 꺼내쓰기
+          surveyId: id,
+          fixedEntry: fixedList.map((row) => row.value).toString(),
+          goalEntry1: goalList[0].value,
+          goalMoney1: Number(goalmoneyList.goalmoney1),
+          goalEntry2: goalList[1].value,
+          goalMoney2: Number(goalmoneyList.goalmoney2),
+          goalEntry3: goalList[2].value,
+          goalMoney3: Number(goalmoneyList.goalmoney3),
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          alert("목표 설정이 완료되었습니다!");
+          navigate("/");
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
+  useEffect(() => {
+    fetch("/surveyLimitDTO", {
       method: "POST",
       body: JSON.stringify({
-        //local에서 꺼내쓰기
         surveyId: id,
         fixedEntry: fixedList.map((row) => row.value).toString(),
         goalEntry1: goalList[0].value,
-        goalMoney1: Number(goalmoneyList.goalmoney1),
         goalEntry2: goalList[1].value,
-        goalMoney2: Number(goalmoneyList.goalmoney2),
         goalEntry3: goalList[2].value,
-        goalMoney3: Number(goalmoneyList.goalmoney3),
       }),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        alert("목표 설정이 완료되었습니다!");
-        navigate("/");
+      .then((result) => {
+        setLeastGoalMoney(result);
       })
-      .catch((error) => console.log(error));
-  };
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(leastGoalMoney);
+    console.log(goalList);
+  }, [leastGoalMoney]);
+
   return (
     <div>
       <div className="survey_qs">
@@ -55,19 +94,33 @@ const Survey_goalmoney = () => {
             함)
           </div>
           <div className="goalmoney_list_box">
-            {goalList.map((item, index) => (
-              <div
-                key={`goalmoney_${item.value}`}
-                className="goalmoney_box_element"
-              >
-                {`${item.name} 항목의 절약 목표 금액을 설정해 주세요:`}
-                <input
-                  name={`goalmoney${index + 1}`}
-                  type="text"
-                  onChange={handleChangeState}
-                />
-              </div>
-            ))}
+            <div className="goalmoney_box_element">
+              {`${goalList[0].name} 항목의 절약 목표 금액을 설정해 주세요:`}
+              <input
+                name={`goalmoney1`}
+                type="text"
+                placeholder={`${leastGoalMoney.entry1totalAmount90} 이하`}
+                onChange={handleChangeState}
+              />
+            </div>
+            <div className="goalmoney_box_element">
+              {`${goalList[1].name} 항목의 절약 목표 금액을 설정해 주세요:`}
+              <input
+                name={`goalmoney2`}
+                type="text"
+                placeholder={`${leastGoalMoney.entry2totalAmount90} 이하`}
+                onChange={handleChangeState}
+              />
+            </div>
+            <div className="goalmoney_box_element">
+              {`${goalList[2].name} 항목의 절약 목표 금액을 설정해 주세요:`}
+              <input
+                name={`goalmoney3`}
+                type="text"
+                placeholder={`${leastGoalMoney.entry3totalAmount90} 이하`}
+                onChange={handleChangeState}
+              />
+            </div>
           </div>
         </div>
         <Button text={"설정 완료"} onClick={onSubmitHandler} type={"survey"} />
