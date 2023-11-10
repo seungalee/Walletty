@@ -50,46 +50,43 @@ public class MemberController {
                 }
                 else { // 이번 주차 피드백, 미션이 만들어지지 않은 경우
 
-                    // 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
+                    // 이번 주 미션, 피드백 문장을 만들기 위한 [ 해당 회원 id / 미션, 피드백 시작 날짜 정보 ]
                     String selectedMemberId = surveyDTO.getSurveyId();
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
 
-                    // 여기서 미션 성공여부 확인하는 코드 구현.
-                    // 1주차 미션의 금액이랑 2주차 분석테이블의 금액이랑 비교해서 미션 금액 > 분석 금액 이면 success 바꾸는 것
-                    // now가 true인 미션아이디를 찾아와서 변수 이름 "missionId" 로
+                    // 1. 저번 주 미션 성공여부 확인
                     int missionId = missionService.findbyNow("true");
                     missionService.isMissionSuccess(missionId);
 
-                    // 미션 성공 or 실패 한 경우 profile의 successCnt update
-                    // 여기 /isMissionSuccess/aa 링크로 테스트 먼저하고 바꿔놓기!
-                    // profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정
+                    // 2. 미션 성공한 경우 profile의 successCnt update, 실패한 경우는 update X
+                    profileService.updateSuccess(missionId); // 데모를 위해 무조건 success만 했다고 가정
 
-                    // 0. 저번주(아직 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 없는 걸로 설정
+                    // 3. 저번주(아직 DB엔 이번주로 되어있음) 미션, 피드백을 지난 주차로 바꾸고 이번 주 미션 피드백이 아직 없는 걸로 설정
                     // 지난 주차로 바꾸는 것 : 피드백 okToSend -> True, 미션 now -> false
                     String lastStartDate = accountAnalyzeService.findLastWeek(selectedMemberId); // lastStartDate = "1108"
                     feedbackService.changeWeek(selectedMemberId, lastStartDate);
                     missionService.changeWeek(selectedMemberId, lastStartDate);
 
-                    // 1. 미션 로직을 통해 미션 항목 선정
+                    // 4. 미션 로직을 통해 이번 주차 미션 항목 선정
                     missionService.mission(selectedMemberId);
 
-                    // 2. 선정된 항목으로 미션 문장 만들고 저장
+                    // 5. 선정된 항목으로 미션 문장 만들고 저장
                     ChatGptResponse chatGptResponseForMission = null;
                     chatGptResponseForMission = chatGptService.askQuestionM(selectedMemberId, startDate);
                     String missionContent = chatGptResponseForMission.getChoices().get(0).getMessage().getContent();
                     System.out.println(missionContent);
                     missionService.saveMissionSen(selectedMemberId, startDate, missionContent);
 
-                    // 3. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
+                    // 6. 선정된 항목과 분석 테이블의 totalAmount를 토대로 피드백 문장 만들고 저장
                     ChatGptResponse chatGptResponseForFeedback = null;
                     chatGptResponseForFeedback = chatGptService.askQuestion(selectedMemberId, startDate);
                     String feedbackContent = chatGptResponseForFeedback.getChoices().get(0).getMessage().getContent();
                     feedbackService.save(selectedMemberId, feedbackContent, startDate);
 
-                    // 4. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
+                    // 7. 이번 주차 미션과 피드백 문장 생성 후 분석 테이블에 이번 주차 항목들의 OkToUse True로 변경
                     accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
 
-                    //
+                    // 이번 주차 미션, 피드백 생성 및 DB반영 완료
 
                     return "{\"message\" : \"success\"}";
                 }
@@ -156,23 +153,7 @@ public class MemberController {
         return surveyDTO;
     }
 
-    /*
     // 설문조사 보여주기(로그인했을 때 id 가져와서)
-    @RequestMapping("/api/v1/surveydto")
-    @ResponseBody
-    public SurveyDTO getSurveyDTO(HttpSession session){
-        System.out.println("getSurveyDTO");
-
-        String loginId = session.getAttribute("loginId").toString();
-        System.out.println("login id = " + loginId);
-
-        SurveyDTO surveydto = surveyService.findBySurveyId(loginId);
-        System.out.println(surveydto);
-
-        System.out.println("react connect");
-        return surveydto;
-    }
-     */
 
     @RequestMapping("/surveyDTO")
     @ResponseBody
@@ -180,6 +161,8 @@ public class MemberController {
         SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
         return surveyDTO;
     }
+
+
 
     // ************* survey_limit **************
 
