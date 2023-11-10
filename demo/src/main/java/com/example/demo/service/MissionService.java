@@ -25,6 +25,7 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
     private final AccountAnalyzeRepository accountAnalyzeRepository;
+    private final AccountAnalyzeService accountAnalyzeService;
 
     public void save(MissionDTO missionDTO) {
         MissionEntity missionEntity = MissionEntity.toMissionEntity(missionDTO);
@@ -58,19 +59,6 @@ public class MissionService {
 
     }
 
-    /*
-    public MissionDTO findByMemberIdAndNow(String memberId, String now) {
-        Optional<MissionEntity> byMemberIdNow = missionRepository.findByMemberIdAndNow(memberId,now);
-        if(byMemberIdNow.isPresent()) {
-            MissionEntity missionEntity = byMemberIdNow.get();
-            MissionDTO mDTO = MissionDTO.toMissionDTO(missionEntity);
-            return mDTO;
-        }else{
-            return null;
-        }
-    }
-
-     */
 
     public List<MissionDTO> findByMemberId(String memberId) {
         List<MissionEntity> byMemberId = missionRepository.findByMemberId(memberId);
@@ -148,6 +136,70 @@ public class MissionService {
         if (lastMission.isPresent()) {
             MissionEntity originEntity = lastMission.get();
             originEntity.setNow("false");
+        }
+    }
+
+    public MissionDTO makeMissionDTO(String memberId, String missionEntry, int missionMoney, String startDate, String endDate){
+        MissionDTO missionDTO = new MissionDTO();
+        missionDTO.setMemberId(memberId);
+        missionDTO.setMissionEntry(missionEntry);
+        missionDTO.setMissionMoney(missionMoney);
+        missionDTO.setStartDate(startDate);
+        missionDTO.setEndDate(endDate);
+        missionDTO.setNow("true");
+
+        return missionDTO;
+
+    }
+
+    public MissionDTO compareWithLastWeek(String memberId, List<String> missionCandi, int mission_diff, int missionStart){
+        List<AccountAnalyzeDTO> nowDtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
+
+        String orderWeek = "";
+        for (AccountAnalyzeDTO useEntry : nowDtos) {
+            orderWeek = useEntry.getOrderWeek();
+        }
+        orderWeek = Integer.toString(Integer.parseInt(orderWeek) - 7);
+
+        List<AccountAnalyzeDTO> lastDtos = accountAnalyzeService.findByMemberIdAndOrderWeek(memberId, orderWeek);
+        System.out.println(lastDtos);
+
+        int last_diff = 0;
+        String missionEntry = "";
+        int missionMoney = 0;
+        for (AccountAnalyzeDTO now : nowDtos) {
+            for (AccountAnalyzeDTO last : lastDtos) {
+
+                if(now.getEntry().equals(last.getEntry()) && missionCandi.contains(now.getEntry())){
+
+                    int diff = now.getTotalAmount() - last.getTotalAmount();
+                    if(diff > last_diff){
+                        last_diff = diff;
+                        missionEntry = now.getEntry();
+                        missionMoney = last.getTotalAmount();
+                    }
+                }
+            }
+        }
+        if(last_diff > mission_diff * 3){
+            System.out.println("지난 주와의 사용 금액의 차가 이번 주와 미션 금액의 차의 3배 이상이므로, 지난 주에 많이 사용한 항목을 미션으로 줍니다.");
+
+            missionMoney += ((last_diff / 2) / 1000) * 1000;
+
+            System.out.println(missionEntry);
+            System.out.println(missionMoney);
+
+            int missionEnd = missionStart + 6;
+            String startDate = Integer.toString(missionStart);
+            String endDate = Integer.toString(missionEnd);
+
+            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+            //missionService.save(missionDTO);
+
+            return missionDTO;
+        }
+        else{
+            return null;
         }
     }
 }

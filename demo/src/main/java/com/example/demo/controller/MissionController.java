@@ -123,13 +123,13 @@ public class MissionController {
             String endDate = Integer.toString(missionEnd);
 
             //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
-            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+            MissionDTO missionDTO = missionService.makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
 
             missionService.save(missionDTO);
 
         }//4-2. 분석 테이블에 지난 주가 있으면 지난 주보다 훨씬 많이 쓴 항목을 계산하고 4번과 비교한 후 4번보다 3배 이상 차이가 크다면 미션으로 줌
         else if(diff_max > 0 && lastmission != null){
-            MissionDTO missionDTOWithLastWeek = compareWithLastWeek(memberId, missionCandi, diff_max, missionStart);
+            MissionDTO missionDTOWithLastWeek = missionService.compareWithLastWeek(memberId, missionCandi, diff_max, missionStart);
             if(missionDTOWithLastWeek != null){
 
                 missionService.save(missionDTOWithLastWeek);
@@ -145,7 +145,7 @@ public class MissionController {
                 String endDate = Integer.toString(missionEnd);
 
 
-                MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+                MissionDTO missionDTO = missionService.makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
 
                 missionService.save(missionDTO);
             }
@@ -176,7 +176,7 @@ public class MissionController {
             String endDate = Integer.toString(missionEnd);
 
 
-            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+            MissionDTO missionDTO = missionService.makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
 
             missionService.save(missionDTO);
         }
@@ -184,68 +184,8 @@ public class MissionController {
 
     }
 
-    public MissionDTO compareWithLastWeek(String memberId, List<String> missionCandi, int mission_diff, int missionStart){
-        List<AccountAnalyzeDTO> nowDtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
 
-        String orderWeek = "";
-        for (AccountAnalyzeDTO useEntry : nowDtos) {
-            orderWeek = useEntry.getOrderWeek();
-        }
-        orderWeek = Integer.toString(Integer.parseInt(orderWeek) - 7);
 
-        List<AccountAnalyzeDTO> lastDtos = accountAnalyzeService.findByMemberIdAndOrderWeek(memberId, orderWeek);
-        System.out.println(lastDtos);
-
-        int last_diff = 0;
-        String missionEntry = "";
-        int missionMoney = 0;
-        for (AccountAnalyzeDTO now : nowDtos) {
-            for (AccountAnalyzeDTO last : lastDtos) {
-
-                if(now.getEntry().equals(last.getEntry()) && missionCandi.contains(now.getEntry())){
-
-                    int diff = now.getTotalAmount() - last.getTotalAmount();
-                    if(diff > last_diff){
-                        last_diff = diff;
-                        missionEntry = now.getEntry();
-                        missionMoney = last.getTotalAmount();
-                    }
-                }
-            }
-        }
-        if(last_diff > mission_diff * 3){
-            System.out.println("지난 주와의 사용 금액의 차가 이번 주와 미션 금액의 차의 3배 이상이므로, 지난 주에 많이 사용한 항목을 미션으로 줍니다.");
-
-            missionMoney += ((last_diff / 2) / 1000) * 1000;
-
-            System.out.println(missionEntry);
-            System.out.println(missionMoney);
-
-            int missionEnd = missionStart + 6;
-            String startDate = Integer.toString(missionStart);
-            String endDate = Integer.toString(missionEnd);
-
-            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
-            //missionService.save(missionDTO);
-
-            return missionDTO;
-        }
-        else{
-            return null;
-        }
-    }
-    public MissionDTO makeMissionDTO(String memberId, String missionEntry, int missionMoney, String startDate, String endDate){
-        MissionDTO missionDTO = new MissionDTO();
-        missionDTO.setMemberId(memberId);
-        missionDTO.setMissionEntry(missionEntry);
-        missionDTO.setMissionMoney(missionMoney);
-        missionDTO.setStartDate(startDate);
-        missionDTO.setEndDate(endDate);
-        missionDTO.setNow("true");
-
-        return missionDTO;
-
-    }
 
 
 
