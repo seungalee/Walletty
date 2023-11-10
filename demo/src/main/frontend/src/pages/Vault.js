@@ -39,6 +39,7 @@ const Vault = () => {
       })
         .then((result) => result.json())
         .then((result) => {
+          console.log(result);
           setMissionList(result);
         })
         .catch((err) => {
@@ -58,7 +59,8 @@ const Vault = () => {
     const newList = missionVaultList.map(
       ({ startDate, endDate, ...rest }) => rest
     );
-    setData(newList);
+    const newnewList = newList.filter((it) => it.missionSen);
+    setData(newnewList);
     console.log(data);
   }, [vaultList, missionList]);
 
