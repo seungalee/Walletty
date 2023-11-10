@@ -24,58 +24,8 @@ import java.util.Scanner;
 @RequestMapping("/chat-gpt")
 @RestController
 public class ChatGptController {
-    //private final APIResponse apiResponse;
-    private final ChatGptService chatGptService;
-    private final AccountAnalyzeService accountAnalyzeService;
-
     private final FeedbackService feedbackService;
-
     private final MissionService missionService;
-
-
-    //@Operation(summary = "Question to Chat-GPT")
-//    @RequestMapping("/question")
-//    public void sendQuestion(@RequestBody MemberDTO memberDTO) { // member controller에서 사용 중. 나중에 삭제.
-//        //String code = ResponseCode.CD_SUCCESS;
-//        ChatGptResponse chatGptResponse = null;
-//        //try {
-//            // 여기에 id 관련 추가
-//        String selectedMemberId = memberDTO.getMemberId();
-//        String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
-//        // String missionDate = "1108"; //여기 입력 그때그때 바꾸기. 원래는 오늘 date로 해야하지만 우리는 가상 결제내역이니까 이렇게.
-//        //List<MemberEntity> memberAll = memberRepository.findAll();
-//        //for (MemberEntity mem : memberAll) { //너무 많이 돌아감.
-//        //    selectedMemberId = mem.getMemberId();
-//            chatGptResponse = chatGptService.askQuestion(selectedMemberId, startDate);
-//
-//        //} catch (Exception e) {
-//            //apiResponse.printErrorMessage(e);
-//            //code = e.getMessage();
-//        //}
-//        String content = chatGptResponse.getChoices().get(0).getMessage().getContent();
-//        // 여기에 id 관련 추가
-//        feedbackService.save(selectedMemberId, content, startDate);
-//        accountAnalyzeService.changeOkToUseWithTrue(selectedMemberId);
-//        //}
-//        //return chatGptResponse;
-//        //return apiResponse.getResponseEntity(locale, code, chatGptResponse != null ? chatGptResponse.getChoices().get(0).getMessage().getContent() : new ChatGptResponse());
-//    }
-
-//    @RequestMapping("/questionM")
-//    public void sendQuestionM(@RequestBody MemberDTO memberDTO){ // member controller에서 사용 중. 나중에 삭제.
-//        ChatGptResponse chatGptResponse = null;
-//
-//        String selectedMemberId = memberDTO.getMemberId();
-//        // String startDate = "1108";
-//        String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
-//
-//        chatGptResponse = chatGptService.askQuestionM(selectedMemberId, startDate);
-//
-//        String content = chatGptResponse.getChoices().get(0).getMessage().getContent();
-//        System.out.println(content);
-//        // 여기에 id 관련 추가
-//        missionService.saveMissionSen(selectedMemberId, startDate, content);
-//    }
 
     @PostMapping("/feedback") // 프론트에서 회원 id와 함께 피드백 요청하면 해당 회원의 피드백 테이블에 아직 안 보낸 피드백을 골라서 넘겨줌.
     public List<FeedbackDTO> sendFeedback(@RequestBody MemberDTO memberDTO){ // /feedback에서 받은 회원 정보(id만??)로 피드백 보내주기
