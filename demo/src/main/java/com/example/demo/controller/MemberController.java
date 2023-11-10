@@ -25,7 +25,6 @@ public class MemberController {
     private final AccountAnalyzeService accountAnalyzeService;
     private final ChatGptService chatGptService;
     private final MissionService missionService;
-    private final MissionController missionController;
     private final FeedbackService feedbackService;
     private final ProfileService profileService;
 
@@ -62,7 +61,7 @@ public class MemberController {
                     missionService.changeWeek(selectedMemberId, lastStartDate);
 
                     // 1. 미션 로직을 통해 미션 항목 선정
-                    missionController.mission(selectedMemberId);
+                    missionService.mission(selectedMemberId);
 
                     // 2. 선정된 항목으로 미션 문장 만들고 저장
                     ChatGptResponse chatGptResponseForMission = null;
@@ -120,7 +119,7 @@ public class MemberController {
         String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
 
         // 1. 미션 로직을 통해 미션 항목 선정
-        missionController.mission(selectedMemberId);
+        missionService.mission(selectedMemberId);
 
         // 2. 선정된 항목으로 미션 문장 만들고 저장
         ChatGptResponse chatGptResponseForMission = null;

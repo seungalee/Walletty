@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.AccountAnalyzeDTO;
 import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.MissionDTO;
+import com.example.demo.dto.SurveyDTO;
 import com.example.demo.entity.AccountAnalyzeEntity;
 import com.example.demo.entity.FeedbackCommentEntity;
 import com.example.demo.entity.FeedbackEntity;
@@ -26,6 +27,7 @@ public class MissionService {
     private final MissionRepository missionRepository;
     private final AccountAnalyzeRepository accountAnalyzeRepository;
     private final AccountAnalyzeService accountAnalyzeService;
+    private final SurveyService surveyService;
 
     public void save(MissionDTO missionDTO) {
         MissionEntity missionEntity = MissionEntity.toMissionEntity(missionDTO);
@@ -201,5 +203,151 @@ public class MissionService {
         else{
             return null;
         }
+    }
+
+    public void mission(String memberId) {
+        String missionEntry = "";
+        int missionMoney = 0;
+
+        // 1. 분석테이블을 보고 사용한 항목은 모두 missionCandi에
+        List<AccountAnalyzeDTO> dtos = accountAnalyzeService.findByMemberIdAndOkToUse(memberId,false);
+        System.out.println(dtos);
+
+        List<String> missionCandi = new ArrayList<>();
+
+        int missionStart = 0;
+        for (AccountAnalyzeDTO useEntry : dtos) {
+            missionCandi.add(useEntry.getEntry());
+            missionStart = Integer.parseInt(useEntry.getOrderWeek()) + 1;
+        }
+        System.out.println(missionCandi);
+
+        //2. 지난 미션이 있으면 항목 삭제
+        String lastMissionDate = Integer.toString(missionStart - 7);
+        MissionDTO lastmission = findByMemberIdAndStartDate(memberId,lastMissionDate);
+
+        if(lastmission != null){
+
+
+            missionCandi.remove(lastmission.getMissionEntry());
+            System.out.println("제거완료");
+            System.out.println(lastmission.getMissionEntry());
+        }
+
+        System.out.println(missionCandi);
+
+        //3. fixed_entry 삭제
+        SurveyDTO surveyDTO = surveyService.findBySurveyId(memberId);
+
+        String[] fixedEntry = surveyDTO.getFixedEntry().split(",");
+        for (AccountAnalyzeDTO useEntry : dtos) {
+            for (String fEntry : fixedEntry) {
+                if (useEntry.getEntry().equals(fEntry)) {
+                    missionCandi.remove(fEntry);
+                }
+            }
+        }
+        System.out.println(missionCandi);
+
+        // 4. 목표 항목과 소비의 차가 가장 큰 항목을 고름
+        // 4-1. 분석 테이블에 지난주가 없으면 그냥 4를 미션으로 줌
+        int diff_max = 0;
+        for (AccountAnalyzeDTO useEntry : dtos) {
+            if(missionCandi.contains(useEntry.getEntry())) {
+                if (useEntry.getEntry().equals(surveyDTO.getGoalEntry1())) {
+                    if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney1() > diff_max) {
+                        diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney1();
+                        missionEntry = surveyDTO.getGoalEntry1();
+                        missionMoney = surveyDTO.getGoalMoney1();
+                    }
+                }
+                if (useEntry.getEntry().equals(surveyDTO.getGoalEntry2())) {
+                    if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney2() > diff_max) {
+                        diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney2();
+                        missionEntry = surveyDTO.getGoalEntry2();
+                        missionMoney = surveyDTO.getGoalMoney2();
+                    }
+                }
+                if (useEntry.getEntry().equals(surveyDTO.getGoalEntry3())) {
+                    if (useEntry.getTotalAmount() - surveyDTO.getGoalMoney3() > diff_max) {
+                        diff_max = useEntry.getTotalAmount() - surveyDTO.getGoalMoney3();
+                        missionEntry = surveyDTO.getGoalEntry3();
+                        missionMoney = surveyDTO.getGoalMoney3();
+                    }
+                }
+                System.out.println(missionEntry);
+            }
+        }
+        // 4-1. 분석 테이블에 지난 주가 없으면 그냥 4 줌
+        if (diff_max > 0 && lastmission == null) {
+            missionMoney += ((diff_max / 2) / 1000) * 1000;
+
+            System.out.println(missionEntry);
+            System.out.println(missionMoney);
+
+            int missionEnd = missionStart + 6;
+            String startDate = Integer.toString(missionStart);
+            String endDate = Integer.toString(missionEnd);
+
+            //MissionDTO에 저장(missionId, memberId, missionEntry, missionMoney, now, startDate까지)
+            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+
+            save(missionDTO);
+
+        }//4-2. 분석 테이블에 지난 주가 있으면 지난 주보다 훨씬 많이 쓴 항목을 계산하고 4번과 비교한 후 4번보다 3배 이상 차이가 크다면 미션으로 줌
+        else if(diff_max > 0 && lastmission != null){
+            MissionDTO missionDTOWithLastWeek = compareWithLastWeek(memberId, missionCandi, diff_max, missionStart);
+            if(missionDTOWithLastWeek != null){
+
+                save(missionDTOWithLastWeek);
+            }
+            else{
+                missionMoney += ((diff_max / 2) / 1000) * 1000;
+
+                System.out.println(missionEntry);
+                System.out.println(missionMoney);
+
+                int missionEnd = missionStart + 6;
+                String startDate = Integer.toString(missionStart);
+                String endDate = Integer.toString(missionEnd);
+
+
+                MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+
+                save(missionDTO);
+            }
+        }
+        //이게 5인 상황
+        //5. 목표 항목이 모두 다 목표를 지켰으면
+        else{
+            System.out.println("목표금액보다 많이 쓴 항목이 없다.");
+
+            int maxUse = 0;
+            for (AccountAnalyzeDTO useEntry : dtos) {
+
+                if (missionCandi.contains(useEntry.getEntry())) {
+                    if (useEntry.getTotalAmount() > maxUse) {
+                        missionEntry = useEntry.getEntry();
+                        missionMoney = useEntry.getTotalAmount();
+                    }
+                }
+            }
+            missionMoney = (int) (missionMoney * 0.9);
+            missionMoney = ((missionMoney / 1000) * 1000);
+
+            System.out.println(missionEntry);
+            System.out.println(missionMoney);
+
+            int missionEnd = missionStart + 6;
+            String startDate = Integer.toString(missionStart);
+            String endDate = Integer.toString(missionEnd);
+
+
+            MissionDTO missionDTO = makeMissionDTO(memberId, missionEntry, missionMoney, startDate, endDate);
+
+            save(missionDTO);
+        }
+
+
     }
 }
