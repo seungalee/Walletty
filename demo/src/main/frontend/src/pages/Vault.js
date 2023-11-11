@@ -39,7 +39,6 @@ const Vault = () => {
       })
         .then((result) => result.json())
         .then((result) => {
-          console.log(result);
           setMissionList(result);
         })
         .catch((err) => {

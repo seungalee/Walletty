@@ -292,3 +292,134 @@ page
   right: 0px;
   top: 0px;
 }
+
+/* profile */
+.profile_page {
+  width: 600px;
+  height: 600px;
+}
+.profile_info {
+  display: flex;
+}
+
+.profile_img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile_img img {
+  height: 250px;
+}
+
+.profile_img div {
+  font-size: 20px;
+}
+
+.profile_infos {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.profile_infos > div:first-child {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.profile_infos > div:nth-child(2) {
+  margin-top: 30px;
+  margin-left: 0px;
+  background-color: white;
+  width: 282px;
+  border: 1px #cccccc;
+  border-style: solid;
+  box-shadow: 1px 1px 1px #cccccc;
+  padding: 10px 10px;
+}
+.profile_infos > div:nth-child(2) > div {
+  display: flex;
+}
+
+.profile_infos > div:nth-child(2) > div > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 35px;
+  margin: 10px 5px;
+  border: 1.3px var(--mygray);
+  border-style: solid;
+  background-color: var(--lgtpurple);
+  position: relative;
+  border-radius: 30px;
+  box-shadow: 1px 1px 1px var(--mygray);
+}
+
+.profile_infos > div:nth-child(3) {
+  margin: 10px 0px;
+  width: 300px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px #cccccc;
+  border-style: solid;
+  box-shadow: 1px 1px 1px #cccccc;
+}
+.profile_infos > div:nth-child(3) > div {
+  font-size: 22px;
+  font-weight: 600;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_mission {
+  margin-top: 30px;
+  width: 600px;
+  position: absolute;
+}
+
+.profile_mission > div:first-child {
+  background-color: var(--lgtpurple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.profile_mission > div:first-child > div {
+  margin-left: 5px;
+  margin-right: 1px;
+  font-size: 28px;
+  font-weight: 600;
+  position: relative;
+  top: -2px;
+}
+
+.profile_mission > div:nth-child(2) > div:first-child {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+/* 최근 미션 3개 */
+.profile_mission > div:nth-child(2) > div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile_mission > div:nth-child(2) > div:nth-child(2) > div {
+  width: 192px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #cfdefd;
+  font-weight: 600;
+}

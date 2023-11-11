@@ -8,7 +8,7 @@ const VaultList = ({ totalVaultList }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const checkList = filteredVaultList.map((it) => {
-      if (!it.accept && it.now === "True") {
+      if (!it.accept && it.now === "true") {
         if (
           window.confirm(
             "아직 수락하지 않은 미션이 있습니다. 피드백 페이지로 먼저 이동합니다."
@@ -19,7 +19,6 @@ const VaultList = ({ totalVaultList }) => {
           navigate("/feedback");
         }
       }
-      console.log(filteredVaultList);
     });
   }, [filteredVaultList]);
   return (
