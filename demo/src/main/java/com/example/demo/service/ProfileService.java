@@ -3,10 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dto.FeedbackDTO;
 import com.example.demo.dto.ProfileDTO;
 import com.example.demo.entity.*;
-import com.example.demo.repository.AccountAnalyzeRepository;
-import com.example.demo.repository.MissionRepository;
-import com.example.demo.repository.ProfileRepository;
-import com.example.demo.repository.SurveyRepository;
+import com.example.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +18,7 @@ public class ProfileService {
     private final AccountAnalyzeRepository accountAnalyzeRepository;
     private final MissionRepository missionRepository;
     private final SurveyRepository surveyRepository;
+    private final EntryRepository entryRepository;
 
     public void updateWeekTotalAmount(String memberId) { // payment 들고올 때 weekTotalAmount
 
@@ -102,12 +100,17 @@ public class ProfileService {
         // 아직 미션피드백 안만든 이번주차를 제외하고 분석테이블에 있는 가장 최신 주 == 해당 missionId의 미션 항목에 대하
         // String lastDate = findAnalyzeLatestWeek(memberId);
 
-        // 해당 미션을 만든 분석테이블 주차의 날짜 // 분석 기준 : ex) 1107
+        // 해당 미션을 만든 분석테이블 주차의 날짜 // 분석 기준 : ex) 1107 1114
         String missionDate = mission.get().getStartDate();
         Integer analyzeDate = Integer.parseInt(missionDate) - 1;
-        String lastDate = String.valueOf(analyzeDate);
+        String lastDate = String.valueOf(analyzeDate); // ex) 1107
+        String thisDate = String.valueOf(analyzeDate + 7); // ex) 1114
 
-        // 미션 항목의 totalMoney를 위함
+        // 미션 항목에 대한 이번주 소비 금액(thisTotalMoney)을 위함.
+        Optional<AccountAnalyzeEntity> accountAnalyzeThis = accountAnalyzeRepository.
+                findByEntryAndMemberIdAndOrderWeek(mission.get().getMissionEntry(),memberId,thisDate);
+
+        // 미션 항목에 대한 저번주 소비 금액(totalMoney)을 위함
         Optional<AccountAnalyzeEntity> accountAnalyzeEntity = accountAnalyzeRepository.
                 findByEntryAndMemberIdAndOrderWeek(mission.get().getMissionEntry(),memberId,lastDate);
 
@@ -122,17 +125,22 @@ public class ProfileService {
             originEntity.setSuccessMission3(originEntity.getSuccessMission2());
             originEntity.setSuccessMission2(originEntity.getSuccessMission1());
             // 제일 최근 미션인 successMission1은 파라미터로 넘어온 missionId에 해당하는 미션의 comment를 요약해서 넣기.
-            String entry = mission.get().getMissionEntry();
-            int missionMoney = mission.get().getMissionMoney();
-            int totalMoney = accountAnalyzeEntity.get().getTotalAmount();
-            int savingMoney = totalMoney - missionMoney;
-            String missionSummary = entry + "비 " + savingMoney +"원 절약 성공!";
+            Optional<EntryEntity> entryEntity = entryRepository.findByEntry(mission.get().getMissionEntry());
+            String entry = entryEntity.get().getEntryKorean();
+            int missionMoney = mission.get().getMissionMoney(); // 미션 금액
+            int totalMoney = accountAnalyzeEntity.get().getTotalAmount(); // 저번주 금액
+            int thisTotalMoney = accountAnalyzeThis.get().getTotalAmount(); // 이번주 금액
+
+            int savingMoney = totalMoney - missionMoney; // 미션을 성공하기 위한 최소 절약 금액
+            int realSavingMoney = totalMoney - thisTotalMoney; // 실제 절약 금액
+            String missionSummary = entry + "비 " + realSavingMoney +"원 절약 성공!" + "\n[미션 금액 : " + savingMoney + "원]";
             originEntity.setSuccessMission1(missionSummary);
 
             // level 업데이트
             Integer updateLevel = originEntity.getLevel() + 1;
             originEntity.setLevel(updateLevel);
 
+            // position 업데이트
             String updatePosition;
             if(updateLevel > 0 && updateLevel < 6){ // 1~5
                 updatePosition = "낭비꾼";
