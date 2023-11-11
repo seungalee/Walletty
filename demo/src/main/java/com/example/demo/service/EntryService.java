@@ -25,7 +25,7 @@ public class EntryService {
         entryDTOList.add(new EntryDTO(4,"beauty","미용",""));
         entryDTOList.add(new EntryDTO(5,"snack","간식",""));
         entryDTOList.add(new EntryDTO(6,"shopping","쇼핑",""));
-        entryDTOList.add(new EntryDTO(7,"taxi","택시",""));
+        entryDTOList.add(new EntryDTO(7,"taxi","택시","가까운 거리는 걷거나 대중교통을 이용해서"));
 
         // 값 넣기.
         for(EntryDTO entryDTO : entryDTOList){
