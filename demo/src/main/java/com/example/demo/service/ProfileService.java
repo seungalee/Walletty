@@ -160,6 +160,7 @@ public class ProfileService {
     public ProfileDTO findByMemberId(String memberId){
         Optional<ProfileEntity> byMemberId = profileRepository.findByMemberId(memberId);
         ProfileDTO profileDTO = ProfileDTO.toProfileDTO(byMemberId.get());
+
         return profileDTO;
     }
 

@@ -15,8 +15,8 @@ public class ProfileController {
     private final ProfileService profileService;
 
     @PostMapping("/profile")
-    public ProfileDTO sendProfile(@RequestBody String memberId){ //프론트가 요청했을 때 프로필 DTO Post
-        ProfileDTO profileDTO = profileService.findByMemberId(memberId);
+    public ProfileDTO sendProfile(@RequestBody ProfileDTO profile){ //프론트가 요청했을 때 프로필 DTO Post
+        ProfileDTO profileDTO = profileService.findByMemberId(profile.getMemberId());
         return profileDTO;
     }
 }
