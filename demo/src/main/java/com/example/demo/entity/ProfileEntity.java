@@ -49,6 +49,9 @@ public class ProfileEntity {
     @Column
     private String successMission3;
 
+    @Column
+    private Integer totalSavingMoney;
+
 
 //    @SuppressWarnings("JpaAttributeTypeInspection")
 //    @Column
@@ -72,6 +75,7 @@ public class ProfileEntity {
         profileEntity.setSuccessMission1(profileDTO.getSuccessMission1());
         profileEntity.setSuccessMission2(profileDTO.getSuccessMission2());
         profileEntity.setSuccessMission3(profileDTO.getSuccessMission3());
+        profileEntity.setTotalSavingMoney(profileDTO.getTotalSavingMoney());
 
         return profileEntity;
     }

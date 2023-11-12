@@ -154,6 +154,10 @@ public class ProfileService {
                 updatePosition = "부자";
             }
             originEntity.setPosition(updatePosition);
+
+            // 지금까지 절약한 금액 업데이트
+            Integer updateTotalSavingMoney = originEntity.getTotalSavingMoney() + realSavingMoney;
+            originEntity.setTotalSavingMoney(updateTotalSavingMoney);
         }
     }
 

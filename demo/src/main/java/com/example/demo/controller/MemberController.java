@@ -57,7 +57,7 @@ public class MemberController {
                     String startDate = accountAnalyzeService.findThisWeek(selectedMemberId);
 
                     // 1. 저번 주 미션 성공여부 확인
-                    int missionId = missionService.findbyNow("true");
+                    int missionId = missionService.findByMemberIdAndNow(selectedMemberId,"true");
                     missionService.isMissionSuccess(missionId);
 
                     // 2. 미션 성공한 경우 profile의 successCnt, level, position, successMission(최근에 성공한 미션 3개) update

@@ -351,8 +351,8 @@ public class MissionService {
 
     }
 
-    public int findbyNow(String now) {
-        Optional<MissionEntity> ismissionEntity = missionRepository.findByNow(now);
+    public int findByMemberIdAndNow(String memberId,String now) {
+        Optional<MissionEntity> ismissionEntity = missionRepository.findByMemberIdAndNow(memberId,now);
         if(ismissionEntity.isPresent()) {
             MissionEntity missionEntity = ismissionEntity.get();
             return missionEntity.getMissionId();
