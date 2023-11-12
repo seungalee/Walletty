@@ -10,38 +10,9 @@ const Feedback = () => {
   const [data, setData] = useState([]);
   const [allMissionList, setAllMissionList] = useState([]);
   const [allFeedbackList, setAllFeedbackList] = useState([]);
-  const dummyData = [
-    {
-      id: 1,
-      startdate: "2023-09-01",
-      enddate: "2023-10-01",
-      missionEntry: "간식비",
-      missionMoney: "20000",
-      missionSen: "간식비를 2만원 절약해봐요!",
-      now: "false",
-      feedbackSen: "간식비를 지나치게 많이 썼어용",
-      accDeposit: "DONE",
-      successed: "true",
-    },
-  ];
+  const [nowMission, setNowMission] = useState([]);
+
   useEffect(() => {
-    // setAllFeedbackList(dummyData);
-    // console.log(allFeedbackList);
-    // const newList = allFeedbackList.map(
-    //   ({
-    //     enddate,
-    //     missionEntry,
-    //     missionMoney,
-    //     now,
-    //     accDeposit,
-    //     successed,
-    //     ...rest
-    //   }) => rest
-    // );
-    // setData(newList);
-    // console.log(newList);
-    // console.log(data);
-    console.log("리렌더링1");
     if (localStorage.getItem("isLoggedIn") === "true") {
       fetch("/chat-gpt/feedback", {
         method: "POST",
@@ -55,7 +26,6 @@ const Feedback = () => {
         .then((result) => result.json())
         .then((result) => {
           setAllFeedbackList(result);
-          console.log("피드백2", result, allFeedbackList);
         })
         .catch((err) => {
           console.log(err);
@@ -73,7 +43,6 @@ const Feedback = () => {
         .then((result) => result.json())
         .then((result) => {
           setAllMissionList(result);
-          console.log("mission3", result, allMissionList);
         })
         .catch((err) => {
           console.log(err);
@@ -106,7 +75,13 @@ const Feedback = () => {
       }) => rest
     );
     setData(newList);
-    console.log("data4", data);
+    console.log(allMissionList);
+    const nowMissionItem = allMissionList.filter(
+      (it) => it.accept && it.now === "true"
+    );
+    console.log(nowMissionItem);
+    setNowMission((nowMission) => nowMissionItem);
+    console.log(nowMission);
   }, [allFeedbackList, allMissionList]);
 
   const { user } = useUserState();
@@ -115,8 +90,31 @@ const Feedback = () => {
       <MyHeader nowpage={"feedback"} />
       {data[0] && (
         <div className="feedback_page">
-          <img src="/assets/chatbot_mom.png" />
+          <div className="feedback_img">
+            <img src="/assets/chatbot_mom.png" />
+            <div>
+              다음 주에는 소비 습관이 개선되어 있기를 바랄게. 엄마는 널 믿어!
+            </div>
+          </div>
           <FeedbackList feedbackList={data} listLen={data.length} />
+          <div className="feedback_img">
+            {/* {nowMission ? (
+              <div>
+                이번 주에는 {nowMission[0].missionEntry === "eatout" && "외식"}
+                {nowMission[0].missionEntry === "deliver" && "배달"}
+                {nowMission[0].missionEntry === "cafe" && "카페"}
+                {nowMission[0].missionEntry === "snack" && "간식"}
+                {nowMission[0].missionEntry === "taxi" && "택시"}
+                {nowMission[0].missionEntry === "shopping" && "쇼핑"}
+                {nowMission[0].missionEntry === "beauty" && "미용"}비를
+                줄여봐야겠다!
+              </div>
+            ) : (
+              <div>이번 주에는 무슨 미션을 받게 될까?</div>
+            )} */}
+            <div>이번 주에는 무슨 미션을 받게 될까?</div>
+            <img src="/assets/character_org.png" />
+          </div>
         </div>
       )}
     </div>

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const MissionStyled = styled.div`
-  width: 500px;
+  width: 700px;
   height: auto;
   padding: 10px 15px 15px 10px;
   margin: 15px 15px;
-  box-shadow: 1px 1px 3px var(--mygray);
+  box-shadow: 1px 2px 3px #cccccc;
   background-color: ${(props) => {
     if (props.success === "success") return "rgba(187, 208, 255, 0.3)";
     else if (props.success === "fail") return "rgba(255, 214, 255, 0.3)";

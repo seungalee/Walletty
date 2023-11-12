@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const VaultOutBoxStyled = styled.div`
-  width: 550px;
+  width: 650px;
   height: 130px;
   background-color: #bbbaba;
   margin: 20px 10px;
@@ -13,7 +13,7 @@ const VaultOutBoxStyled = styled.div`
 `;
 
 const VaultInBoxStyled = styled.div`
-  width: 500px;
+  width: 600px;
   height: 100px;
   background-color: #dddddd;
   padding: 0px 10px;
@@ -159,7 +159,7 @@ const VaultItem = ({
                 {missionEntry === "taxi" && "택시비"}
                 {missionEntry === "shopping" && "쇼핑비"}
                 {missionEntry === "beauty" && "미용비"}를 {missionMoney}원
-                절약하세요
+                이하로 사용하세요
               </div>
               <div>{missionMoney}</div>
               <div>{inSafe ? "원을 보관 중입니다" : "원을 입금해 주세요"}</div>

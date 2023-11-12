@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;600;700&display=swap");
 
 :root {
   --mygray: #6c757d;
@@ -243,7 +243,7 @@ page
 
 */
 .Mission .MissionList {
-  width: 600px;
+  width: 800px;
   height: 800px;
 }
 .mission_select_box .SelectMenu {
@@ -260,16 +260,78 @@ page
 /* feedback */
 .feedback_page {
   display: flex;
+  position: relative;
 }
-.feedback_page img {
-  width: 150px;
-  height: 200px;
-  margin-right: 10px;
+
+.feedback_img {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feedback_img:first-child {
+  top: 0px;
+  left: -280px;
+  width: 250px;
+}
+
+.feedback_img:last-child {
+  bottom: 0px;
+  right: -280px;
+  width: 250px;
+}
+
+.feedback_img img {
+  height: 250px;
+  margin-left: 0px 20px;
+}
+
+.feedback_img:last-child > img {
+  height: 240px;
+}
+
+.feedback_img div {
+  padding: 15px 15px;
+  margin: 15px 15px;
+  background-color: var(--lgtpurple);
+  width: 170px;
+  font-size: 18px;
+  font-weight: lighter;
+  border-radius: 20px;
+  font-family: "Jua", sans-serif;
+  position: relative;
+}
+
+.feedback_img:last-child div {
+  width: 160px;
+}
+
+.feedback_img:first-child div::before {
+  position: absolute;
+  display: block;
+  top: -22px;
+  content: "▲";
+  font-size: 1.3rem;
+  left: 100px;
+  color: var(--lgtpurple);
+}
+
+.feedback_img:last-child div::after {
+  position: absolute;
+  display: block;
+  top: 70px;
+  content: "▼";
+  font-size: 1.3rem;
+  left: 100px;
+  color: var(--lgtpurple);
 }
 
 .FeedbackList {
   background-color: white;
   padding: 20px 30px;
+  width: 550px;
 }
 
 .feedback_button {
@@ -280,7 +342,7 @@ page
 
 /* vault */
 .VaultList {
-  width: 600px;
+  width: 700px;
   height: 800px;
 }
 

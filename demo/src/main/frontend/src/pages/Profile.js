@@ -18,34 +18,21 @@ const Profile = () => {
           "Content-Type": "application/json",
         },
       })
-          .then((result) => result.json())
-          .then((result) => {
-            setProfileItems(result);
-            console.log(result);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        .then((result) => result.json())
+        .then((result) => {
+          setProfileItems(result);
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
       console.log(profileItems);
     } else {
       navigate("/login");
     }
   }, []);
-  const dummyData = {
-    memberId: "aa",
-    goalEntry1: "eatout",
-    goalEntry2: "taxi",
-    goalEntry3: "deliver",
-    level: "1",
-    missionCnt: "1",
-    position: "낭비꾼",
-    successCnt: "0",
-    successMission1: "외식비 20000원 절약 성공!",
-    successMission2: "택시비 35000원 절약 성공!",
-    successMission3: "배달비 47000원 절약 성공!",
-    weekTotalAmount: "87000",
-  };
+
   useEffect(() => {
     const engGoalEntryList = [
       profileItems.goalEntry1,
@@ -57,61 +44,61 @@ const Profile = () => {
   }, [profileItems]);
 
   return (
-      <div>
-        <MyHeader nowpage={"profile"} />
-        <div className="profile_page">
-          <div className="profile_info">
-            <div className="profile_img">
-              <img src={`/assets/character_${profileItems.position}.png`} />
-              <div>{profileItems.position}</div>
-              <div>Level.{profileItems.level}</div>
+    <div>
+      <MyHeader nowpage={"profile"} />
+      <div className="profile_page">
+        <div className="profile_info">
+          <div className="profile_img">
+            <img src={`/assets/character_${profileItems.position}.png`} />
+            <div>{profileItems.position}</div>
+            <div>Level.{profileItems.level}</div>
+          </div>
+          <div className="profile_infos">
+            <div>{profileItems.memberId}님, 환영합니다</div>
+            <div>
+              절약 집중 항목
+              <div>
+                {goalEntryList.map((data) => (
+                  <div key={data}>
+                    {data === "eatout" && "외식"}
+                    {data === "deliver" && "배달"}
+                    {data === "cafe" && "카페"}
+                    {data === "snack" && "간식"}
+                    {data === "taxi" && "택시"}
+                    {data === "shopping" && "쇼핑"}
+                    {data === "beauty" && "미용"}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="profile_infos">
-              <div>{profileItems.memberId}님, 환영합니다</div>
-              <div>
-                절약 집중 항목
-                <div>
-                  {goalEntryList.map((data) => (
-                      <div key={data}>
-                        {data === "eatout" && "외식"}
-                        {data === "deliver" && "배달"}
-                        {data === "cafe" && "카페"}
-                        {data === "snack" && "간식"}
-                        {data === "taxi" && "택시"}
-                        {data === "shopping" && "쇼핑"}
-                        {data === "beauty" && "미용"}
-                      </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                현재까지 총 <div>{profileItems.weekTotalAmount}원</div> 절약
-                성공!
-              </div>
+            <div>
+              현재까지 총 <div>{profileItems.totalSavingMoney}원</div> 절약
+              성공!
             </div>
           </div>
-          <div className="profile_mission">
+        </div>
+        <div className="profile_mission">
+          <div>
+            총 <div>{profileItems.missionCnt}</div>개의 미션 중{" "}
+            <div>{profileItems.successCnt}</div>개 성공
+          </div>
+          <div>
+            <div>최근 성공한 미션</div>
             <div>
-              총 <div>{profileItems.missionCnt}</div>개의 미션 중{" "}
-              <div>{profileItems.successCnt}</div>개 성공
-            </div>
-            <div>
-              <div>최근 성공한 미션</div>
-              <div>
-                {profileItems.successMission1 && (
-                    <div>{profileItems.successMission1}</div>
-                )}
-                {profileItems.successMission2 && (
-                    <div>{profileItems.successMission2}</div>
-                )}
-                {profileItems.successMission3 && (
-                    <div>{profileItems.successMission3}</div>
-                )}
-              </div>
+              {profileItems.successMission1 && (
+                <div>{profileItems.successMission1}</div>
+              )}
+              {profileItems.successMission2 && (
+                <div>{profileItems.successMission2}</div>
+              )}
+              {profileItems.successMission3 && (
+                <div>{profileItems.successMission3}</div>
+              )}
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

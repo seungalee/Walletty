@@ -18,10 +18,10 @@ const SelectMenu = ({ value, onChange, optionList }) => {
 };
 
 const filterStatusList = [
+  { value: "all", name: "모두 보기" },
   { value: "success", name: "성공한 미션" },
   { value: "fail", name: "실패한 미션" },
   { value: "now", name: "진행 중인 미션" },
-  { value: "all", name: "모두 보기" },
 ];
 const MissionList = ({ missionList }) => {
   const [statusType, setStatusType] = useState("all");

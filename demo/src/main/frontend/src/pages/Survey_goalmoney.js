@@ -89,7 +89,7 @@ const Survey_goalmoney = () => {
       <div className="survey_qs">
         <div className="survey_q_box">
           <div className="survey_q_text">
-            절약하고 싶은 항목별로 목표 금액을 설정해 주세요.<br></br> 목표 목표
+            절약하고 싶은 항목별로 목표 금액을 설정해 주세요.<br></br> 목표
             금액은 해당 항목 소비량의 90% 이하여야 합니다. (10% 이상 절약해야
             함)
           </div>
