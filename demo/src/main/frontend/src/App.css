@@ -359,7 +359,7 @@ page
 
 /* profile */
 .profile_page {
-  width: 600px;
+  width: 800px;
   height: 600px;
 }
 .profile_info {
@@ -372,16 +372,22 @@ page
   align-items: center;
 }
 .profile_img img {
-  height: 250px;
+  height: 325px;
 }
 
 .profile_img div {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .profile_infos {
-  margin-left: 30px;
+  width: 450px;
+  margin-left: 70px;
   margin-top: 30px;
+}
+
+.profile_infos > div {
+  letter-spacing: 1px;
+  border-radius: 12px;
 }
 
 .profile_infos > div:first-child {
@@ -389,26 +395,33 @@ page
   margin-bottom: 10px;
 }
 .profile_infos > div:nth-child(2) {
+  font-size: 18px;
   margin-top: 30px;
   margin-left: 0px;
   background-color: white;
-  width: 282px;
   border: 1px #cccccc;
   border-style: solid;
   box-shadow: 1px 1px 1px #cccccc;
-  padding: 10px 10px;
+  padding: 10px 20px;
 }
-.profile_infos > div:nth-child(2) > div {
+.profile_infos > div:nth-child(2) > div:nth-child(1) {
   display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+.profile_infos > div:nth-child(2) > div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
 }
 
 .profile_infos > div:nth-child(2) > div > div {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
+  width: 100px;
   height: 35px;
-  margin: 10px 5px;
+  margin: 10px 15px;
   border: 1.3px var(--mygray);
   border-style: solid;
   background-color: var(--lgtpurple);
@@ -418,16 +431,16 @@ page
 }
 
 .profile_infos > div:nth-child(3) {
-  margin: 10px 0px;
-  width: 300px;
+  margin: 15px 0px;
   height: 50px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px #cccccc;
+  border: 1.3px #cccccc;
   border-style: solid;
   box-shadow: 1px 1px 1px #cccccc;
+  font-size: 19px;
 }
 .profile_infos > div:nth-child(3) > div {
   font-size: 22px;
@@ -439,9 +452,32 @@ page
   justify-content: center;
 }
 
+.profile_infos > div:nth-child(4) {
+  margin: 10px 0px;
+  height: 50px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.3px #cccccc;
+  border-style: solid;
+  box-shadow: 1px 1px 1px #cccccc;
+  font-size: 19px;
+}
+
+.profile_infos > div:nth-child(4) > div {
+  font-size: 22px;
+  font-weight: 600;
+  margin-left: 5px;
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .profile_mission {
   margin-top: 30px;
-  width: 600px;
+  width: 800px;
   position: absolute;
 }
 
@@ -450,9 +486,10 @@ page
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
+  height: 60px;
   font-size: 20px;
   font-weight: 600;
+  border-radius: 10px;
 }
 
 .profile_mission > div:first-child > div {
@@ -465,9 +502,9 @@ page
 }
 
 .profile_mission > div:nth-child(2) > div:first-child {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  font-size: 14px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 16px;
   margin-left: 5px;
 }
 
@@ -478,12 +515,14 @@ page
 }
 
 .profile_mission > div:nth-child(2) > div:nth-child(2) > div {
-  width: 192px;
-  height: 50px;
+  width: 30%;
+  height: 55px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #cfdefd;
   font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px var(--mygray);
 }

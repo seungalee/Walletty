@@ -52,7 +52,8 @@ const Mission = () => {
     const newList = allMissionList.map(
       ({ missionEntry, missionMoney, now, ...rest }) => rest
     );
-    setData(newList);
+    const newnewList = newList.filter((it) => it.accept);
+    setData(newnewList);
     console.log(data);
   }, [allMissionList]);
 

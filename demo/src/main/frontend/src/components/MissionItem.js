@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const MissionStyled = styled.div`
+  font-size: 19px;
   width: 700px;
   height: auto;
   padding: 10px 15px 15px 10px;

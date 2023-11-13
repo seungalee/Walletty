@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -30,6 +31,25 @@ const FeedbackStyled = styled.div`
     font-size: 1.3rem;
     left: -18px;
     color: var(--lgmidpurple);
+  }
+`;
+
+const MyMessageStyled = styled.div`
+  position: relative;
+  max-width: 400px;
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 10px 10px;
+  background-color: #bbd0ff;
+  right: -360px;
+  &::after {
+    position: absolute;
+    display: block;
+    top: 0;
+    content: "▶";
+    font-size: 1.3rem;
+    right: -18px;
+    color: #bbd0ff;
   }
 `;
 const AcceptStyled = styled.div`
@@ -74,6 +94,7 @@ const FeedbackItem = ({
   accept,
 }) => {
   const navigate = useNavigate();
+  const [showMyMessage, setShowMyMessage] = useState("False");
   const acceptHandler = () => {
     fetch(`missionAccept/${missionId}`, {
       method: "POST",
@@ -91,7 +112,10 @@ const FeedbackItem = ({
       .catch((err) => {
         console.log(err);
       });
-    navigate("/vault");
+    setShowMyMessage("True");
+    setTimeout(() => {
+      navigate("/vault");
+    }, 1300);
   };
 
   const rejectHandler = () => {};
@@ -121,6 +145,11 @@ const FeedbackItem = ({
               </AcceptButtonStyled>
             </div>
           </AcceptStyled>
+        )}
+      </div>
+      <div className="feedback_accept_myMessage">
+        {showMyMessage === "True" && (
+          <MyMessageStyled>미션을 수락했습니다.</MyMessageStyled>
         )}
       </div>
     </div>

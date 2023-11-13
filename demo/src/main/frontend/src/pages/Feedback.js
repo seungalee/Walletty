@@ -92,7 +92,7 @@ const Feedback = () => {
         <div className="feedback_page">
           <div className="feedback_img">
             <div>
-              다음 주에는 소비 습관이 개선되어 있기를 바랄게. 엄마는 널 믿어!
+              다음 주에는 소비 습관이 개선되어 있기를 바랄게. 엄마는 널 믿어!😄
             </div>
             <img src="/assets/chatbot_mom.png" />
           </div>
@@ -112,7 +112,7 @@ const Feedback = () => {
             ) : (
               <div>이번 주에는 무슨 미션을 받게 될까?</div>
             )} */}
-            <div>이번 주에는 무슨 미션을 받게 될까?</div>
+            <div>이번 주에는 무슨 미션을 받게 될까?😆</div>
             <img src="/assets/character_org.png" />
           </div>
         </div>
