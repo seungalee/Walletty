@@ -133,7 +133,8 @@ public class ProfileService {
 
             int savingMoney = totalMoney - missionMoney; // 미션을 성공하기 위한 최소 절약 금액
             int realSavingMoney = totalMoney - thisTotalMoney; // 실제 절약 금액
-            String missionSummary = entry + "비 " + realSavingMoney +"원 절약 성공!" + "\n[미션 금액 : " + savingMoney + "원]";
+            // String missionSummary = entry + "비 " + realSavingMoney +"원 절약 성공!" + "\n[미션 금액 : " + savingMoney + "원]";
+            String missionSummary = entry + "비 " + realSavingMoney +"원 절약 성공!";
             originEntity.setSuccessMission1(missionSummary);
 
             // level 업데이트
