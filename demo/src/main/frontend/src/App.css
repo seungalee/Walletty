@@ -260,11 +260,13 @@ page
 /* feedback */
 .feedback_page {
   display: flex;
-  position: relative;
+  position: fixed;
+  bottom: 100px;
+  left: 32%;
 }
 
 .feedback_img {
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -272,24 +274,24 @@ page
 }
 
 .feedback_img:first-child {
-  top: 0px;
-  left: -280px;
+  bottom: 100px;
+  left: 15%;
   width: 250px;
 }
 
 .feedback_img:last-child {
-  bottom: 0px;
-  right: -280px;
+  bottom: 100px;
+  left: 70%;
   width: 250px;
 }
 
 .feedback_img img {
-  height: 250px;
+  height: 300px;
   margin-left: 0px 20px;
 }
 
 .feedback_img:last-child > img {
-  height: 240px;
+  height: 290px;
 }
 
 .feedback_img div {
@@ -311,8 +313,8 @@ page
 .feedback_img:first-child div::before {
   position: absolute;
   display: block;
-  top: -22px;
-  content: "▲";
+  top: 95px;
+  content: "▼";
   font-size: 1.3rem;
   left: 100px;
   color: var(--lgtpurple);

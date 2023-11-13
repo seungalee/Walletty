@@ -29,11 +29,11 @@ const MissionList = ({ missionList }) => {
   const getFilteredMissionList = () => {
     const filterCallBack = (item) => {
       if (statusType === "success") {
-        return item.successed === "success";
+        return item.success === "success";
       } else if (statusType === "fail") {
-        return item.successed === "fail";
+        return item.success === "fail";
       } else if (statusType === "now") {
-        return !item.successed;
+        return !item.success;
       }
     };
     const copyList = JSON.parse(JSON.stringify(missionList));
