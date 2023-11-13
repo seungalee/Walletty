@@ -118,7 +118,11 @@ const VaultItem = ({
       .catch((err) => {
         console.log(err);
       });
-    alert("입금이 완료되었습니다. 미션을 시작합니다.");
+    if (window.confirm("입금이 완료되었습니다. 미션을 시작합니다.")) {
+      window.location.reload();
+    } else {
+      window.location.reload();
+    }
   };
 
   const getMoneyBackHandler = () => {
@@ -132,13 +136,16 @@ const VaultItem = ({
       },
     })
       .then((result) => result.json())
-      .then((result) => {
-        console.log("출금성공");
-      })
+      .then((result) => {})
       .catch((err) => {
         console.log(err);
       });
-    alert("미션을 성공해 돈을 돌려받았습니다!");
+    console.log("출금성공");
+    if (window.confirm("미션을 성공해 돈을 돌려받았습니다!")) {
+      window.location.reload();
+    } else {
+      window.location.reload();
+    }
   };
   return (
     <div className="VaultItem">

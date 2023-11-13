@@ -24,6 +24,7 @@ const Vault = () => {
         .then((result) => result.json())
         .then((result) => {
           setVaultList(result);
+          console.log(result);
         })
         .catch((err) => {
           console.log(err);
