@@ -11,7 +11,7 @@ const VaultList = ({ totalVaultList }) => {
       if (!it.accept && it.now === "true") {
         if (
           window.confirm(
-            "아직 수락하지 않은 미션이 있습니다. 피드백 페이지로 먼저 이동합니다."
+            "아직 이번 주 피드백을 확인하지 않았습니다. 피드백 페이지로 먼저 이동합니다."
           )
         ) {
           navigate("/feedback");
