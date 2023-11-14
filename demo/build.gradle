@@ -31,6 +31,9 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 	implementation 'mysql:mysql-connector-java:8.0.30'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'io.github.flashvayne:chatgpt-spring-boot-starter:1.0.0'
+
+	implementation 'com.jayway.jsonpath:json-path:2.7.0'
 }
 
 tasks.named('test') {

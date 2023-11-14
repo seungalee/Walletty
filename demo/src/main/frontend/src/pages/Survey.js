@@ -4,8 +4,8 @@ import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
 const consumeList = [
-  { value: "eat_out", name: "외식" },
-  { value: "delivery", name: "배달" },
+  { value: "eatout", name: "외식" },
+  { value: "deliver", name: "배달" },
   { value: "cafe", name: "카페" },
   { value: "snack", name: "간식" },
   { value: "taxi", name: "택시" },
@@ -20,6 +20,7 @@ const Survey = () => {
   const [goalCheckedList, setGoalCheckedList] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [goalRight, setGoalRight] = useState(false);
+  const id = localStorage.getItem("memberId");
   const storageFixedList = JSON.parse(localStorage.getItem("fixed_entry"));
   const storageGoalList = JSON.parse(localStorage.getItem("goal_entry"));
 
@@ -72,8 +73,27 @@ const Survey = () => {
     } else {
       setGoalRight(!goalRight);
       localStorage.setItem("fixed_entry", JSON.stringify(fixedCheckedList));
+      console.log(fixedCheckedList);
+      console.log(goalCheckedList);
       localStorage.setItem("goal_entry", JSON.stringify(goalCheckedList));
+      // fetch("/member/survey", {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     surveyId: id,
+      //   fixedEntry: fixedCheckedList.map((row) => row.value).toString(),
+      //   goalEntry1: goalCheckedList[0].value,
+      //   goalEntry2: goalCheckedList[1].value,
+      //   goalEntry3: goalCheckedList[2].value,
+      //   }),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
+      //   .then((response) => response.json())
+      //   .then((result) => {
+      //     console.log(result);
       navigate("/survey-goalmoney");
+      //   });
     }
   };
 

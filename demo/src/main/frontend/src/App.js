@@ -1,13 +1,19 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { createContext, React } from "react";
+import { UserProvider } from "./context/UserContext";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 import Survey from "./pages/Survey";
-import { UserProvider } from "./context/UserContext";
+import Feedback from "./pages/Feedback";
+import Mission from "./pages/Mission";
 import Survey_goalmoney from "./pages/Survey_goalmoney";
+import Vault from "./pages/Vault";
+import Toss from "./pages/Toss";
+import Profile from "./pages/Profile";
+import Statistics from "./pages/Statistics";
 
 function App() {
   return (
@@ -20,6 +26,12 @@ function App() {
             <Route path="/join" element={<Join />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/survey-goalmoney" element={<Survey_goalmoney />} />
+            <Route path="/feedback" element={<Feedback />} />
+            <Route path="/mission" element={<Mission />} />
+            <Route path="/vault" element={<Vault />} />
+            <Route path="/toss" element={<Toss />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/statistics" element={<Statistics />} />
           </Routes>
         </div>
       </BrowserRouter>

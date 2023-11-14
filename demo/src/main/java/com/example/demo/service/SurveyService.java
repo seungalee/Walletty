@@ -1,15 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.MemberDTO;
+
 import com.example.demo.dto.SurveyDTO;
-import com.example.demo.entity.MemberEntity;
 import com.example.demo.entity.SurveyEntity;
 import com.example.demo.repository.SurveyRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Service
@@ -41,4 +38,5 @@ public class SurveyService {
         SurveyDTO dto = SurveyDTO.toSurveyDTO(surveyEntity);
         return dto;
     }
+
 }

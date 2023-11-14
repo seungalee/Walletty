@@ -17,3 +17,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+#chatgpt:
+#  api-key: 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
+
+api-key:
+  chat-gpt: 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
