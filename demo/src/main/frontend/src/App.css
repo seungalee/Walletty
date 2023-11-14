@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Agbalumo&family=Jua&family=Noto+Sans+KR:wght@400;600;700&display=swap");
 
+@font-face {
+  font-family: "Binggrae-Two";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Binggrae-Bold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --mygray: #6c757d;
   --myblack: #343a40;
