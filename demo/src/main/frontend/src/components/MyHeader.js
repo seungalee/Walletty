@@ -10,10 +10,12 @@ const LeftStyled = styled.div`
   margin-left: 10px;
   img {
     width: 40px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   div {
+    display: flex;
     font-size: 22px;
+    font-family: "Binggrae-Two";
   }
 `;
 
@@ -89,7 +91,7 @@ const MyHeader = ({ nowpage }) => {
     <div className="MyHeader">
       <LeftStyled>
         <img className="logo" src="/assets/logo.png" />
-        <div className="service_name">Service</div>
+        <div className="service_name">₩alletty</div>
       </LeftStyled>
       <RightStyled nowpage={`${nowpage}`}>
         <div onClick={profileClickHandler}>프로필</div>

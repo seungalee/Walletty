@@ -115,6 +115,7 @@ const FeedbackItem = ({
     setShowMyMessage("True");
     setTimeout(() => {
       navigate("/vault");
+      setShowMyMessage("False");
     }, 1300);
   };
 
