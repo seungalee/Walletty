@@ -8,10 +8,7 @@ const Mission = () => {
   const id = localStorage.getItem("memberId");
   const [data, setData] = useState([]);
   const [allMissionList, setAllMissionList] = useState([]);
-  const onMissionNextWeek = () => {
-    localStorage.setItem("memberId", "bb");
-    navigate("/");
-  };
+
   const dummyData = [
     {
       id: 1,
@@ -65,7 +62,6 @@ const Mission = () => {
     <div className="Mission">
       <MyHeader nowpage={"mission"} />
       {data[0] && <MissionList missionList={data} />}
-      {id === "aa" && <button onClick={onMissionNextWeek}>다음주</button>}
     </div>
   );
 };
