@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const DemoButtonStyled = styled.button`
   margin-left: 330px;
-  margin-top: 350px;
+  margin-top: 250px;
   width: 100px;
   height: 50px;
   background-color: var(--lgmidpurple);
