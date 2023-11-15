@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const VaultList = ({ totalVaultList }) => {
   const filteredVaultList = totalVaultList.filter((it) => !it.outSafe);
+  const [showPage, setShowPage] = useState("False");
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -18,14 +19,20 @@ const VaultList = ({ totalVaultList }) => {
         } else {
           navigate("/feedback");
         }
+      } else {
+        setShowPage("True");
       }
     });
   }, [filteredVaultList]);
   return (
     <div className="VaultList">
-      {filteredVaultList.map((it) => (
-        <VaultItem key={it.missionId} {...it} />
-      ))}
+      {showPage === "True" && (
+        <div>
+          {filteredVaultList.map((it) => (
+            <VaultItem key={it.missionId} {...it} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
