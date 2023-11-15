@@ -342,6 +342,8 @@ page
   background-color: white;
   padding: 20px 30px;
   width: 550px;
+  height: 600px;
+  overflow: auto;
 }
 
 .feedback_button {
