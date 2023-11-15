@@ -269,7 +269,7 @@ page
 .feedback_page {
   display: flex;
   position: fixed;
-  bottom: 180px;
+  bottom: 100px;
   left: 32%;
 }
 
@@ -282,13 +282,13 @@ page
 }
 
 .feedback_img:first-child {
-  bottom: 180px;
+  bottom: 100px;
   left: 15%;
   width: 250px;
 }
 
 .feedback_img:last-child {
-  bottom: 180px;
+  bottom: 100px;
   left: 70%;
   width: 250px;
 }

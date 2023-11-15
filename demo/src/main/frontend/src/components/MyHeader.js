@@ -7,7 +7,7 @@ const LeftStyled = styled.div`
   height: 100%;
   justify-content: left;
   align-items: center;
-  margin-left: 40px;
+  margin-left: 30px;
   img {
     width: 40px;
     margin-right: 5px;
