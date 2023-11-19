@@ -381,6 +381,11 @@ page
   flex-direction: column;
   align-items: center;
 }
+
+.profile_img > div:nth-child(2) {
+  font-weight: 700;
+}
+
 .profile_img img {
   height: 325px;
 }
