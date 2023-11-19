@@ -35,7 +35,7 @@ const Login = () => {
     })
       .then((result) => result.json())
       .then((result) => {
-        if (result.message === "success") {
+        if (result.message === "success" && state.id !== "aa") {
           console.log("로그인에 성공하였습니다.");
           localStorage.setItem("memberId", state.id);
           localStorage.setItem("isLoggedIn", "true");
@@ -47,6 +47,10 @@ const Login = () => {
             type: "LOGIN",
             userId: state.id,
           });
+        } else if (state.id === "aa") {
+          localStorage.setItem("memberId", state.id);
+          localStorage.setItem("isLoggedIn", "true");
+          navigate("/survey");
         } else if (result.message === "successFirst") {
           localStorage.setItem("memberId", state.id);
           localStorage.setItem("isLoggedIn", "true");

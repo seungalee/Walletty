@@ -8,6 +8,7 @@ const Mission = () => {
   const id = localStorage.getItem("memberId");
   const [data, setData] = useState([]);
   const [allMissionList, setAllMissionList] = useState([]);
+
   const dummyData = [
     {
       id: 1,
