@@ -541,3 +541,8 @@ page
   border-radius: 10px;
   box-shadow: 2px 2px 2px var(--mygray);
 }
+
+.home_all {
+  display: flex;
+  align-items: center;
+}

@@ -11,8 +11,10 @@ const LeftStyled = styled.div`
   img {
     width: 40px;
     margin-right: 5px;
+    cursor: pointer;
   }
   div {
+    cursor: pointer;
     display: flex;
     font-size: 22px;
     font-family: "Binggrae-Two";
@@ -59,6 +61,11 @@ const MyHeader = ({ nowpage }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const navigate = useNavigate();
 
+  const nameClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
+
   const profileClickHandler = (e) => {
     e.preventDefault();
     navigate("/profile");
@@ -91,8 +98,14 @@ const MyHeader = ({ nowpage }) => {
   return (
     <div className="MyHeader">
       <LeftStyled>
-        <img className="logo" src="/assets/logo.png" />
-        <div className="service_name">₩alletty</div>
+        <img
+          onClick={nameClickHandler}
+          className="logo"
+          src="/assets/logo.png"
+        />
+        <div onClick={nameClickHandler} className="service_name">
+          ₩alletty
+        </div>
       </LeftStyled>
       <RightStyled nowpage={`${nowpage}`}>
         <div onClick={profileClickHandler}>프로필</div>
