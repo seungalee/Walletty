@@ -10,6 +10,10 @@ const VaultOutBoxStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 95vw;
+    height: 100px;
+  }
 `;
 
 const VaultInBoxStyled = styled.div`
@@ -23,11 +27,19 @@ const VaultInBoxStyled = styled.div`
     font-size: 13px;
     color: var(--mygray);
   }
+  @media (max-width: 768px) {
+    width: 85vw;
+    height: 80px;
+  }
 `;
 
 const VaultContentStyled = styled.div`
   display: flex;
   position: relative;
+  @media (max-width: 768px) {
+    height: 80px;
+    width: 85vw;
+  }
   & > div:first-child {
     display: flex;
     justify-content: center;
@@ -42,6 +54,12 @@ const VaultContentStyled = styled.div`
     color: ${(props) => (props.insafe ? "#a5a5a5" : "var(--strpurple)")};
     font-weight: 600;
     background-color: rgba(255, 255, 255, 0.6);
+    @media (max-width: 768px) {
+      margin-top: 10px;
+      width: 60px;
+      height: 45px;
+      font-size: 13px;
+    }
   }
   & > div:nth-child(2) {
     margin-top: 15px;
@@ -50,6 +68,11 @@ const VaultContentStyled = styled.div`
     position: relative;
     width: 400px;
     color: var(--mygray);
+    @media (max-width: 768px) {
+      padding-left: 10px;
+      font-size: 11px;
+      margin-top: 10px;
+    }
   }
   & > div:nth-child(2) > div:nth-child(2) {
     position: absolute;
@@ -60,6 +83,11 @@ const VaultContentStyled = styled.div`
     color: #e8b704;
     -webkit-text-stroke: 0.2px var(--mygray);
     width: 400px;
+    @media (max-width: 768px) {
+      font-size: 25px;
+      left: 10px;
+      top: 15px;
+    }
   }
   & > div:nth-child(2) > div:last-child {
     position: absolute;
@@ -68,6 +96,11 @@ const VaultContentStyled = styled.div`
     top: 30px;
     font-weight: 600;
     color: var(--myblack);
+    @media (max-width: 768px) {
+      font-size: 15px;
+      left: 85px;
+      top: 25px;
+    }
   }
 `;
 
@@ -81,6 +114,12 @@ const ButtonStyled = styled.button`
   background-color: white;
   &:hover {
     background-color: var(--lgmidpurple);
+  }
+  @media (max-width: 768px) {
+    width: 15vw;
+    height: 25px;
+    font-size: 9px;
+    margin: 2px 0px;
   }
 `;
 

@@ -14,6 +14,9 @@ const DateStyled = styled.div`
     background-color: var(--mygray);
     width: 38%;
   }
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const FeedbackStyled = styled.div`
@@ -31,6 +34,9 @@ const FeedbackStyled = styled.div`
     font-size: 1.3rem;
     left: -18px;
     color: var(--lgmidpurple);
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 

@@ -12,12 +12,23 @@ const LeftStyled = styled.div`
     width: 40px;
     margin-right: 5px;
     cursor: pointer;
+    @media (max-width: 768px) {
+      width: 30px;
+    }
   }
   div {
     cursor: pointer;
     display: flex;
     font-size: 22px;
     font-family: "Binggrae-Two";
+    @media (max-width: 768px) {
+      font-size: 15px;
+      margin-top: 2px;
+    }
+  }
+  @media (max-width: 768px) {
+    margin-left: 5px;
+    width: auto;
   }
 `;
 
@@ -28,9 +39,14 @@ const RightStyled = styled.div`
   height: 100%;
   justify-content: right;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 70vw;
+    margin-right: 5px;
+    font-size: 12px;
+  }
   div {
     display: flex;
-    width: 20%;
+    width: 15%;
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -53,6 +69,9 @@ const RightStyled = styled.div`
     }
     &:nth-child(5) {
       font-weight: ${(props) => props.nowpage === "vault" && "700"};
+    }
+    &:nth-child(6) {
+      width: 20%;
     }
   }
 `;

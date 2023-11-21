@@ -15,14 +15,15 @@ const HomeTextStyled = styled.div`
   margin-right: 50px;
   & > div {
     &:first-child {
-      color: var(--mstrpurple);
+      color: #6247aa;
       font-size: 60px;
       font-family: "Binggrae-Two";
     }
     &:nth-child(2) {
-      color: var(--mstrpurple);
+      color: #6247aa;
       font-size: 25px;
       margin-bottom: 50px;
+      font-weight: 600;
     }
     &:nth-child(3) {
       width: 470px;

@@ -62,7 +62,10 @@ MyHeader
   align-items: center;
   padding: 5px 5px;
   box-shadow: 0 1px 4px -2px #989ca0;
-  /* background-color: #f8f3fb; */
+  background-color: #f5f3f4;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 }
 
 /* Login 
@@ -253,6 +256,9 @@ page
 .Mission .MissionList {
   width: 800px;
   height: 800px;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 }
 .mission_select_box .SelectMenu {
   width: 150px;
@@ -263,43 +269,85 @@ page
   font-family: "Noto Sans KR", sans-serif;
   text-align-last: center;
   text-align: center;
+  @media (max-width: 768px) {
+    width: 20vw;
+    font-size: 10px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
 }
 
 /* feedback */
 .feedback_page {
   display: flex;
-  position: fixed;
+  position: absolute;
   bottom: 140px;
-  left: 32%;
+  left: 17%;
+  @media (max-width: 768px) {
+    width: 95vw;
+    height: 93vh;
+    flex-direction: column;
+    left: 10px;
+    bottom: 5px;
+  }
 }
 
 .feedback_img {
-  position: fixed;
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  @media (max-width: 768px) {
+    position: relative;
+    flex-direction: row;
+  }
 }
 
 .feedback_img:first-child {
-  bottom: 140px;
-  left: 15%;
+  bottom: -95px;
+  left: -10px;
   width: 250px;
+  @media (max-width: 768px) {
+    top: 0px;
+    left: 0px;
+  }
 }
 
+@media (max-width: 768px) {
+  .feedback_img:first-child div:first-child {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .feedback_img:first-child div:last-child {
+    display: none;
+  }
+}
 .feedback_img:last-child {
-  bottom: 140px;
-  left: 70%;
+  bottom: -110px;
+  left: 10px;
   width: 250px;
+  @media (max-width: 768px) {
+    top: 0px;
+    left: 30vw;
+  }
 }
 
 .feedback_img img {
   height: 300px;
   margin-left: 0px 20px;
+  @media (max-width: 768px) {
+    height: 150px;
+  }
 }
 
 .feedback_img:last-child > img {
-  height: 290px;
+  height: 295px;
+  @media (max-width: 768px) {
+    height: 140px;
+  }
 }
 
 .feedback_img div {
@@ -312,6 +360,9 @@ page
   border-radius: 20px;
   font-family: "Jua", sans-serif;
   position: relative;
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 }
 
 .feedback_img:last-child div {
@@ -338,12 +389,27 @@ page
   color: var(--lgtpurple);
 }
 
+@media (max-width: 768px) {
+  .feedback_img:last-child div::after {
+    content: "▶";
+    top: 30px;
+  }
+  .feedback_img:first-child div::before {
+    content: "◀";
+    left: -15px;
+    top: 50px;
+  }
+}
+
 .FeedbackList {
   background-color: white;
   padding: 20px 30px;
   width: 550px;
   height: 600px;
   overflow: auto;
+  @media (max-width: 768px) {
+    width: 80vw;
+  }
 }
 
 .feedback_button {
@@ -356,6 +422,9 @@ page
 .VaultList {
   width: 700px;
   height: 800px;
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 }
 
 .vault_buttons {

@@ -95,6 +95,9 @@ const Feedback = () => {
               다음 주에는 소비 습관이 개선되어 있기를 바랄게. 엄마는 널 믿어! 😘
             </div>
             <img src="/assets/chatbot_mom.png" />
+            <div>
+              다음 주에는 소비 습관이 개선되어 있기를 바랄게. 엄마는 널 믿어! 😘
+            </div>
           </div>
           <FeedbackList feedbackList={data} listLen={data.length} />
           <div className="feedback_img">
