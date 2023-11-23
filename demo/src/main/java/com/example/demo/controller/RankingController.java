@@ -17,7 +17,7 @@ public class RankingController {
 
     @RequestMapping("/rankingTop3") // 서비스 전체에서 ranking 탑3 프론트로 보내줌
     public List<RankingDTO> sendRankingTop3(){
-        List<RankingDTO> rankingDTOs = rankingService.findByRank();
+        List<RankingDTO> rankingDTOs = rankingService.findByRanks();
         return rankingDTOs;
     }
 

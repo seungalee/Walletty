@@ -15,7 +15,7 @@ public class RankingDTO {
     private Integer level;
     private String position;
     private Integer totalSavingMoney;
-    private Integer rank;
+    private Integer ranks;
     private Boolean isFriend;
 
     public static RankingDTO toRankingDTO(RankingEntity rankingEntity) {
@@ -24,7 +24,7 @@ public class RankingDTO {
         rankingDTO.setLevel(rankingEntity.getLevel());
         rankingDTO.setPosition(rankingEntity.getPosition());
         rankingDTO.setTotalSavingMoney(rankingEntity.getTotalSavingMoney());
-        rankingDTO.setRank(rankingEntity.getRank());
+        rankingDTO.setRanks(rankingEntity.getRanks());
         rankingDTO.setIsFriend(rankingEntity.getIsFriend());
         return rankingDTO;
     }

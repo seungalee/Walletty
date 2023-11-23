@@ -24,15 +24,15 @@ public class RankingService {
         return rankingDTOList;
     }
 
-    public List<RankingDTO> findByRank() {
+    public List<RankingDTO> findByRanks() {
 
         List<RankingDTO> rankingDTOList = new ArrayList<>();
 
-        RankingEntity rankingEntity1 = rankingRepository.findByRank(1);
+        RankingEntity rankingEntity1 = rankingRepository.findByRanks(1);
         rankingDTOList.add(RankingDTO.toRankingDTO(rankingEntity1));
-        RankingEntity rankingEntity2 = rankingRepository.findByRank(2);
+        RankingEntity rankingEntity2 = rankingRepository.findByRanks(2);
         rankingDTOList.add(RankingDTO.toRankingDTO(rankingEntity2));
-        RankingEntity rankingEntity3 = rankingRepository.findByRank(3);
+        RankingEntity rankingEntity3 = rankingRepository.findByRanks(3);
         rankingDTOList.add(RankingDTO.toRankingDTO(rankingEntity3));
 
         return rankingDTOList;

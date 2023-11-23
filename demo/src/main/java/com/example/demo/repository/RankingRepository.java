@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface RankingRepository extends JpaRepository<RankingEntity, String> {
     List<RankingEntity> findByIsFriend(Boolean isFriend);
-    RankingEntity findByRank(Integer rank);
+    RankingEntity findByRanks(Integer ranks);
 }

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Table(name = "ranking_table")
 public class RankingEntity {
     @Id
+    @Column
     private String memberId;
     @Column
     private Integer level;
@@ -22,7 +23,7 @@ public class RankingEntity {
     @Column
     private Integer totalSavingMoney;
     @Column
-    private Integer rank;
+    private Integer ranks;
     @Column
     private Boolean isFriend;
 }
