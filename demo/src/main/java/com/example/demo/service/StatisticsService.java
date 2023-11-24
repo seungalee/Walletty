@@ -38,8 +38,15 @@ public class StatisticsService {
     }
 
     public void saveRate(String memberId, String date) {
+        String week = "0";
+        if (date.equals("1")){
+            week = "1107";
+        } else if (date.equals("2")) {
+            week = "1114";
+        }
+
         // 항목 별 사용 금액
-        List<AccountAnalyzeEntity> accountAnalyzeEntities = accountAnalyzeRepository.findByMemberIdAndOrderWeek(memberId, date);
+        List<AccountAnalyzeEntity> accountAnalyzeEntities = accountAnalyzeRepository.findByMemberIdAndOrderWeek(memberId, week);
 
         // rate 계산하기 위한 분모
         Optional<ProfileEntity> profile = profileRepository.findByMemberId(memberId);
@@ -50,9 +57,10 @@ public class StatisticsService {
             double rate = ((double) acc.getTotalAmount() / (double) total * 100.0);
 
             // 통계DTO
-            StatisticsDTO statisticsDTO = new StatisticsDTO(memberId, acc.getEntry(), rate, date);
+            StatisticsDTO statisticsDTO = new StatisticsDTO(memberId, acc.getEntry(), Math.round(rate*100)/100.0, week); //rate 소수점 둘째 자리까지만 보내기
             StatisticsEntity statisticsEntity = StatisticsEntity.toStatisticsEntity(statisticsDTO);
             statisticsRepository.save(statisticsEntity);
+            //statisticsEntity.setId(null);
 
 //            if(acc.getEntry() == "eatout"){
 //                statisticsDTO.setEatoutRate(rate);

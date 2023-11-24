@@ -11,6 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class StatisticsDTO {
+    private Long id;
     private String memberId;
     private String entry;
     private double rate;
