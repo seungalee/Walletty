@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.example.demo.dto.SafeDTO;
+import com.example.demo.dto.StatisticsDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,26 +19,41 @@ public class StatisticsEntity {
     private String memberId;
 
     @Column
-    private Integer eatoutRate;
+    private String entry;
 
     @Column
-    private Integer cafeRate;
+    private double rate;
 
-    @Column
-    private Integer deliverRate;
-
-    @Column
-    private Integer shoppingRate;
-
-    @Column
-    private Integer taxiRate;
-
-    @Column
-    private Integer beautyRate;
-
-    @Column
-    private Integer snackRate;
+//    @Column
+//    private double eatoutRate;
+//
+//    @Column
+//    private double cafeRate;
+//
+//    @Column
+//    private double deliverRate;
+//
+//    @Column
+//    private double shoppingRate;
+//
+//    @Column
+//    private double taxiRate;
+//
+//    @Column
+//    private double beautyRate;
+//
+//    @Column
+//    private double snackRate;
 
     @Column
     private String week;
+
+    public static StatisticsEntity toStatisticsEntity(StatisticsDTO statisticsDTO){
+        StatisticsEntity statisticsEntity = new StatisticsEntity();
+        statisticsEntity.setMemberId(statisticsDTO.getMemberId());
+        statisticsEntity.setEntry(statisticsDTO.getEntry());
+        statisticsEntity.setRate(statisticsDTO.getRate());
+        statisticsEntity.setWeek(statisticsDTO.getWeek());
+        return statisticsEntity;
+    }
 }

@@ -16,12 +16,17 @@ import java.util.List;
 public class StatisticsController {
     private final StatisticsService statisticsService;
 
-
-    @RequestMapping("/statisticsDTO")
-    public StatisticsDTO sendStatisticsDTO(@RequestBody StatisticsDTO statistics){
-        StatisticsDTO statisticsDTO = statisticsService.findByMemberId(statistics.getMemberId());
-        return statisticsDTO;
+    @RequestMapping("/statisticsDTOList")
+    public List<StatisticsDTO> sendStatisticsDTO(@RequestBody StatisticsDTO statistics){
+        List<StatisticsDTO> statisticsDTOList = statisticsService.findByMemberIdAndWeek(statistics.getMemberId(),statistics.getWeek());
+        return statisticsDTOList;
     }
+
+//    @RequestMapping("/statisticsDTO")
+//    public StatisticsDTO sendStatisticsDTO(@RequestBody StatisticsDTO statistics){
+//        StatisticsDTO statisticsDTO = statisticsService.findByMemberId(statistics.getMemberId());
+//        return statisticsDTO;
+//    }
 
 //    @RequestMapping("/paymentList")
 

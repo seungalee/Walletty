@@ -25,7 +25,7 @@ public class AccountAnalyzeController {
 
     private final PaymentService paymentService;
     private final AccountAnalyzeService accountAnalyzeService;
-
+    private final StatisticsService statisticsService;
     private final ProfileService profileService;
 
     @GetMapping("/payment/{date}/{memberId}")
@@ -75,6 +75,8 @@ public class AccountAnalyzeController {
             // 회원가입 후 첫 결제내역 분석일 때 프로필 새로 생성 (save) , 처음이 아니라면 update
             profileService.updateWeekTotalAmount(memberId);
 
+            // 통계 테이블 저장
+            statisticsService.saveRate(memberId, date);
 
 
         } catch (Exception e1) {
