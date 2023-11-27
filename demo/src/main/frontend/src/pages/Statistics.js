@@ -76,7 +76,9 @@ const Statistics = () => {
   }, [nowDate]);
 
   useEffect(() => {
-    const sortList = lastWeekItems.sort((a, b) => a.rate - b.rate);
+    const sortList = lastWeekItems.sort((a, b) =>
+      a.entry.localeCompare(b.entry)
+    );
     const newList = sortList.map((it) => {
       if (it.entry === "eatout") {
         return { ...it, name: "외식비" };
@@ -103,7 +105,9 @@ const Statistics = () => {
     setDataLastWeekItems(newList);
   }, [lastWeekItems]);
   useEffect(() => {
-    const sortList = thisWeekItems.sort((a, b) => a.rate - b.rate);
+    const sortList = thisWeekItems.sort((a, b) =>
+      a.entry.localeCompare(b.entry)
+    );
     const newList = sortList.map((it) => {
       if (it.entry === "eatout") {
         return { ...it, name: "외식비" };

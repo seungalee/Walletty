@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const VaultOutBoxStyled = styled.div`
   width: 650px;
-  height: 130px;
+  height: 180px;
   background-color: #bbbaba;
   margin: 20px 10px;
   display: flex;
@@ -18,7 +18,7 @@ const VaultOutBoxStyled = styled.div`
 
 const VaultInBoxStyled = styled.div`
   width: 600px;
-  height: 100px;
+  height: 150px;
   background-color: #dddddd;
   padding: 0px 10px;
   & > div:first-child {
@@ -46,10 +46,11 @@ const VaultContentStyled = styled.div`
     align-items: center;
     text-align: center;
     white-space: nowrap;
-    width: 50px;
-    height: 50px;
-    margin-top: 17px;
-    font-size: 15px;
+    width: 80px;
+    height: 80px;
+    margin-top: 30px;
+    margin-left: 10px;
+    font-size: 20px;
     padding: 5px 5px;
     color: ${(props) => (props.insafe ? "#a5a5a5" : "var(--strpurple)")};
     font-weight: 600;
@@ -62,9 +63,9 @@ const VaultContentStyled = styled.div`
     }
   }
   & > div:nth-child(2) {
-    margin-top: 15px;
-    padding-left: 15px;
-    font-size: 15px;
+    margin-top: 32px;
+    padding-left: 20px;
+    font-size: 20px;
     position: relative;
     width: 400px;
     color: var(--mygray);
@@ -76,10 +77,10 @@ const VaultContentStyled = styled.div`
   }
   & > div:nth-child(2) > div:nth-child(2) {
     position: absolute;
-    top: 20px;
-    left: 15px;
+    top: 25px;
+    left: 22px;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 43px;
     color: #e8b704;
     -webkit-text-stroke: 0.2px var(--mygray);
     width: 400px;
@@ -91,9 +92,9 @@ const VaultContentStyled = styled.div`
   }
   & > div:nth-child(2) > div:last-child {
     position: absolute;
-    left: 105px;
-    font-size: 17px;
-    top: 30px;
+    left: 150px;
+    font-size: 20px;
+    top: 45px;
     font-weight: 600;
     color: var(--myblack);
     @media (max-width: 768px) {

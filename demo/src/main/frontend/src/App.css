@@ -285,10 +285,10 @@ page
   left: 17%;
   @media (max-width: 768px) {
     width: 95vw;
-    height: 93vh;
+    height: 90vh;
     flex-direction: column;
     left: 10px;
-    bottom: 5px;
+    top: 50px;
   }
 }
 
@@ -668,9 +668,45 @@ page
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 700px;
 }
 
 .statistics_graphs {
   font-size: 20px;
   display: flex;
+}
+
+@media (max-width: 768px) {
+  .swal2-wide {
+    position: absolute;
+    left: 10px;
+    top: -200px;
+  }
+}
+
+.feedback_alert_box {
+  display: flex;
+}
+.feedback-alert {
+  width: 430px;
+  position: relative;
+  @media (max-width: 768px) {
+    width: 350px;
+    font-size: 13px;
+    position: absolute;
+    left: 10px;
+    top: 50px;
+  }
+}
+.feedback-alert img {
+  width: 80px;
+  height: 60px;
+  @media (max-width: 768px) {
+    width: 70px;
+    height: 50px;
+  }
+}
+
+.feedback-alert div {
+  margin-top: 3px;
 }
