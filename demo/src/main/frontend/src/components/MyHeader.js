@@ -46,32 +46,38 @@ const RightStyled = styled.div`
   }
   div {
     display: flex;
-    width: 15%;
+    width: 13%;
     height: 100%;
     justify-content: center;
     align-items: center;
-    //border: 1px solid;
-    cursor: pointer;
+    font-size: 15px;
+    @media (max-width: 768px) {
+      font-size: 11px;
+    }
     &:hover {
       font-weight: 600;
+      cursor: pointer;
     }
     &:first-child {
       font-weight: ${(props) => props.nowpage === "profile" && "700"};
     }
     &:nth-child(2) {
-      font-weight: ${(props) => props.nowpage === "statistics" && "700"};
-    }
-    &:nth-child(3) {
       font-weight: ${(props) => props.nowpage === "mission" && "700"};
     }
-    &:nth-child(4) {
+    &:nth-child(3) {
       font-weight: ${(props) => props.nowpage === "feedback" && "700"};
     }
-    &:nth-child(5) {
+    &:nth-child(4) {
       font-weight: ${(props) => props.nowpage === "vault" && "700"};
     }
+    &:nth-child(5) {
+      font-weight: ${(props) => props.nowpage === "statistics" && "700"};
+    }
     &:nth-child(6) {
-      width: 20%;
+      font-weight: ${(props) => props.nowpage === "ranking" && "700"};
+    }
+    &:nth-child(7) {
+      width: 15%;
     }
   }
 `;
@@ -105,6 +111,11 @@ const MyHeader = ({ nowpage }) => {
     e.preventDefault();
     navigate("/vault");
   };
+
+  const rankingClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/ranking");
+  };
   const logoutClickHandler = (e) => {
     e.preventDefault();
     if (isLoggedIn === "true") {
@@ -128,10 +139,11 @@ const MyHeader = ({ nowpage }) => {
       </LeftStyled>
       <RightStyled nowpage={`${nowpage}`}>
         <div onClick={profileClickHandler}>프로필</div>
-        <div onClick={statisticsClickHandler}>통계</div>
         <div onClick={missionClickHandler}>미션</div>
         <div onClick={feedbackClickHandler}>피드백</div>
         <div onClick={vaultClickHandler}>금고</div>
+        <div onClick={statisticsClickHandler}>통계</div>
+        <div onClick={rankingClickHandler}>랭킹</div>
         <div onClick={logoutClickHandler}>
           {isLoggedIn === "true" ? "로그아웃" : "로그인"}
         </div>
