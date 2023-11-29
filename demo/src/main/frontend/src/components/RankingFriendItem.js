@@ -45,7 +45,7 @@ const RankingFriendItem = ({
           <div>현재 {index + 1}위</div>
           <div>{memberId} 님</div>
           <div>
-            레벨 {level}, {position}
+            레벨 {level}, <b>{position}</b>
           </div>
           <div>이번 주 {totalSavingMoney}원 절약 중!</div>
         </RankFriendItemInfoStyled>

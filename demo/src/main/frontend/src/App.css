@@ -339,14 +339,14 @@ page
   height: 300px;
   margin-left: 0px 20px;
   @media (max-width: 768px) {
-    height: 150px;
+    height: 100px;
   }
 }
 
 .feedback_img:last-child > img {
   height: 295px;
   @media (max-width: 768px) {
-    height: 140px;
+    height: 90px;
   }
 }
 
@@ -361,7 +361,7 @@ page
   font-family: "Jua", sans-serif;
   position: relative;
   @media (max-width: 768px) {
-    font-size: 13px;
+    font-size: 11px;
   }
 }
 

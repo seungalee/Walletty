@@ -15,6 +15,7 @@ import Toss from "./pages/Toss";
 import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
 import Ranking from "./pages/Ranking";
+import AudioTest from "./pages/AudioTest";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/ranking" element={<Ranking />} />
+            <Route path="/audiotest" element={<AudioTest />} />
           </Routes>
         </div>
       </BrowserRouter>

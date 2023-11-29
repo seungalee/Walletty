@@ -2,8 +2,8 @@ import RankingFriendItem from "./RankingFriendItem";
 
 const RankingFriendList = ({ rankingFriendList }) => {
   console.log(rankingFriendList);
-  const id = localStorage.getItem("memberId");
-  //const id = "bb";
+  //const id = localStorage.getItem("memberId");
+  const id = "bb";
 
   const sortFriendListByRank = () => {
     return rankingFriendList.sort((a, b) => a.ranks - b.ranks);

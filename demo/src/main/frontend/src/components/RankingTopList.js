@@ -21,12 +21,12 @@ const RankingItemImgStyled = styled.div`
 `;
 
 const RankingItemInfoStyled = styled.div`
-  font-size: 18px;
   :first-child {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 600;
     margin-bottom: 5px;
   }
+  font-size: 18px;
 `;
 
 const RankingTopList = ({ rankingTopList }) => {
@@ -43,7 +43,8 @@ const RankingTopList = ({ rankingTopList }) => {
             <div>현재 전체 1위🥇</div>
             <div>{rankingTopList[0].memberId} 님</div>
             <div>
-              레벨 {rankingTopList[0].level}, {rankingTopList[0].position}
+              레벨 {rankingTopList[0].level},{" "}
+              <b>{rankingTopList[0].position}</b>
             </div>
             <div>이번 주 {rankingTopList[0].totalSavingMoney}원 절약 중!</div>
           </RankingItemInfoStyled>
@@ -57,7 +58,8 @@ const RankingTopList = ({ rankingTopList }) => {
             <div>현재 전체 2위🥈</div>
             <div>{rankingTopList[1].memberId} 님</div>
             <div>
-              레벨 {rankingTopList[1].level}, {rankingTopList[1].position}
+              레벨 {rankingTopList[1].level},{" "}
+              <b>{rankingTopList[1].position}</b>
             </div>
             <div>이번 주 {rankingTopList[1].totalSavingMoney}원 절약 중!</div>
           </RankingItemInfoStyled>
@@ -71,7 +73,8 @@ const RankingTopList = ({ rankingTopList }) => {
             <div>현재 전체 3위🥉</div>
             <div>{rankingTopList[2].memberId} 님</div>
             <div>
-              레벨 {rankingTopList[2].level}, {rankingTopList[2].position}
+              레벨 {rankingTopList[2].level},{" "}
+              <b>{rankingTopList[2].position}</b>
             </div>
             <div>이번 주 {rankingTopList[2].totalSavingMoney}원 절약 중!</div>
           </RankingItemInfoStyled>
