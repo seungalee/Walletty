@@ -38,7 +38,7 @@ const VaultList = ({ totalVaultList }) => {
         }).then(function (result) {
           setTimeout(() => {
             navigate("/feedback");
-          }, 1300);
+          }, 500);
         });
       } else {
         setShowPage("True");

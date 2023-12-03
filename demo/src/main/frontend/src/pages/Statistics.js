@@ -2,6 +2,23 @@ import { useNavigate } from "react-router-dom";
 import MyHeader from "../components/MyHeader";
 import { useEffect, useState } from "react";
 import StatisticsGraph from "../components/StatisticsGraph";
+import styled from "styled-components";
+
+const StatisticsItemStyled = styled.div`
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 400px;
+  background-color: white;
+  border-radius: 20px;
+  margin: 5px 10px;
+  & > div:first-child {
+    margin-right: 7px;
+    font-size: 21px;
+  }
+`;
 
 const Statistics = () => {
   const navigate = useNavigate();
@@ -24,9 +41,7 @@ const Statistics = () => {
       })
         .then((result) => result.json())
         .then((result) => {
-          console.log(result);
           const nowMission = result.filter((it) => it.now === "true");
-          console.log(nowMission);
           setNowDate(Number(nowMission[0].startDate) - 1);
         })
         .catch((err) => {
@@ -49,7 +64,6 @@ const Statistics = () => {
     })
       .then((result) => result.json())
       .then((result) => {
-        console.log(result);
         setLastWeekItems(result);
       })
       .catch((err) => {
@@ -67,7 +81,6 @@ const Statistics = () => {
     })
       .then((result) => result.json())
       .then((result) => {
-        console.log(result);
         setThisWeekItems(result);
       })
       .catch((err) => {
@@ -132,6 +145,7 @@ const Statistics = () => {
       }
     });
     setDataThisWeekItems(newList);
+    console.log(newList);
   }, [thisWeekItems]);
 
   return (
@@ -152,6 +166,52 @@ const Statistics = () => {
             )}
           </div>
         </div>
+        {dataLastWeekItems[0] && dataThisWeekItems[0] && (
+          <div className="statistics_text">
+            <StatisticsItemStyled>
+              <div>미용비🕶</div>
+              <div>
+                {`${dataLastWeekItems[0].rate}% → ${dataThisWeekItems[0].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>카페비☕</div>
+              <div>
+                {`${dataLastWeekItems[1].rate}% → ${dataThisWeekItems[1].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>배달비🍔</div>
+              <div>
+                {`${dataLastWeekItems[2].rate}% → ${dataThisWeekItems[2].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>식비🍚</div>
+              <div>
+                {`${dataLastWeekItems[3].rate}% → ${dataThisWeekItems[3].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>쇼핑비🛒</div>
+              <div>
+                {`${dataLastWeekItems[4].rate}% → ${dataThisWeekItems[4].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>간식비🍰</div>
+              <div>
+                {`${dataLastWeekItems[5].rate}% → ${dataThisWeekItems[5].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+            <StatisticsItemStyled>
+              <div>택시비🚖</div>
+              <div>
+                {`${dataLastWeekItems[6].rate}% → ${dataThisWeekItems[6].rate}%`}
+              </div>
+            </StatisticsItemStyled>
+          </div>
+        )}
       </div>
     </div>
   );

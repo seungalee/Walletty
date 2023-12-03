@@ -26,7 +26,7 @@ body {
   min-height: 100vh;
   background-color: #f5f3f4;
   font-family: "Noto Sans KR", sans-serif;
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 /* Components */
@@ -392,12 +392,13 @@ page
 @media (max-width: 768px) {
   .feedback_img:last-child div::after {
     content: "▶";
-    top: 30px;
+    top: 15px;
+    left: 140px;
   }
   .feedback_img:first-child div::before {
     content: "◀";
     left: -15px;
-    top: 50px;
+    top: 20px;
   }
 }
 
@@ -614,6 +615,9 @@ page
 .home_all {
   display: flex;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 /* 랭킹 */
@@ -656,6 +660,9 @@ page
 /* statistics */
 .statistics_page {
   height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .statistics_title {
@@ -674,12 +681,20 @@ page
 .statistics_graphs {
   font-size: 20px;
   display: flex;
+  width: 1400px;
+}
+.statistics_text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
   .swal2-wide {
     position: absolute;
-    left: 10px;
+    left: 10vw;
     top: -200px;
   }
 }
@@ -705,6 +720,10 @@ page
     width: 70px;
     height: 50px;
   }
+}
+
+.text-alert {
+  width: auto;
 }
 
 .feedback-alert div {

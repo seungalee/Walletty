@@ -75,13 +75,10 @@ const Feedback = () => {
       }) => rest
     );
     setData(newList);
-    console.log(allMissionList);
     const nowMissionItem = allMissionList.filter(
       (it) => it.accept && it.now === "true"
     );
-    console.log(nowMissionItem);
     setNowMission((nowMission) => nowMissionItem);
-    console.log(nowMission);
   }, [allFeedbackList, allMissionList]);
 
   const { user } = useUserState();

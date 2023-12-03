@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const VaultOutBoxStyled = styled.div`
   width: 650px;
@@ -158,11 +159,17 @@ const VaultItem = ({
       .catch((err) => {
         console.log(err);
       });
-    if (window.confirm("입금이 완료되었습니다. 미션을 시작합니다.")) {
-      window.location.reload();
-    } else {
-      window.location.reload();
-    }
+    Swal.fire({
+      html: `<div class="text_alert_box"><div>입금이 완료되었습니다. 미션을 시작합니다.</div></div>`,
+      customClass: "text-alert",
+      showConfirmButton: false,
+      position: "top",
+      timer: 1500,
+    }).then(function (result) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    });
   };
 
   const getMoneyBackHandler = () => {
@@ -181,11 +188,17 @@ const VaultItem = ({
         console.log(err);
       });
     console.log("출금성공");
-    if (window.confirm("미션을 성공해 돈을 돌려받았습니다!")) {
-      window.location.reload();
-    } else {
-      window.location.reload();
-    }
+    Swal.fire({
+      html: `<div class="text_alert_box"><div>미션을 성공해 돈을 돌려받았습니다!</div></div>`,
+      customClass: "text-alert",
+      showConfirmButton: false,
+      position: "top",
+      timer: 1500,
+    }).then(function (result) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    });
   };
   return (
     <div className="VaultItem">

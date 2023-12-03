@@ -38,6 +38,7 @@ const StatisticsGraph = ({ dataval }) => {
         paddingAngle={2}
         dataKey="value"
         label={renderLabel}
+        isAnimationActive={false}
       >
         {data.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

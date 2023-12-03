@@ -1,6 +1,7 @@
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Survey_goalmoney = () => {
   const navigate = useNavigate();
@@ -28,6 +29,12 @@ const Survey_goalmoney = () => {
       alert(`${goalList[1].name} 항목 금액을 조건에 맞게 다시 설정해 주세요.`);
     } else if (goalmoneyList.goalmoney3 > leastGoalMoney.entry3totalAmount90) {
       alert(`${goalList[2].name} 항목 금액을 조건에 맞게 다시 설정해 주세요.`);
+    } else if (
+      !goalmoneyList.goalmoney1 ||
+      !goalmoneyList.goalmoney2 ||
+      !goalmoneyList.goalmoney3
+    ) {
+      alert("모든 항목을 입력해 주세요.");
     } else {
       fetch("/member/survey", {
         method: "POST",
@@ -49,8 +56,17 @@ const Survey_goalmoney = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
-          alert("목표 설정이 완료되었습니다!");
-          navigate("/");
+          Swal.fire({
+            html: `<div class="text_alert_box"><div>목표 설정이 완료되었습니다!</div></div>`,
+            customClass: "text-alert",
+            showConfirmButton: false,
+            position: "top",
+            timer: 1000,
+          }).then(function (result) {
+            setTimeout(() => {
+              navigate("/");
+            }, 500);
+          });
         })
         .catch((error) => console.log(error));
     }
