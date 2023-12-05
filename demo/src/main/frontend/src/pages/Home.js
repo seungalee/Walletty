@@ -92,7 +92,7 @@ const Home = () => {
     const filteredMissionList = missionList.filter(
       (it) => it.now === "true" && !it.accept
     );
-    if (filteredMissionList[0]) {
+    if (filteredMissionList[0] && id != 'cc') {
       Swal.fire({
         html: `<div class="feedback_alert_box"><img src="/assets/chatbot_mom_head.png" /><div>아직 확인하지 않은 피드백이 있습니다! 피드백 페이지로 이동합니다.</div></div>`,
         customClass: "feedback-alert",
@@ -105,6 +105,18 @@ const Home = () => {
         }, 500);
       });
     }
+    if (filteredMissionList[0] && id == 'cc') {
+      Swal.fire({
+        html: `<div class="feedback_alert_box"><img src="/assets/chatbot_mom_head.png" /><div>배달 음식에 52200원을 썼구나. 배달 음식은 편하긴 하지만 돈이 많이 들어가거든. 가끔은 직접 요리해서 먹는 건 어때?</div></div>`,
+        customClass: "feedback-alert",
+        showConfirmButton: false,
+        position: "top",
+        timer: 5500,
+      }).then(function (result) {
+
+      });
+    }
+
   }, [missionList]);
   return (
     <div>
