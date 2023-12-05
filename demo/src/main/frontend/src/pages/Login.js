@@ -50,11 +50,11 @@ const Login = () => {
         } else if (state.id === "aa") {
           localStorage.setItem("memberId", state.id);
           localStorage.setItem("isLoggedIn", "true");
-          navigate("/survey");
+          navigate("/survey-feedback");
         } else if (result.message === "successFirst") {
           localStorage.setItem("memberId", state.id);
           localStorage.setItem("isLoggedIn", "true");
-          navigate("/survey");
+          navigate("/survey-feedback");
         } else if (result.message === "fail") {
           alert("아이디나 비밀번호를 확인해 주세요.");
         }
