@@ -22,10 +22,7 @@ const Survey_feedback = () => {
   return (
     <div>
       <h2>가입해주셔서 감사합니다!</h2>
-      <h4>
-        사용자님의 소비 습관을 파악하기 위한 설문을 제출하면 서비스가
-        시작됩니다.
-      </h4>
+      <h4>맞춤 피드백과 미션을 위한 설문을 제출하면 서비스가 시작됩니다.</h4>
       <div className="survey_qs">
         <div className="survey_q_box">
           <div className="survey_q_text">
