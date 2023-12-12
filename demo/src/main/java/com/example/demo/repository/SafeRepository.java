@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface SafeRepository  extends JpaRepository<SafeEntity, Integer> {
+public interface SafeRepository extends JpaRepository<SafeEntity, Integer> {
 
     Optional<SafeEntity> findByMissionId(int missionId);
-    //List<SafeEntity> findAllBy();
 }

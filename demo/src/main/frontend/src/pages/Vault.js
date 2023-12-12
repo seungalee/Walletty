@@ -64,28 +64,6 @@ const Vault = () => {
     console.log(data);
   }, [vaultList, missionList]);
 
-  const dummydata = [
-    {
-      missionId: 1,
-      missionSen: "택시비를 3만원 절약해라",
-      missionMoney: 30000,
-      inSafe: 1,
-      outSafe: null,
-      accept: 1,
-      success: "success",
-      now: "False",
-    },
-    {
-      missionId: 2,
-      missionSen: "간식비를 2만원 절약해라",
-      missionMoney: 20000,
-      inSafe: null,
-      outSafe: null,
-      accept: 1,
-      success: "fail",
-      now: "True",
-    },
-  ];
   return (
     <div>
       <MyHeader nowpage={"vault"} />

@@ -1,20 +1,25 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 const VaultOutBoxStyled = styled.div`
   width: 650px;
-  height: 130px;
+  height: 180px;
   background-color: #bbbaba;
   margin: 20px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 95vw;
+    height: 100px;
+  }
 `;
 
 const VaultInBoxStyled = styled.div`
   width: 600px;
-  height: 100px;
+  height: 150px;
   background-color: #dddddd;
   padding: 0px 10px;
   & > div:first-child {
@@ -23,51 +28,81 @@ const VaultInBoxStyled = styled.div`
     font-size: 13px;
     color: var(--mygray);
   }
+  @media (max-width: 768px) {
+    width: 85vw;
+    height: 80px;
+  }
 `;
 
 const VaultContentStyled = styled.div`
   display: flex;
   position: relative;
+  @media (max-width: 768px) {
+    height: 80px;
+    width: 85vw;
+  }
   & > div:first-child {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     white-space: nowrap;
-    width: 50px;
-    height: 50px;
-    margin-top: 17px;
-    font-size: 15px;
+    width: 80px;
+    height: 80px;
+    margin-top: 30px;
+    margin-left: 10px;
+    font-size: 20px;
     padding: 5px 5px;
     color: ${(props) => (props.insafe ? "#a5a5a5" : "var(--strpurple)")};
     font-weight: 600;
     background-color: rgba(255, 255, 255, 0.6);
+    @media (max-width: 768px) {
+      margin-top: 10px;
+      width: 60px;
+      height: 45px;
+      font-size: 13px;
+    }
   }
   & > div:nth-child(2) {
-    margin-top: 15px;
-    padding-left: 15px;
-    font-size: 15px;
+    margin-top: 32px;
+    padding-left: 20px;
+    font-size: 20px;
     position: relative;
     width: 400px;
     color: var(--mygray);
+    @media (max-width: 768px) {
+      padding-left: 10px;
+      font-size: 11px;
+      margin-top: 10px;
+    }
   }
   & > div:nth-child(2) > div:nth-child(2) {
     position: absolute;
-    top: 20px;
-    left: 15px;
+    top: 25px;
+    left: 22px;
     font-weight: 700;
-    font-size: 30px;
+    font-size: 43px;
     color: #e8b704;
     -webkit-text-stroke: 0.2px var(--mygray);
     width: 400px;
+    @media (max-width: 768px) {
+      font-size: 25px;
+      left: 10px;
+      top: 15px;
+    }
   }
   & > div:nth-child(2) > div:last-child {
     position: absolute;
-    left: 105px;
-    font-size: 17px;
-    top: 30px;
+    left: 150px;
+    font-size: 20px;
+    top: 45px;
     font-weight: 600;
     color: var(--myblack);
+    @media (max-width: 768px) {
+      font-size: 15px;
+      left: 85px;
+      top: 25px;
+    }
   }
 `;
 
@@ -81,6 +116,12 @@ const ButtonStyled = styled.button`
   background-color: white;
   &:hover {
     background-color: var(--lgmidpurple);
+  }
+  @media (max-width: 768px) {
+    width: 15vw;
+    height: 25px;
+    font-size: 9px;
+    margin: 2px 0px;
   }
 `;
 
@@ -118,11 +159,17 @@ const VaultItem = ({
       .catch((err) => {
         console.log(err);
       });
-    if (window.confirm("입금이 완료되었습니다. 미션을 시작합니다.")) {
-      window.location.reload();
-    } else {
-      window.location.reload();
-    }
+    Swal.fire({
+      html: `<div class="text_alert_box"><div>입금이 완료되었습니다. 미션을 시작합니다.</div></div>`,
+      customClass: "text-alert",
+      showConfirmButton: false,
+      position: "top",
+      timer: 1500,
+    }).then(function (result) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    });
   };
 
   const getMoneyBackHandler = () => {
@@ -141,11 +188,17 @@ const VaultItem = ({
         console.log(err);
       });
     console.log("출금성공");
-    if (window.confirm("미션을 성공해 돈을 돌려받았습니다!")) {
-      window.location.reload();
-    } else {
-      window.location.reload();
-    }
+    Swal.fire({
+      html: `<div class="text_alert_box"><div>미션을 성공해 돈을 돌려받았습니다!</div></div>`,
+      customClass: "text-alert",
+      showConfirmButton: false,
+      position: "top",
+      timer: 1500,
+    }).then(function (result) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    });
   };
   return (
     <div className="VaultItem">

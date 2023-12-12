@@ -11,11 +11,24 @@ const LeftStyled = styled.div`
   img {
     width: 40px;
     margin-right: 5px;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      width: 30px;
+    }
   }
   div {
+    cursor: pointer;
     display: flex;
     font-size: 22px;
     font-family: "Binggrae-Two";
+    @media (max-width: 768px) {
+      font-size: 15px;
+      margin-top: 2px;
+    }
+  }
+  @media (max-width: 768px) {
+    margin-left: 5px;
+    width: auto;
   }
 `;
 
@@ -26,31 +39,45 @@ const RightStyled = styled.div`
   height: 100%;
   justify-content: right;
   align-items: center;
+  @media (max-width: 768px) {
+    width: 70vw;
+    margin-right: 5px;
+    font-size: 12px;
+  }
   div {
     display: flex;
-    width: 20%;
+    width: 13%;
     height: 100%;
     justify-content: center;
     align-items: center;
-    //border: 1px solid;
-    cursor: pointer;
+    font-size: 15px;
+    @media (max-width: 768px) {
+      font-size: 11px;
+    }
     &:hover {
       font-weight: 600;
+      cursor: pointer;
     }
     &:first-child {
       font-weight: ${(props) => props.nowpage === "profile" && "700"};
     }
     &:nth-child(2) {
-      font-weight: ${(props) => props.nowpage === "statistics" && "700"};
-    }
-    &:nth-child(3) {
       font-weight: ${(props) => props.nowpage === "mission" && "700"};
     }
-    &:nth-child(4) {
+    &:nth-child(3) {
       font-weight: ${(props) => props.nowpage === "feedback" && "700"};
     }
-    &:nth-child(5) {
+    &:nth-child(4) {
       font-weight: ${(props) => props.nowpage === "vault" && "700"};
+    }
+    &:nth-child(5) {
+      font-weight: ${(props) => props.nowpage === "statistics" && "700"};
+    }
+    &:nth-child(6) {
+      font-weight: ${(props) => props.nowpage === "ranking" && "700"};
+    }
+    &:nth-child(7) {
+      width: 15%;
     }
   }
 `;
@@ -58,6 +85,11 @@ const RightStyled = styled.div`
 const MyHeader = ({ nowpage }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   const navigate = useNavigate();
+
+  const nameClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
   const profileClickHandler = (e) => {
     e.preventDefault();
@@ -79,6 +111,11 @@ const MyHeader = ({ nowpage }) => {
     e.preventDefault();
     navigate("/vault");
   };
+
+  const rankingClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/ranking");
+  };
   const logoutClickHandler = (e) => {
     e.preventDefault();
     if (isLoggedIn === "true") {
@@ -91,15 +128,22 @@ const MyHeader = ({ nowpage }) => {
   return (
     <div className="MyHeader">
       <LeftStyled>
-        <img className="logo" src="/assets/logo.png" />
-        <div className="service_name">₩alletty</div>
+        <img
+          onClick={nameClickHandler}
+          className="logo"
+          src="/assets/logo.png"
+        />
+        <div onClick={nameClickHandler} className="service_name">
+          ₩alletty
+        </div>
       </LeftStyled>
       <RightStyled nowpage={`${nowpage}`}>
         <div onClick={profileClickHandler}>프로필</div>
-        <div onClick={statisticsClickHandler}>통계</div>
         <div onClick={missionClickHandler}>미션</div>
         <div onClick={feedbackClickHandler}>피드백</div>
         <div onClick={vaultClickHandler}>금고</div>
+        <div onClick={statisticsClickHandler}>통계</div>
+        <div onClick={rankingClickHandler}>랭킹</div>
         <div onClick={logoutClickHandler}>
           {isLoggedIn === "true" ? "로그아웃" : "로그인"}
         </div>

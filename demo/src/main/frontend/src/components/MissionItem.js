@@ -12,6 +12,10 @@ const MissionStyled = styled.div`
     else if (props.success === "fail") return "rgba(255, 214, 255, 0.3)";
     else return "rgba(201, 193, 255, 0.3)";
   }};
+  @media (max-width: 768px) {
+    width: 85vw;
+    font-size: 13px;
+  }
 `;
 
 const MissionStatusStyled = styled.div`
@@ -24,6 +28,11 @@ const MissionStatusStyled = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
+  @media (max-width: 768px) {
+    font-size: 10px;
+    width: 45px;
+    height: 15px;
+  }
 `;
 
 const MissionItem = ({

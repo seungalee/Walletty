@@ -14,6 +14,9 @@ import Vault from "./pages/Vault";
 import Toss from "./pages/Toss";
 import Profile from "./pages/Profile";
 import Statistics from "./pages/Statistics";
+import Ranking from "./pages/Ranking";
+import AudioTest from "./pages/AudioTest";
+import Survey_feedback from "./pages/Survey_feedback";
 
 function App() {
   return (
@@ -26,12 +29,15 @@ function App() {
             <Route path="/join" element={<Join />} />
             <Route path="/survey" element={<Survey />} />
             <Route path="/survey-goalmoney" element={<Survey_goalmoney />} />
+            <Route path="/survey-feedback" element={<Survey_feedback />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="/mission" element={<Mission />} />
             <Route path="/vault" element={<Vault />} />
             <Route path="/toss" element={<Toss />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/statistics" element={<Statistics />} />
+            <Route path="/ranking" element={<Ranking />} />
+            <Route path="/audiotest" element={<AudioTest />} />
           </Routes>
         </div>
       </BrowserRouter>

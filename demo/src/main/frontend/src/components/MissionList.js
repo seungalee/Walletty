@@ -18,6 +18,9 @@ const DemoButtonStyled = styled.button`
   &:hover {
     background-color: var(--lmidpurple);
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const SelectMenu = ({ value, onChange, optionList }) => {

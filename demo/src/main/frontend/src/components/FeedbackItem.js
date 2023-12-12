@@ -14,6 +14,9 @@ const DateStyled = styled.div`
     background-color: var(--mygray);
     width: 38%;
   }
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const FeedbackStyled = styled.div`
@@ -31,6 +34,9 @@ const FeedbackStyled = styled.div`
     font-size: 1.3rem;
     left: -18px;
     color: var(--lgmidpurple);
+  }
+  @media (max-width: 768px) {
+    font-size: 14px;
   }
 `;
 
@@ -51,6 +57,10 @@ const MyMessageStyled = styled.div`
     right: -18px;
     color: #bbd0ff;
   }
+  @media (max-width: 768px) {
+    font-size: 14px;
+    right: -50%;
+  }
 `;
 const AcceptStyled = styled.div`
   flex-direction: column;
@@ -69,6 +79,10 @@ const AcceptStyled = styled.div`
     flex-direction: row;
     justify-content: center;
   }
+  @media (max-width: 768px) {
+    width: 55%;
+    font-size: 14px;
+  }
 `;
 
 const AcceptButtonStyled = styled.button`
@@ -82,6 +96,9 @@ const AcceptButtonStyled = styled.button`
   background-color: white;
   &:hover {
     background-color: var(--lgmidpurple);
+  }
+  @media (max-width: 768px) {
+    font-size: 13px;
   }
 `;
 
