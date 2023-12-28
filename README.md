@@ -70,4 +70,5 @@
 
 
 ## System Architecture
+![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/9bbabc87-0515-47a0-84f8-138840b7fae7)
 
