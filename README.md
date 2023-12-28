@@ -1,14 +1,22 @@
 ## 📌 Introduction
 ![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/dc97daeb-a7d0-4205-a781-5b77604d78da)
-### 🖥 Development period
+### 🖥 Development Period
 2023 Oct. ~ 2023 Dec.
 ### 🏆 Prize
-2023 CAU LINK3.0 캡스톤디자인 경진대회 우수상 [공학/자연 부문]  
-### 💪 Purpose & Goal
+2023 CAU LINK3.0 캡스톤디자인 경진대회 우수상 [공학/자연 부문]  </br></br>
+
+## 📌 Team Members
+김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br></br>
+이승아, 중앙대학교 소프트웨어학부 20, **Front-End** </br></br>
+최유경, 중앙대학교 소프트웨어학부 21, **Back-End, AI** </br></br>
+
+## 📌 Purpose & Goal
+### 🤨 Problem
 기존의 가계부 서비스는 내가 돈을 어떻게 사용하고 있는지에 대한 현황만 확인할 수 있을 뿐 </br></br>
 **어떻게 소비 습관을 개선**해서 불필요한 지출을 줄이고 저금할지에 대한 판단은 </br></br>
 온전히 사용자가 부담해야했습니다. </br></br>
 
+### 😊 Solution
 💰**￦alletty**💰는 단순 통계 제시에 머무르지 않고 적극적으로 개입하여 </br></br> 
 **사용자에게 동기를 부여**하고 쉽고 재밌게 소비 습관을 개선해 나갈 수 있는 서비스입니다.</br></br> 
 소비 습관을 개선하고 싶어하는 사람들의 **실천을 돕는 것**을 목표로 삼았습니다. </br></br>
@@ -19,11 +27,6 @@
 잔소리 AI 챗봇에 **엄마 캐릭터**를 부여하며 재미를 더했습니다. </br></br>
 일정 기간마다 동기를 부여하는 **미션**을 제공하고, </br></br>
 사용자의 돈을 일정 기간 보관하는 **금고** 기능을 통해 돈 사용을 강제적으로 제한해 소비 습관의 개선을 적극적으로 돕습니다. </br></br>
-
-## 📌 Team Members
-김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br></br>
-이승아, 중앙대학교 소프트웨어학부 20, **Front-End** </br></br>
-최유경, 중앙대학교 소프트웨어학부 21, **Back-End, AI** </br></br>
 
 ## 📌 Key Features
 ### 🔎 사용자 소비 분석
