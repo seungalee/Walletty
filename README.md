@@ -1,4 +1,14 @@
-## How to Execute
+# 📌 Introduction
+![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/2e955cea-7fb9-40b4-b24f-3cd909a6b449)
+
+# 📌 Team Members
+김민경, 중앙대학교 소프트웨어학부, **Team Leader, Back-End, AI** </br>
+이승아, 중앙대학교 소프트웨어학부, **Front-End** </br>
+최유경, 중앙대학교 소프트웨어학부, **Back-End, AI** </br>
+
+# 📌 Start Guide
+
+## ◾ How to Execute
 1. code -> download ZIP으로 파일을 다운 받은 후 압축 풀기
 2. demo -> build.gradle 파일을 선택한 후 IntelliJ IDEA를 이용해 파일 열기
 3. mySQL workbench에서 'capstone1'이라는 이름으로 database 생성  
@@ -14,10 +24,10 @@
 
 주의사항: github에 public으로 프로젝트를 올리면 chatgpt api 토큰이 자동으로 만료됩니다. 이로 인해 피드백과 미션 로직이 제대로 동작하지 않을 수 있습니다.
 
-## 테스트 데이터 이용하기
+## ◾ 테스트 데이터 이용하기
 1. 테스트데이터를 이용해 실행해보고 싶다면 먼저 회원가입을 진행합니다.
 2. 브라우저의 주소창에 ```localhost:8080/payment/1/가입한유저아이디``` 라고 치면 저희가 이미 만들어 놓은 토스 가상계좌의 테스트데이터가 db에 저장되어 로그인 될 때 분석됩니다.
 3. 다시 로그인 한 후 설문조사를 진행하면 됩니다.
 
-## project manual
+## ◾ project manual
 [project manual.pdf](https://github.com/choiyukyung/Capstone1_class7_team4/files/13743405/project.manual.pdf)
