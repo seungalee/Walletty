@@ -3,6 +3,11 @@
 
 ### ◾ Purpose
 
+## 📌 Team Members
+김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br></br>
+이승아, 중앙대학교 소프트웨어학부 20, **Front-End** </br></br>
+최유경, 중앙대학교 소프트웨어학부 21, **Back-End, AI** </br></br>
+
 ## 📌 Key Features
 ### 🔎 사용자 소비 분석
 : 사용자의 결제 내역을 Fetch해서 소비 내역을 분석 </br></br>
@@ -21,42 +26,41 @@
 
 ### 🔎 캐릭터 성장
 : 미션을 성공함에 따라 사용자의 레벨이 높아지고 호칭이 달라지며 캐릭터가 성장 
-![스크린샷(72)](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/f5361d6c-4800-42a6-92a7-e662cc42ca1d)
-</br></br>
-### 🔎 랭킹
-</br></br>
-### 🔎 통계
-: 사용자의 소비 분석 결과를 시각화</br></br>
-### 🔎 웹앱
-</br></br>
+![스크린샷(73)](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/36b66682-981f-4656-9cad-f5ac810ec11b) </br>
 
-## 📌 Team Members
-김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br>
-이승아, 중앙대학교 소프트웨어학부 20, **Front-End** </br>
-최유경, 중앙대학교 소프트웨어학부 21, **Back-End, AI** </br>
+### 🔎 랭킹
+: 다른 사용자들과 성공한 미션과 소비 습관 개선 현황을 공유하며 경쟁 가능</br></br>
+
+### 🔎 통계
+: 사용자의 소비 분석 결과를 시각화 </br></br>
+
+### 🔎 웹 앱
+: 모바일에서도 피드백을 확인하고 실천에 적용할 수 있도록 모바일 뷰 구현 
+- 사용자가 피드백을 확인하는 것을 잊지 않도록 주기적으로 알림 
+- 엄마 목소리로 피드백 알림이 음성 재생 </br></br>
 
 ## 📌 Start Guide
 
 ### ◾ How To Execute
-1. code -> download ZIP으로 파일을 다운 받은 후 압축 풀기
-2. demo -> build.gradle 파일을 선택한 후 IntelliJ IDEA를 이용해 파일 열기
+1. code -> download ZIP으로 파일을 다운 받은 후 압축 풀기 </br></br>
+2. demo -> build.gradle 파일을 선택한 후 IntelliJ IDEA를 이용해 파일 열기</br></br>
 3. mySQL workbench에서 'capstone1'이라는 이름으로 database 생성  
-	```create database capstone1; ```
+	```create database capstone1; ```</br></br>
 4. User 'host'@'localhost’생성하고 비밀번호 1234로 설정  
-	```create user 'host'@'localhost' identified by '1234';```
+	```create user 'host'@'localhost' identified by '1234';```</br></br>
 5. 위의 user에게 해당 DB에 대해 모든 권한 부여  
 	```grant all privileges on capstone1.* to 'host'@'localhost';```  
-	```flush privileges;```
-6. IntelliJ에서 DemoApplication 실행
-7. IntelliJ 터미널에서 경로를 demo\src\main\frontend로 설정한 후 npm i
-8. npm start  
+	```flush privileges;```</br></br>
+6. IntelliJ에서 DemoApplication 실행</br></br>
+7. IntelliJ 터미널에서 경로를 demo\src\main\frontend로 설정한 후 npm i</br></br>
+8. npm start  </br>
 
 - 참고사항: 해당 프로젝트가 github에 public으로 올려져있기 때문에 Chatgpt API Access Token이 자동으로 만료됐습니다. 이로 인해 피드백과 미션 로직이 제대로 동작하지 않을 수 있습니다.
 
 ### ◾ How To Use Test Data
-1. 테스트 결제내역을 이용해 실행해보고 싶다면 먼저 회원가입을 진행합니다.
-2. 브라우저의 주소창에 ```localhost:8080/payment/1/가입한유저아이디``` 라고 입력하면 임의로 만들어 놓은 토스 가상계좌의 테스트 데이터가 db에 저장되어 로그인 될 때 해당 결제 내역이 분석됩니다.
-3. 다시 로그인 한 후 설문조사를 진행하면 됩니다.
+1. 테스트 결제내역을 이용해 실행해보고 싶다면 먼저 회원가입을 진행합니다.</br></br>
+2. 브라우저의 주소창에 ```localhost:8080/payment/1/가입한유저아이디``` 라고 입력하면 임의로 만들어 놓은 토스 가상계좌의 테스트 데이터가 db에 저장되어 로그인 될 때 해당 결제 내역이 분석됩니다.</br></br>
+3. 다시 로그인 한 후 설문조사를 진행하면 됩니다.</br></br>
 
 ### ◾ project manual
 [project manual.pdf](https://github.com/choiyukyung/Capstone1_class7_team4/files/13743405/project.manual.pdf)
