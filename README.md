@@ -72,3 +72,12 @@
 ## System Architecture
 ![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/9bbabc87-0515-47a0-84f8-138840b7fae7)
 
+## Logic
+### 소비 내역 분석
+![image4](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/a4527682-0ed5-4aef-84c8-e1aa6574d090)
+
+### 미션 & 피드백 제공
+![image3](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/df9a80d5-78f4-44d1-869a-5dcb3dd8b35c)
+
+### 금고
+![image2](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/938decb8-68dd-458f-8309-e60dbeaf7842)
