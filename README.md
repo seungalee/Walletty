@@ -1,7 +1,10 @@
 ## 📌 Introduction
 ![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/dc97daeb-a7d0-4205-a781-5b77604d78da)
-
-### ◾ Purpose
+### 🖥 Development period
+2023 Oct. ~ 2023 Dec.
+### 🏆 Prize
+2023 CAU LINK3.0 캡스톤디자인 경진대회 우수상 [공학/자연 부문]  
+### 💪 Purpose
 
 ## 📌 Team Members
 김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br></br>
