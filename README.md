@@ -4,7 +4,21 @@
 2023 Oct. ~ 2023 Dec.
 ### 🏆 Prize
 2023 CAU LINK3.0 캡스톤디자인 경진대회 우수상 [공학/자연 부문]  
-### 💪 Purpose
+### 💪 Purpose & Goal
+돈을 체계적으로 사용하기 위해서 가계부 서비스를 이용하는 것인데, </br></br>
+기존의 가계부 서비스는 내가 돈을 어떻게 사용하고 있는지에 대한 현황만 확인할 수 있을 뿐 </br></br>
+어떻게 소비 습관을 개선해서 불필요한 지출을 줄이고 저금할지에 대한 판단은 </br></br>
+온전히 사용자가 부담해야했습니다. </br></br>
+
+단순 통계 제시에 머무르지 않고 적극적으로 개입하여 사용자에게 동기를 부여하고 쉽고 재밌게 소비 습관을 개선해 나갈 수 있는 서비스입니다.</br></br> 
+소비 습관을 개선하고 싶어하는 사람들의 실천을 돕는 것 또한 목표로 삼았습니다. </br></br>
+사용자는 의지가 부족하더라도 소비 습관을 꾸준히 개선해 나갈 수 있습니다. </br></br>
+
+이러한 목적을 달성하기 위해 단순히 소비 습관에 관해 딱딱한 조언만을 제공하는 것이 아니라 </br></br>
+사용자의 소비 내역을 바탕으로 잔소리 AI 챗봇이 맞춤형 피드백을 잔소리하는 재미있는 말투로 줍니다. </br></br>
+잔소리 AI 챗봇에 엄마 캐릭터를 부여하며 재미를 더했습니다. </br></br>
+일정 기간마다 동기를 부여하는 미션을 제공하고, </br></br>
+사용자의 돈을 일정 기간 보관하는 금고 기능을 통해 돈 사용을 강제적으로 제한해 소비 습관의 개선을 적극적으로 돕습니다. </br></br>
 
 ## 📌 Team Members
 김민경, 중앙대학교 소프트웨어학부 21, **Team Leader, Back-End, AI** </br></br>
@@ -69,15 +83,15 @@
 [project manual.pdf](https://github.com/choiyukyung/Capstone1_class7_team4/files/13743405/project.manual.pdf)
 
 
-## System Architecture
+## 📌 System Architecture
 ![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/9bbabc87-0515-47a0-84f8-138840b7fae7)
 
-## Logic
-### 소비 내역 분석
+## 📌 Logic
+### ◾ 소비 내역 분석
 ![image4](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/a4527682-0ed5-4aef-84c8-e1aa6574d090)
 
-### 미션 & 피드백 제공
+### ◾ 미션 & 피드백 제공
 ![image3](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/df9a80d5-78f4-44d1-869a-5dcb3dd8b35c)
 
-### 금고
+### ◾ 금고
 ![image2](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/938decb8-68dd-458f-8309-e60dbeaf7842)
