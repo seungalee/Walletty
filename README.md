@@ -81,7 +81,7 @@
 2. 브라우저의 주소창에 ```localhost:8080/payment/1/가입한유저아이디``` 라고 입력하면 임의로 만들어 놓은 토스 가상계좌의 테스트 데이터가 db에 저장되어 로그인 될 때 해당 결제 내역이 분석됩니다.</br></br>
 3. 다시 로그인 한 후 설문조사를 진행하면 됩니다.</br></br>
 
-### ◾ project manual
+### ◾ Project Manual
 [project manual.pdf](https://github.com/choiyukyung/Capstone1_class7_team4/files/13743405/project.manual.pdf)
 
 
