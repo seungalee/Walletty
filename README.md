@@ -1,7 +1,7 @@
 ## 📌 Introduction
 ![image](https://github.com/choiyukyung/Capstone1_class7_team4/assets/80468377/dc97daeb-a7d0-4205-a781-5b77604d78da)
 ### 🖥 Development Period
-2023 Oct. ~ 2023 Dec.
+2023 Sep. ~ 2023 Dec.
 ### 🏆 Prize
 2023 CAU LINK3.0 캡스톤디자인 경진대회 우수상 [공학/자연 부문]  </br></br>
 
